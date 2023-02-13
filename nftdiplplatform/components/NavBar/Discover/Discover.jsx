@@ -20,6 +20,10 @@ const Discover = () => {
       link: "account",
     },
     {
+      name: "Upload NFT",
+      link: "uploadNFT",
+    },
+    {
       name: "Подключить кошелек",
       link: "connectWallet",
     },
