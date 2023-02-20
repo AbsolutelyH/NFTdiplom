@@ -10,47 +10,23 @@ const Category = () => {
   const CategoryArray = [
     {
       images: images.creatorbackground1,
-      name: "Dance Monkey",
+      name: "Сертификаты",
     },
     {
       images: images.creatorbackground2,
-      name: "Sports",
+      name: "Дипломы",
     },
     {
       images: images.creatorbackground3,
-      name: "Entirtment Art",
+      name: "Аттестаты",
     },
     {
       images: images.creatorbackground4,
-      name: "Time Life",
+      name: "Грамоты",
     },
     {
       images: images.creatorbackground5,
-      name: "Animals Art",
-    },
-    {
-      images: images.creatorbackground6,
-      name: "Music",
-    },
-    {
-      images: images.creatorbackground7,
-      name: "Digital Arts",
-    },
-    {
-      images: images.creatorbackground8,
-      name: "Hubby",
-    },
-    {
-      images: images.creatorbackground8,
-      name: "Bad Arts",
-    },
-    {
-      images: images.creatorbackground9,
-      name: " Arts",
-    },
-    {
-      images: images.creatorbackground10,
-      name: "My Fav",
+      name: "Прочее",
     },
   ];
   return (
@@ -59,9 +35,9 @@ const Category = () => {
         {CategoryArray.map((el, i) => (
           <div className={Style.category_box} key={i + 1}>
             <Image
-              src={el.images.creatorbackground1}
+              src={el.images}
               className={Style.category_box_img}
-              alt="Background image"
+              alt="background image"
               width={350}
               height={150}
               style={{objectFit:"cover"}}

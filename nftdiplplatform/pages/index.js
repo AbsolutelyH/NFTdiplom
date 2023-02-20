@@ -8,7 +8,10 @@ const Home = () => {
   return (
     <div className={Style.homePage}>
       <HeroSection />
-      <Title heading="Browse by category" paragraph="Explore the NFTs in the most featured categories."/>
+      <Title 
+        heading="Категории" 
+        paragraph="Просматривайте NFT-документы, распределённые по категориям"
+      />
       <Category />
     </div>
   );

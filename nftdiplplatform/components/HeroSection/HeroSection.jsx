@@ -11,9 +11,9 @@ const HeroSection = () => {
     <div className={Style.heroSection}>
       <div className={Style.heroSection_box}>
         <div className={Style.heroSection_box_left}>
-          <h1>Создавайте и просматривайте NFT дипломы.</h1>
+          <h1>Создавайте и просматривайте NFT документы</h1>
           <p>
-            Откройте для себя мир безопасных и удобных NFT-документов.
+            Откройте для себя мир безопасных и удобных NFT-документов
           </p>
           <Button btnName="Начать" />
         </div>

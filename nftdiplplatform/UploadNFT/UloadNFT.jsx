@@ -25,15 +25,23 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
   const categoryArry = [
     {
       image: images.nft_image_1,
-      category: "Sports",
+      category: "Сертификаты",
     },
     {
       image: images.nft_image_2,
-      category: "Arts",
+      category: "Дипломы",
     },
     {
       image: images.nft_image_3,
-      category: "Music",
+      category: "Аттестаты",
+    },
+    {
+      image: images.nft_image_3,
+      category: "Грамоты",
+    },
+    {
+      image: images.nft_image_3,
+      category: "Прочее",
     },
   ];
 
@@ -41,8 +49,8 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
     <div className={Style.upload}>
       <DropZone
         title="JPG, PNG, WEBM , MAX 100MB"
-        heading="Drag & drop file"
-        subHeading="or Browse media on your device"
+        heading="Перетащите файл"
+        subHeading="или загрузите с вашего устройства"
         itemName={itemName}
         website={website}
         description={description}
@@ -79,33 +87,28 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
             </div>
     
             <p className={Style.upload_box_input_para}>
-              Ciscrypt will include a link to this URL on this item's detail page,
-              so that users can click to learn more about it. You are welcome to
-              link to your own webpage with more details.
+              Скрипт будет включать в себя ссылку на этот URL-адрес на страницу сведений об этом элементе,
+              чтобы пользователи могли перейти по ссылке для просмотра подробностей. 
+              Вы можете разместить ссылку на свою веб-страницу с более подробной информацией.
             </p>
         </div>
 
         <div className={formStyle.Form_box_input}>
-            <label htmlFor="description">О вас</label>
+            <label htmlFor="description">Кем выдан</label>
             <textarea
               name=""
               id=""
             	cols="30"
             	rows="6"
-            	placeholder="Расскажите о себе в двух словах"
+            	placeholder="Информация о лице (организации), выдавшем(ей) документ"
 							onChange={(e) => setDescription(e.target.value)}
             ></textarea>
-
-            <p>
-              The description will be included on the item's detail page
-              underneath its image. Markdown syntax is supported.
-            </p>
         </div>
 
         <div className={formStyle.Form_box_input}>
-            <label htmlFor="name">Choose collection</label>
+            <label htmlFor="name">Выберите категорию</label>
             <p className={Style.upload_box_input_para}>
-              Choose an exiting collection or create a new one
+              Отнесите документ к одной из следующих категорий
             </p>
 
             <div className={Style.upload_box_slider_div}>
@@ -131,7 +134,7 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
                       <TiTick />
                     </div>
                   </div>
-                  <p>Crypto Legend - {el.category} </p>
+                  <p>{el.category} </p>
                 </div>
               ))}
             </div>
@@ -139,20 +142,7 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
 
         <div className={formStyle.Form_box_input_social}>
             <div className={formStyle.Form_box_input}>
-              <label htmlFor="Royalties">Royalties</label>
-              <div className={formStyle.Form_box_input_box}>
-                <div className={formStyle.Form_box_input_box_icon}>
-                  <FaPercent />
-                </div>
-                <input 
-									type="text" 
-									placeholder="20%"
-									onChange={(e) => setRoyalties(e.target.value)} 
-								/>
-              </div>
-            </div>
-            <div className={formStyle.Form_box_input}>
-              <label htmlFor="size">Size</label>
+              <label htmlFor="size">Размер</label>
               <div className={formStyle.Form_box_input_box}>
                 <div className={formStyle.Form_box_input_box_icon}>
                   <MdOutlineAttachFile />
@@ -164,29 +154,16 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
 								/>
               </div>
             </div>
-            <div className={formStyle.Form_box_input}>
-              <label htmlFor="Propertie">Propertie</label>
-              <div className={formStyle.Form_box_input_box}>
-                <div className={formStyle.Form_box_input_box_icon}>
-                  <AiTwotonePropertySafety />
-                </div>
-                <input 
-									type="text" 
-									placeholder="Propertie"
-									onChange={(e) => setProperties(e.target.value)} 
-								/>
-              </div>
-            </div>
         </div>      
 					
 				<div className={Style.upload_box_btn}>
           <Button
-            btnName="Upload"
+            btnName="Загрузить"
 						handleClick={() => {}}
             classStyle={Style.upload_box_btn_style}
 					/>
           <Button
-            btnName="Preview"
+            btnName="Предварительный просмотр"
 						handleClick={() => {}}
             classStyle={Style.upload_box_btn_style}
 					/>
