@@ -2,7 +2,6 @@ import React from "react";
 import Image from "next/image";
 import {
   TiSocialFacebook,
-  TiSocialLinkedin,
   TiSocialTwitter,
   TiSocialInstagram,
 } from "react-icons/ti";
@@ -31,9 +30,6 @@ const CollectionProfile = () => {
             </a>
             <a href="#">
               <TiSocialInstagram />
-            </a>
-            <a href="#">
-              <TiSocialLinkedin />
             </a>
             <a href="#">
               <TiSocialTwitter />

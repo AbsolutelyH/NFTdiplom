@@ -7,8 +7,7 @@ import {
   CollectionProfile,
   NFTCardTwo, 
 } from "../collectionPage/collectionIndex";
-import { Slider } from "../components/componentsindex";
-import Filter from "../components/Filter/Filter.jsx";
+import Filter from "../components/Filter/Filter";
 
 const collection = () => {
   const collectionArray = [
@@ -23,9 +22,9 @@ const collection = () => {
   ];
   return (
     <div className={Style.collection}>
-      <CollectionProfile NFTData={collectionArray}/>
+      <CollectionProfile />
+      <NFTCardTwo NFTData={collectionArray}/>
       <Filter />
-      <Slider />
     </div>
   );
 };
