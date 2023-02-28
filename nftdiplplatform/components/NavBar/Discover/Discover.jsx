@@ -8,6 +8,10 @@ const Discover = () => {
   //--------DISCOVER NAVIGATION MENU
   const discover = [
     {
+      name: "Collection",
+      link: "collection",
+    },
+    {
       name: "Поиск",
       link: "search",
     },
@@ -18,6 +22,10 @@ const Discover = () => {
     {
       name: "Настройки аккаунта",
       link: "account",
+    },
+    {
+      name: "Создать NFT",
+      link: "uploadNFT",
     },
     {
       name: "Подключить кошелек",
