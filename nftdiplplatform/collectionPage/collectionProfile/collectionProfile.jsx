@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import {
   TiSocialFacebook,
+  TiSocialLinkedin,
   TiSocialTwitter,
   TiSocialInstagram,
 } from "react-icons/ti";
@@ -10,7 +11,7 @@ import {
 import Style from "./collectionProfile.module.css";
 import images from "../../img";
 
-const CollectionProfile = () => {
+const collectionProfile = () => {
   const cardArray = [1, 2, 3, 4];
   return (
     <div className={Style.collectionProfile}>
@@ -19,8 +20,8 @@ const CollectionProfile = () => {
           <Image
             src={images.nft_image_1}
             alt="nft image"
-            width={400}
-            height={400}
+            width={800}
+            height={800}
             className={Style.collectionProfile_box_left_img}
           />
 
@@ -30,6 +31,9 @@ const CollectionProfile = () => {
             </a>
             <a href="#">
               <TiSocialInstagram />
+            </a>
+            <a href="#">
+              <TiSocialLinkedin />
             </a>
             <a href="#">
               <TiSocialTwitter />
@@ -63,4 +67,4 @@ const CollectionProfile = () => {
   );
 };
 
-export default CollectionProfile;
+export default collectionProfile;
