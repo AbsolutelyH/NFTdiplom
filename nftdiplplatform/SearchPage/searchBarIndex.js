@@ -1,3 +1,3 @@
-// import SearchBar from "./SarchBar/SearchBar";
+import SearchBar from "./SarchBar/SearchBar";
 
-// export { SearchBar };
+export { SearchBar };

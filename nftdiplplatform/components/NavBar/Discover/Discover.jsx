@@ -8,12 +8,16 @@ const Discover = () => {
   //--------DISCOVER NAVIGATION MENU
   const discover = [
     {
-      name: "Collection",
+      name: "Коллекции",
       link: "collection",
     },
     {
       name: "Поиск",
       link: "searchPage",
+    },
+    {
+      name: "Профиль автора",
+      link: "author",
     },
     {
       name: "NFT Подробности",

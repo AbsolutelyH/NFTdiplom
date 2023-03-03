@@ -8,7 +8,7 @@ import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 import Style from "./NFTDetailsImg.module.css";
 import images from "../../img";
 
-const NFTDetailsImg = ({ nft }) => {
+const NFTDetailsImg = () => {
   const [description, setDescription] = useState(true);
   const [details, setDetails] = useState(true);
   const [like, setLike] = useState(false);
@@ -59,7 +59,7 @@ const NFTDetailsImg = ({ nft }) => {
 
           <div className={Style.NFTDetailsImg_box_NFT_img}>
             <Image
-              src={nft.image}
+              src={images.nft_image_1}
               className={Style.NFTDetailsImg_box_NFT_img_img}
               alt="NFT image"
               width={700}
@@ -79,7 +79,12 @@ const NFTDetailsImg = ({ nft }) => {
 
         {description && (
           <div className={Style.NFTDetailsImg_box_description_box}>
-            <p>{nft.description}</p>
+            <p>
+              Tattooed Kitty Gang (“TKG”) is a collection of 666 badass kitty
+              gangsters, with symbol of tattoos, living in the Proud Kitty Gang
+              (“PKG”) metaverse. Each TKG is an 1/1 ID as gangster member & all
+              the joint rights.
+            </p>
           </div>
         )}
 
@@ -97,11 +102,11 @@ const NFTDetailsImg = ({ nft }) => {
             <p>
               <small>Contract Address</small>
               <br></br>
-              {nft.seller}
+              0x50f5474724e0ee42d9a4e711ccfb275809fd6d4a
             </p>
             <p>
               <small>Token ID</small>
-              &nbsp; &nbsp; {nft.tokenId}
+              100300372864
             </p>
           </div>
         )}

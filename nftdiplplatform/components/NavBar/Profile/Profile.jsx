@@ -38,13 +38,13 @@ const Profile = () => {
           <div className={Style.profile_menu_one_item}>
             <FaRegImage />
             <p>
-              <Link href={{ pathname: "/my-items" }}>Мои NFT</Link>
+              <Link href={{ pathname: "/author" }}>Мои NFT</Link>
             </p>
           </div>
           <div className={Style.profile_menu_one_item}>
             <FaUserEdit />
             <p>
-              <Link href={{ pathname: "/edit-profile" }}>Редактировать профиль</Link>
+              <Link href={{ pathname: "/account" }}>Редактировать профиль</Link>
             </p>
           </div>
         </div>
