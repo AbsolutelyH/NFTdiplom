@@ -13,7 +13,7 @@ const Discover = () => {
     },
     {
       name: "Поиск",
-      link: "search",
+      link: "searchPage",
     },
     {
       name: "NFT Подробности",
