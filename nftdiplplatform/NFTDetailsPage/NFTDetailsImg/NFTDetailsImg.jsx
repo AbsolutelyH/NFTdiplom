@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { BsImage } from "react-icons/bs";
+import { BsImages } from "react-icons/bs";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 
-//INTERAL IMPORT
-
+//INTERNAL IMPORT
 import Style from "./NFTDetailsImg.module.css";
 import images from "../../img";
 
 const NFTDetailsImg = () => {
-	const [description, setDescription] = useState(true);
+  const [description, setDescription] = useState(true);
   const [details, setDetails] = useState(true);
   const [like, setLike] = useState(false);
 
@@ -43,10 +42,10 @@ const NFTDetailsImg = () => {
       <div className={Style.NFTDetailsImg_box}>
         <div className={Style.NFTDetailsImg_box_NFT}>
           <div className={Style.NFTDetailsImg_box_NFT_like}>
-            <BsImage className={ Style.NFTDetailsImg_box_NFT_like_icon}/>
-            <p onClick={()=> likeNFT()}>
+            <BsImages className={Style.NFTDetailsImg_box_NFT_like_icon} />
+            <p onClick={() => likeNFT()}>
               {like ? (
-                <AiOutlineHeart 
+                <AiOutlineHeart
                   className={Style.NFTDetailsImg_box_NFT_like_icon}
                 />
               ) : (
@@ -70,48 +69,50 @@ const NFTDetailsImg = () => {
           </div>
         </div>
 
-        <div 
-          className={Style.NFTDetalising_box_description} 
-          onClick={()=> openDescription()}
+        <div
+          className={Style.NFTDetailsImg_box_description}
+          onClick={() => openDescription()}
         >
           <p>Description</p>
           {description ? <TiArrowSortedUp /> : <TiArrowSortedDown />}
         </div>
 
-        {
-          description && (
-            <div className={Style.NFTDetailsImg_box_description_box}>
-              <p>
-                Vsratoe opisanie nft, nichego interesnogo, govno prosto zloebuchee
-              </p>
-            </div>
-          )}
-
-          <div 
-            className={Style.NFTDetailsImg_box_details}
-            onClick={()=> openDetails()}
-          >
-            <p>Details</p>
-            {details ? <TiArrowSortedUp /> : <TiArrowSortedDown />}
+        {description && (
+          <div className={Style.NFTDetailsImg_box_description_box}>
+            <p>
+              Tattooed Kitty Gang (“TKG”) is a collection of 666 badass kitty
+              gangsters, with symbol of tattoos, living in the Proud Kitty Gang
+              (“PKG”) metaverse. Each TKG is an 1/1 ID as gangster member & all
+              the joint rights.
+            </p>
           </div>
-          
-          {details && (
-            <div className={Style.NFTDetailsImg_box_details_box}>
-              <small>2000 x 2000 px.IMAGE(685KB)</small>
-              <p>
-                <small>Contract Address</small>
-                <br></br>
-                04567n056790n6467n49673945679079
-              </p>
-              <p>
-                <small>Token ID</small>
-                1234702983
-              </p>
-            </div>
-          )}
+        )}
+
+        <div
+          className={Style.NFTDetailsImg_box_details}
+          onClick={() => openDetails()}
+        >
+          <p>Details</p>
+          {details ? <TiArrowSortedUp /> : <TiArrowSortedDown />}
+        </div>
+
+        {details && (
+          <div className={Style.NFTDetailsImg_box_details_box}>
+            <small>2000 x 2000 px.IMAGE(685KB)</small>
+            <p>
+              <small>Contract Address</small>
+              <br></br>
+              0x50f5474724e0ee42d9a4e711ccfb275809fd6d4a
+            </p>
+            <p>
+              <small>Token ID</small>
+              100300372864
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default NFTDetailsImg; 
+export default NFTDetailsImg;
