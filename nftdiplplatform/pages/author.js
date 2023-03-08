@@ -13,7 +13,7 @@ import {
 } from "../authorPage/componentIndex";
 
 //IMPORT SMART CONTRACT DATA
-import { NFTMarketplaceContext } from "../Context/NFTMarketplaceContext";
+import { NFTDocumentsContext } from "../Context/NFTDocumentsContext";
 
 const author = () => {
 //   const followerArray = [
@@ -50,29 +50,39 @@ const author = () => {
 //   const [following, setFollowing] = useState(false);
 
   //IMPORT SMART CONTRACT DATA
-  const { fetchMyNFTsOrListedNFTs, currentAccount } = useContext(
-    NFTMarketplaceContext
+  const { fetchMyNFTsOrListedNFTs, currentAccount, setError } = useContext(
+    NFTDocumentsContext
   );
 
   const [nfts, setNfts] = useState([]);
   const [myNFTs, setMyNFTs] = useState([]);
 
   useEffect(() => {
-    fetchMyNFTsOrListedNFTs("fetchItemsListed").then((items) => {
-      setNfts(items);
-    });
+
+    try {
+      fetchMyNFTsOrListedNFTs("fetchItemsListed").then((items) => {
+        setNfts(items);
+      });
+    } catch (erorr){
+      setError("Пожалуйста, перезагрузите страницу")
+    }
   }, []);
 
   useEffect(() => {
-    fetchMyNFTsOrListedNFTs("fetchMyNFTs").then((items) => {
-      setMyNFTs(items);
-    });
+    try {
+      fetchMyNFTsOrListedNFTs("fetchMyNFTs").then((items) => {
+        setMyNFTs(items);
+      });
+    } catch (erorr){
+      setError("Пожалуйста, перезагрузите страницу")
+    }
   }, []);
+
 
   return (
     <div className={Style.author}>
       <Banner bannerImage={images.creatorbackground2} />
-      <AuthorProfileCard />
+      <AuthorProfileCard currentAccount={currentAccount}/>
       <AuthorTaps
         setCollectiables={setCollectiables}
         setCreated={setCreated}
@@ -86,7 +96,7 @@ const author = () => {
         created={created}
         like={like}
         nfts={nfts}
-        myNFTS={myNFTs}
+        myNFTs={myNFTs}
         // follower={follower}
         // following={following}
       />

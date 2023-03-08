@@ -9,8 +9,8 @@ const AuthorTaps = ({
   setCollectiables,
   setCreated,
   setLike,
-  setFollower,
-  setFollowing,
+  //setFollower,
+  //setFollowing,
 }) => {
   const [openList, setOpenList] = useState(false);
   const [activeBtn, setActiveBtn] = useState(1);
@@ -37,36 +37,36 @@ const AuthorTaps = ({
     if (btnText == "Collectiables") {
       setCollectiables(true);
       setCreated(false);
-      setFollower(false);
-      setFollowing(false);
+      //setFollower(false);
+      //setFollowing(false);
       setLike(false);
       setActiveBtn(1);
     } else if (btnText == "Created") {
       setCollectiables(false);
       setCreated(true);
-      setFollower(false);
-      setFollowing(false);
+      //setFollower(false);
+      //setFollowing(false);
       setLike(false);
       setActiveBtn(2);
     } else if (btnText == "Liked") {
       setCollectiables(false);
       setCreated(false);
-      setFollower(false);
-      setFollowing(false);
+      //setFollower(false);
+      //setFollowing(false);
       setLike(true);
       setActiveBtn(3);
     } else if (btnText == "Following") {
       setCollectiables(false);
       setCreated(false);
-      setFollower(false);
-      setFollowing(true);
+      //setFollower(false);
+      //setFollowing(true);
       setLike(false);
       setActiveBtn(4);
     } else if (btnText == "Followers") {
       setCollectiables(false);
       setCreated(false);
-      setFollower(true);
-      setFollowing(false);
+      //setFollower(true);
+      //setFollowing(false);
       setLike(false);
       setActiveBtn(5);
     }

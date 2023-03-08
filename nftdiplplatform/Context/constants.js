@@ -1,5 +1,5 @@
-import nftMarketplace from "./NFTMarketplace.json";
+import nftDocuments from "./NFTDocuments.json";
 
-export const NFTMarketplaceAddress =
+export const NFTDocumentsAddress =
   "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-export const NFTMarketplaceABI = nftMarketplace.abi;
+export const NFTDocumentsABI = nftDocuments.abi;

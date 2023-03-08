@@ -13,10 +13,10 @@ const DropZone = ({
   name,
   website,
   description,
-  royalties,
-  fileSize,
+  //royalties,
+  //fileSize,
   category,
-  properties,
+  //properties,
   uploadToIPFS,
   setImage,
 }) => {
@@ -68,7 +68,7 @@ const DropZone = ({
             <div className={Style.DropZone_box_aside_box_preview}>
               <div className={Style.DropZone_box_aside_box_preview_one}>
                 <p>
-                  <samp>NFT Name:</samp>
+                  <samp>НАЗВАНИЕ NFT:</samp>
                   {name || ""}
                 </p>
                 <p>
@@ -79,26 +79,26 @@ const DropZone = ({
 
               <div className={Style.DropZone_box_aside_box_preview_two}>
                 <p>
-                  <span>Description</span>
+                  <span>Описание</span>
                   {description || ""}
                 </p>
               </div>
 
               <div className={Style.DropZone_box_aside_box_preview_three}>
-                <p>
+                {/* <p>
                   <span>Royalties</span>
                   {royalties || ""}
                 </p>
                 <p>
                   <span>FileSize</span>
                   {fileSize || ""}
-                </p>
-                <p>
+                </p> */}
+                {/* <p>
                   <span>Properties</span>
                   {properties || ""}
-                </p>
+                </p> */}
                 <p>
-                  <span>Category</span>
+                  <span>Категория</span>
                   {category || ""}
                 </p>
               </div>

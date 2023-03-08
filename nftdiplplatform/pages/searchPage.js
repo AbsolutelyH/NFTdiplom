@@ -10,20 +10,20 @@ import { NFTCardTwo, Banner } from "../collectionPage/collectionIndex";
 import images from "../img";
 
 //SMART CONTRACT IMPORT
-import { NFTMarketplaceContext } from "../Context/NFTMarketplaceContext";
+import { NFTDocumentsContext } from "../Context/NFTDocumentsContext";
 
 const searchPage = () => {
-  const { fetchNFTs } = useContext(NFTMarketplaceContext);
-  const [nfts, setNfts] = useState([]);
-  const [nftsCopy, setNftsCopy] = useState([]);
+  //const { fetchNFTs } = useContext(NFTMarketplaceContext);
+  // const [nfts, setNfts] = useState([]);
+  // const [nftsCopy, setNftsCopy] = useState([]);
 
-  useEffect(() => {
-    fetchNFTs().then((item) => {
-      setNfts(item.reverse());
-      setNftsCopy(item);
-      //console.log(nfts);
-    });
-  });
+  // useEffect(() => {
+  //   fetchNFTs().then((item) => {
+  //     setNfts(item.reverse());
+  //     setNftsCopy(item);
+  //     //console.log(nfts);
+  //   });
+  // });
   
   const collectionArray = [
     images.nft_image_1,
@@ -40,7 +40,7 @@ const searchPage = () => {
       <Banner bannerImage={images.creatorbackground2} />
       <SearchBar />
       <Filter />
-      <NFTCardTwo NFTData={nfts} />
+      <NFTCardTwo NFTData={collectionArray} />
     </div>
   );
 };

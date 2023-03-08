@@ -46,6 +46,7 @@ import provider2 from "./provider-2.png";
 import provider3 from "./provider-3.png";
 import provider4 from "./provider-4.png";
 import upload from "./upload.png";
+import loader from "./loadergif.gif";
 
 export default {
   provider1,
@@ -96,4 +97,5 @@ export default {
   youtube,
   zgcmq,
   upload,
+  loader,
 };
