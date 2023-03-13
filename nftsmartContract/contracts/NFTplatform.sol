@@ -7,12 +7,12 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 import "hardhat/console.sol";
 
-contract NFTMarketplace is ERC721URIStorage {
+contract NFTDiploms is ERC721URIStorage {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
-    Counters.Counter private _itemsSold;
+    Counters.Counter private _itemsSend;
 
-    uint256 listingPrice = 0.025 ether;
+    uint256 listingPrice = 0.0025 ether;
     address payable owner;
 
     mapping(uint256 => MarketItem) private idToMarketItem;
@@ -105,7 +105,9 @@ contract NFTMarketplace is ERC721URIStorage {
         idToMarketItem[tokenId].price = price;
         idToMarketItem[tokenId].seller = payable(msg.sender);
         idToMarketItem[tokenId].owner = payable(address(this));
-        _itemsSold.decrement();
+        _itemsSend
+
+.decrement();
 
         _transfer(msg.sender, address(this), tokenId);
     }
@@ -121,7 +123,9 @@ contract NFTMarketplace is ERC721URIStorage {
         idToMarketItem[tokenId].owner = payable(msg.sender);
         idToMarketItem[tokenId].sold = true;
         idToMarketItem[tokenId].seller = payable(address(0));
-        _itemsSold.increment();
+        _itemsSend
+
+.increment();
         _transfer(address(this), msg.sender, tokenId);
         payable(owner).transfer(listingPrice);
         payable(idToMarketItem[tokenId].seller).transfer(msg.value);
@@ -130,7 +134,9 @@ contract NFTMarketplace is ERC721URIStorage {
     /* Returns all unsold market items */
     function fetchMarketItems() public view returns (MarketItem[] memory) {
         uint256 itemCount = _tokenIds.current();
-        uint256 unsoldItemCount = _tokenIds.current() - _itemsSold.current();
+        uint256 unsoldItemCount = _tokenIds.current() - _itemsSend
+
+.current();
         uint256 currentIndex = 0;
 
         MarketItem[] memory items = new MarketItem[](unsoldItemCount);
