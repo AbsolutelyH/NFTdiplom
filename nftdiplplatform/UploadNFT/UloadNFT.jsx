@@ -17,6 +17,9 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
   //const [price, setPrice] = useState("");
   const [active, setActive] = useState(0);
   const [name, setName] = useState("");
+  const [author, setAuthor] = useState("");
+  const [authorpost, setAuthorpost] = useState("");
+  const [recipient, setRecipient] = useState("");
   const [website, setWebsite] = useState("");
   const [description, setDescription] = useState("");
   //const [royalties, setRoyalties] = useState("");
@@ -57,6 +60,9 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
         heading="Перетащите файл"
         subHeading="или загрузите с вашего устройства"
         name={name}
+        author={author}
+        authorpost={authorpost}
+        recipient={recipient}
         website={website}
         description={description}
         //royalties={royalties}
@@ -75,6 +81,36 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
                 placeholder="Сертификат за прохождение курса WEB3"
                 className={formStyle.Form_box_input_userName}
                 onChange={(e) => setName(e.target.value)}
+              />
+        </div>
+
+        <div className={formStyle.Form_box_input}>
+              <label htmlFor="author">Автор</label>
+              <input
+                type="text"
+                placeholder="Троицкий А. В."
+                className={formStyle.Form_box_input_userName}
+                onChange={(e) => setAuthor(e.target.value)}
+              />
+        </div>
+
+        <div className={formStyle.Form_box_input}>
+              <label htmlFor="authorpost">Должность</label>
+              <input
+                type="text"
+                placeholder="Ректор ГУУ"
+                className={formStyle.Form_box_input_userName}
+                onChange={(e) => setAuthorpost(e.target.value)}
+              />
+        </div>
+
+        <div className={formStyle.Form_box_input}>
+              <label htmlFor="recipient">Получатель</label>
+              <input
+                type="text"
+                placeholder="Львутин Илья Александрович"
+                className={formStyle.Form_box_input_userName}
+                onChange={(e) => setRecipient(e.target.value)}
               />
         </div>
 
@@ -182,6 +218,9 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
             handleClick={async () =>
               createNFT(
                 name,
+                author,
+                authorpost,
+                recipient,
                 //price,
                 image,
                 description,

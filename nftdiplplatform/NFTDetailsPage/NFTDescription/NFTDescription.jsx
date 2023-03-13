@@ -195,7 +195,7 @@ const NFTDescription = ({nft}) => {
                 <small>Создатель</small> <br />
                 <Link href = {{pathname: "/author", query: `${nft.creator}`}}>
                 <span>
-                  Терпугов А.Е <MdVerified />
+                  {nft.author} <MdVerified />
                 </span>
                 </Link>
               </div>
@@ -241,7 +241,35 @@ const NFTDescription = ({nft}) => {
                 <span>secs</span>
               </div>
             </div> */}
+            <div className={Style.NFTDescription_box_profile_biding_box_price}>
+              <div
+                className={
+                  Style.NFTDescription_box_profile_biding_box_price_bid
+                }
+              >
+                <small>Кому выдан</small>
+                <p>
+                  {nft.recipient}
+                </p>
+              </div>
+            </div>
 
+            <div className={Style.NFTDescription_box_profile_biding_box_price}>
+              <div
+                className={
+                  Style.NFTDescription_box_profile_biding_box_price_bid
+                }
+              >
+                <small>Кем выдан</small>
+                <p>
+                  {nft.author} 
+                </p>
+                <p>
+                  Должность: {nft.authorpost}
+                </p>
+              </div>
+            </div>
+            
             <div className={Style.NFTDescription_box_profile_biding_box_price}>
               <div
                 className={
@@ -250,10 +278,9 @@ const NFTDescription = ({nft}) => {
               >
                 <small>Адрес владельца</small>
                 <p>
-                  {nft.owner}
+                  {nft.owner} 
                 </p>
               </div>
-
               {/* <span>[96 in stock]</span> */}
             </div>
 

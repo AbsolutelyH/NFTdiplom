@@ -110,11 +110,11 @@ export const NFTDocumentsProvider = ({ children }) => {
   };
 
   //---CREATENFT FUNCTION
-  const createNFT = async (name, image, description, router) => {
+  const createNFT = async (name, author, authorpost, recipient, image, description, router) => {
     if (!name || !description || !image)
       return setOpenError(true),setError("Данные отсутствуют");
 
-    const data = JSON.stringify({ name, description, image });
+    const data = JSON.stringify({ name, author, authorpost, recipient, description, image });
 
     try {
       const added = await client.add(data);
@@ -151,7 +151,7 @@ export const NFTDocumentsProvider = ({ children }) => {
             async ({ tokenId, creator, owner}) => {
               const tokenURI = await contract.tokenURI(tokenId);
               const {
-                data: { image, name, description },
+                data: { image, name, author, authorpost, recipient, description },
               } = await axios.get(tokenURI);
 
               return {
@@ -159,6 +159,9 @@ export const NFTDocumentsProvider = ({ children }) => {
                 creator,
                 owner,
                 image,
+                author, 
+                authorpost, 
+                recipient,
                 name,
                 description,
                 tokenURI,

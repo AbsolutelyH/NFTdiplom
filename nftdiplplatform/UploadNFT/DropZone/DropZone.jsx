@@ -11,6 +11,9 @@ const DropZone = ({
   heading, 
   subHeading,
   name,
+  author,
+  authorpost,
+  recipient,
   website,
   description,
   //royalties,
@@ -78,6 +81,18 @@ const DropZone = ({
               </div>
 
               <div className={Style.DropZone_box_aside_box_preview_two}>
+                <p>
+                  <span>Автор</span>
+                  {author || ""}
+                </p>
+                <p>
+                  <span>Должность</span>
+                  {authorpost || ""}
+                </p>
+                <p>
+                  <span>Получатель</span>
+                  {recipient || ""}
+                </p>
                 <p>
                   <span>Описание</span>
                   {description || ""}

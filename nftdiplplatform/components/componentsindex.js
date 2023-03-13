@@ -9,5 +9,6 @@ import Brand from "./Brand/Brand";
 import Filter from "./Filter/Filter";
 import Loader from "./Loader/Loader";
 import Error from "./Error/Error";
+import FollowerTab from "./FollowerTab/FollowerTab";
 
-export { Button, Footer, NavBar, HeroSection, Title, Category, LikeProfile, Brand, Filter, Loader, Error,}; 
+export { Button, Footer, NavBar, HeroSection, Title, Category, LikeProfile, Brand, Filter, Loader, Error, FollowerTab}; 
