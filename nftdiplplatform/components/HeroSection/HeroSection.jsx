@@ -7,7 +7,7 @@ import { Button } from "../componentsindex";
 import images from "../../img";
 
 //SMART CONTRACT IMPORT
-import { NFTMarketplaceContext } from "../../Context/NFTMarketplaceContext";
+import { NFTDocumentsContext } from "../../Context/NFTDocumentsContext";
 
 const HeroSection = () => {
   return (

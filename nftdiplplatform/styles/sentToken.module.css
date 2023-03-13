@@ -1,0 +1,22 @@
+.sentToken{
+    width: 100%;
+    margin-block: 4rem;
+}
+
+.sentToken_box{
+    width: 60%;
+    margin:  0 auto;
+}
+.sentToken_box h1{
+    font-size: 3rem;
+}
+
+.sentToken_box_image{
+    margin-block: 4rem;
+}
+
+@media screen and (max-width: 35em) {
+    .sentToken_box{
+        width: 90%;
+    }
+}

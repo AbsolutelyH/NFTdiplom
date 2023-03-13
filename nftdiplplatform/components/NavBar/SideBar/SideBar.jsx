@@ -11,6 +11,7 @@ import {
   TiArrowSortedDown,
   TiArrowSortedUp,
 } from "react-icons/ti";
+import { useRouter } from "next/router";
 
 //INTERNAL IMPORT
 import Style from "./SideBar.module.css";
@@ -22,6 +23,7 @@ const SideBar = ({ setOpenSideMenu, currentAccount, connectWallet }) => {
   const [openDiscover, setOpenDiscover] = useState(false);
   const [openHelp, setOpenHelp] = useState(false);
 
+  const router = useRouter();
   //--------DISCOVER NAVIGATION MENU
   const discover = [
     {
@@ -175,12 +177,10 @@ const SideBar = ({ setOpenSideMenu, currentAccount, connectWallet }) => {
         {currentAccount == "" ? (
           <Button btnName="Подключиться" handleClick={() => connectWallet()} />
         ) : (
-          <a href="/uploadNFT">
           <Button
-            btnName="Create"
-            handleClick={() =>{}}
+            btnName="Создать"
+            handleClick={() => router.push("/uploadNFT")}
           />
-          </a>
         )}
 
         <Button btnName="Connect Wallet" handleClick={() => {}} />

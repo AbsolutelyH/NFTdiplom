@@ -5,10 +5,10 @@ import Style from "../styles/upload-nft.module.css";
 import { UploadNFT } from "../UploadNFT/uploadNFTIndex";
 
 //SMART CONTRACT IMPORT
-import { NFTMarketplaceContext } from "../Context/NFTMarketplaceContext";
+import { NFTDocumentsContext } from "../Context/NFTDocumentsContext";
 
 const uploadNFT = () => {
-  const { uploadToIPFS, createNFT } = useContext(NFTMarketplaceContext);
+  const { uploadToIPFS, createNFT } = useContext(NFTDocumentsContext);
   return (
     <div className={Style.uploadNFT}>
       <div className={Style.uploadNFT_box}>

@@ -14,13 +14,16 @@ import { Button } from "../components/componentsindex.js";
 import { DropZone } from "../UploadNFT/uploadNFTIndex.js";
 
 const UloadNFT = ({ uploadToIPFS, createNFT }) => {
-  const [price, setPrice] = useState("");
+  //const [price, setPrice] = useState("");
   const [active, setActive] = useState(0);
   const [name, setName] = useState("");
+  const [author, setAuthor] = useState("");
+  const [authorpost, setAuthorpost] = useState("");
+  const [recipient, setRecipient] = useState("");
   const [website, setWebsite] = useState("");
   const [description, setDescription] = useState("");
-  const [royalties, setRoyalties] = useState("");
-  const [fileSize, setFileSize] = useState("");
+  //const [royalties, setRoyalties] = useState("");
+  //const [fileSize, setFileSize] = useState("");
   const [category, setCategory] = useState(0);
 	const [properties, setProperties] = useState("");
   const [image, setImage] = useState(null);
@@ -57,10 +60,13 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
         heading="Перетащите файл"
         subHeading="или загрузите с вашего устройства"
         name={name}
+        author={author}
+        authorpost={authorpost}
+        recipient={recipient}
         website={website}
         description={description}
-        royalties={royalties}
-        fileSize={fileSize}
+        //royalties={royalties}
+        //fileSize={fileSize}
         category={category}
 				properties={properties}
         setImage={setImage}
@@ -69,12 +75,42 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
 
       <div className={Style.upload_box}>
         <div className={formStyle.Form_box_input}>
-              <label htmlFor="name">Имя</label>
+              <label htmlFor="name">Название NFT документа</label>
               <input
                 type="text"
-                placeholder="Илья Львутин"
+                placeholder="Сертификат за прохождение курса WEB3"
                 className={formStyle.Form_box_input_userName}
                 onChange={(e) => setName(e.target.value)}
+              />
+        </div>
+
+        <div className={formStyle.Form_box_input}>
+              <label htmlFor="author">Автор</label>
+              <input
+                type="text"
+                placeholder="Троицкий А. В."
+                className={formStyle.Form_box_input_userName}
+                onChange={(e) => setAuthor(e.target.value)}
+              />
+        </div>
+
+        <div className={formStyle.Form_box_input}>
+              <label htmlFor="authorpost">Должность</label>
+              <input
+                type="text"
+                placeholder="Ректор ГУУ"
+                className={formStyle.Form_box_input_userName}
+                onChange={(e) => setAuthorpost(e.target.value)}
+              />
+        </div>
+
+        <div className={formStyle.Form_box_input}>
+              <label htmlFor="recipient">Получатель</label>
+              <input
+                type="text"
+                placeholder="Львутин Илья Александрович"
+                className={formStyle.Form_box_input_userName}
+                onChange={(e) => setRecipient(e.target.value)}
               />
         </div>
 
@@ -100,13 +136,13 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
         </div>
 
         <div className={formStyle.Form_box_input}>
-            <label htmlFor="description">Кем выдан</label>
+            <label htmlFor="description">Описание</label>
             <textarea
               name=""
               id=""
             	cols="30"
             	rows="6"
-            	placeholder="Информация о лице (организации), выдавшем(ей) документ"
+            	placeholder="Описание документа который вы создаете"
 							onChange={(e) => setDescription(e.target.value)}
             ></textarea>
         </div>
@@ -146,7 +182,7 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
             </div>
         </div>
 
-        <div className={formStyle.Form_box_input_social}>
+        {/* <div className={formStyle.Form_box_input_social}>
             <div className={formStyle.Form_box_input}>
               <label htmlFor="size">Размер</label>
               <div className={formStyle.Form_box_input_box}>
@@ -160,9 +196,9 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
 								/>
               </div>
             </div>
-        </div>      
+        </div>       */}
 				
-        <div className={formStyle.Form_box_input}>
+        {/* <div className={formStyle.Form_box_input}>
             <label htmlFor="Price">Price</label>
             <div className={formStyle.Form_box_input_box}>
               <div className={formStyle.Form_box_input_box_icon}>
@@ -174,7 +210,7 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
                 onChange={(e) => setPrice(e.target.value)}
               />
             </div>
-          </div>
+          </div> */}
 
           <div className={Style.upload_box_btn}>
           <Button
@@ -182,7 +218,10 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
             handleClick={async () =>
               createNFT(
                 name,
-                price,
+                author,
+                authorpost,
+                recipient,
+                //price,
                 image,
                 description,
                 router
