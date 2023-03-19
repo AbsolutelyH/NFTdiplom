@@ -7,6 +7,7 @@ import { NFTDocumentsContext } from "../Context/NFTDocumentsContext";
 import Style from "../styles/connectWallet.module.css";
 import images from "../img";
 const connectWallet = () => {
+
   const [activeBtn, setActiveBtn] = useState(1);
   const {currentAccount, connectWallet} = useContext(NFTDocumentsContext);
   const providerArray = [

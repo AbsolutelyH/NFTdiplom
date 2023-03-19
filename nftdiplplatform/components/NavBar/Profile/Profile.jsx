@@ -4,12 +4,19 @@ import { FaUserAlt, FaRegImage, FaUserEdit } from "react-icons/fa";
 import { MdHelpCenter } from "react-icons/md";
 import { TbDownloadOff, TbDownload } from "react-icons/tb";
 import Link from "next/link";
+import { useContext } from "react";
+import { useSelector } from "react-redux";
 
 //INTERNAL IMPORT
 import Style from "./Profile.module.css";
 import images from "../../../img";
+import { NFTDocumentsContext } from "../../../Context/NFTDocumentsContext";
 
 const Profile = ({currentAccount}) => {
+  const userData = useSelector((state) => state.auth?.data?.data?.user);
+   //IMPORT SMART CONTRACT DATA
+   const {setlogoutNotice, setOpenlogoutNotice} = useContext(NFTDocumentsContext);
+  const wallet = userData?.walletAdress
   return (
     <div className={Style.profile}>
       <div className={Style.profile_account}>
@@ -22,8 +29,8 @@ const Profile = ({currentAccount}) => {
         />
 
         <div className={Style.profile_account_info}>
-          <p>Львутин Илья</p>
-          <small>{currentAccount.slice(0, 15)}..</small>
+          <p>{userData?.name}</p>
+          <small>{currentAccount?.slice(0, 15)}..</small>
         </div>
       </div>
 
@@ -32,7 +39,7 @@ const Profile = ({currentAccount}) => {
           <div className={Style.profile_menu_one_item}>
             <FaUserAlt />
             <p>
-              <Link href={{ pathname: "/myprofile" }}>Профиль</Link>
+              <Link href={{ pathname: "/account" }}>Профиль</Link>
             </p>
           </div>
           <div className={Style.profile_menu_one_item}>
@@ -44,7 +51,7 @@ const Profile = ({currentAccount}) => {
           <div className={Style.profile_menu_one_item}>
             <FaUserEdit />
             <p>
-              <Link href={{ pathname: "/account" }}>Редактировать профиль</Link>
+              <Link href={{ pathname: "/account" }}>Пройти</Link>
             </p>
           </div>
         </div>
@@ -58,9 +65,9 @@ const Profile = ({currentAccount}) => {
           </div>
           <div className={Style.profile_menu_one_item}>
             <TbDownload />
-            <p>
-              <Link href={{ pathname: "/disconnet" }}>Выйти</Link>
-            </p>
+              <p onClick={() => {setOpenlogoutNotice(true),setlogoutNotice("Вы уверенны, что хотите выйти?")}}>
+                Выйти
+              </p>
           </div>
         </div>
       </div>

@@ -13,7 +13,7 @@ import images from "../img";
 import { Button } from "../components/componentsindex.js";
 import { DropZone } from "../UploadNFT/uploadNFTIndex.js";
 
-const UloadNFT = ({ uploadToIPFS, createNFT }) => {
+const UloadNFT = ({ uploadToIPFS, createNFT, userData, currentAccount }) => {
   //const [price, setPrice] = useState("");
   const [active, setActive] = useState(0);
   const [name, setName] = useState("");
@@ -53,10 +53,11 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
     },
   ];
 
+
   return (
     <div className={Style.upload}>
       <DropZone
-        title="JPG, PNG, WEBM , MAX 100MB"
+        title="JPG, PNG, MAX 100MB"
         heading="Перетащите файл"
         subHeading="или загрузите с вашего устройства"
         name={name}
@@ -88,7 +89,7 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
               <label htmlFor="author">Автор</label>
               <input
                 type="text"
-                placeholder="Троицкий А. В."
+                placeholder="Ваше полное имя"
                 className={formStyle.Form_box_input_userName}
                 onChange={(e) => setAuthor(e.target.value)}
               />
@@ -98,7 +99,7 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
               <label htmlFor="authorpost">Должность</label>
               <input
                 type="text"
-                placeholder="Ректор ГУУ"
+                placeholder="Ваша должность"
                 className={formStyle.Form_box_input_userName}
                 onChange={(e) => setAuthorpost(e.target.value)}
               />
@@ -108,7 +109,7 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
               <label htmlFor="recipient">Получатель</label>
               <input
                 type="text"
-                placeholder="Львутин Илья Александрович"
+                placeholder="Полное имя получателя"
                 className={formStyle.Form_box_input_userName}
                 onChange={(e) => setRecipient(e.target.value)}
               />
@@ -221,11 +222,12 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
                 author,
                 authorpost,
                 recipient,
-                //price,
                 image,
                 description,
-                router
-                // website,
+                router,
+                website,
+                userData,
+                category,
                 // royalties,
                 // fileSize,
                 // category,
@@ -234,11 +236,11 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
             }
             classStyle={Style.upload_box_btn_style}
           />
-          <Button
+          {/* <Button
             btnName="Предварительный просмотр"
 						handleClick={() => {}}
             classStyle={Style.upload_box_btn_style}
-					/>
+					/> */}
         </div>
       </div>
     </div>

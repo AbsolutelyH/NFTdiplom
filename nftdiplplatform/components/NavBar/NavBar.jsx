@@ -1,22 +1,25 @@
 import React, { useState, useEffect, useContext } from "react";
 import Image from "next/image";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 //----IMPORT ICON
 import { MdNotifications } from "react-icons/md";
 import { BsSearch } from "react-icons/bs";
 import { CgMenuLeft, CgMenuRight } from "react-icons/cg";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 //INTERNAL IMPORT
 import Style from "./NavBar.module.css";
 import { Discover, HelpCenter, Notification, Profile, SideBar } from "./index";
-import { Button, Error } from "../componentsindex";
+import { Button, Error, LogoutNotice } from "../componentsindex";
 import images from "../../img";
+import { selectIsAuth } from "../../redux/slices/auth";
 
 //IMPORT FROM SMART CONTRACT
 import { NFTDocumentsContext } from "../../Context/NFTDocumentsContext";
 
 const NavBar = () => {
+  const isAuth = useSelector(selectIsAuth);
   //----USESTATE COMPONNTS
   const [discover, setDiscover] = useState(false);
   const [help, setHelp] = useState(false);
@@ -77,7 +80,7 @@ const NavBar = () => {
   };
 
   //SMART CONTRACT SECTION
-  const { currentAccount, connectWallet, openError} = useContext(
+  const { currentAccount, connectWallet, openError, openlogoutNotice} = useContext(
     NFTDocumentsContext
   );
 
@@ -137,30 +140,44 @@ const NavBar = () => {
            <div className={Style.navbar_container_right_button}>
             {currentAccount == "" ? (
               <Button btnName="Подключиться" handleClick={() => connectWallet()} />
-            ) : (
+            ) : isAuth ?(
+              <Button
+              btnName="Создать"
+              handleClick={() => router.push("/uploadNFT")}
+              />
+          ) : (
                 <Button
-                btnName="Создать"
-                handleClick={() => router.push("/uploadNFT")}
+                btnName="Подключено"
+                handleClick={() => {}}
                 />
             )}
           </div>
 
           {/* USER PROFILE */}
 
-          <div className={Style.navbar_container_right_profile_box}>
-            <div className={Style.navbar_container_right_profile}>
-              <Image
-                src={images.user1}
-                alt="Profile"
-                width={40}
-                height={40}
-                onClick={() => openProfile()}
-                className={Style.navbar_container_right_profile}
-              />
 
-              {profile && <Profile currentAccount={currentAccount} />}
+            <div>
+            {!isAuth ? (
+              <Button
+              btnName="Войти"
+              handleClick={() => router.push("/login")}
+              />
+            ) : (
+            <div className={Style.navbar_container_right_profile_box}>
+              <div className={Style.navbar_container_right_profile}>
+                <Image
+                  src={images.user1}
+                  alt="Profile"
+                  width={40}
+                  height={40}
+                  onClick={() => openProfile()}
+                  className={Style.navbar_container_right_profile}
+                />
+                {profile && <Profile currentAccount={currentAccount} />}
+              </div>
             </div>
-          </div>
+            )}
+            </div>
 
           {/* MENU BUTTON */}
 
@@ -184,6 +201,7 @@ const NavBar = () => {
         
       )}
       {openError && <Error />}
+      {openlogoutNotice && <LogoutNotice/>}
     </div>
   );
 };

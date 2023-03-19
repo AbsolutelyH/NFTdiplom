@@ -9,18 +9,18 @@
 }
 
 .Notice_box{
-    top: 25%;
+    top: 35%;
     left: 30%;
     position: absolute;
     background-color: var(--main-bg-color);
-    padding: 2rem 5rem;
+    padding: 3rem 5rem;
     border-radius: 1rem;
     /* box-shadow: var( --box-shadow); */
     text-align: center;
     width: 40%;
 }
 
-.Notice_box_info p{
+.Notice_info p{
     font-size: 1.3rem;
     color: var( --icons-color);
 }

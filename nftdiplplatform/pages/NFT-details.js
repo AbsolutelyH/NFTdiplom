@@ -16,6 +16,7 @@ const NFTDetails = () => {
     name: "",
     owner: "",
     creator: "",
+    category: "",
   });
 
   const router = useRouter();
@@ -26,7 +27,7 @@ const NFTDetails = () => {
   return (
     <div>
       <NFTDetailsPage nft={nft} />
-      <Category />
+      {/* <Category /> */}
       {/* <Brand /> */}
     </div>
   );

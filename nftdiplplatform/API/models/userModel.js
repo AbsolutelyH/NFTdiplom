@@ -14,13 +14,33 @@ const userSchema = new mongoose.Schema({
         unique: true,
         lowercase: true,
         validate: [validator.isEmail, "Пожалуйста, укажите правильную почту"]
+    },post:{
+        type: String,
+    },
+    about:{
+        type: String,
+    },
+    website:{
+        type: String,
+    },
+    vk:{
+        type: String,
+    },
+    telegram:{
+        type: String,
+    },
+    youtube:{
+        type: String,
     },
     photo: {
         type: String,
     },
+    background: {
+        type: String,
+    },
     role: {
         type: String,
-        enum: ["user", "creator", "admin", "guide"],
+        enum: ["user", "creator", "admin"],
         default: "user",
     },
     password: {
@@ -41,6 +61,8 @@ const userSchema = new mongoose.Schema({
     },
     walletAdress: {
         type: String,
+        required: [true, "Пожалуйста, укажите адрес"],
+        unique: true,
     },
     passwordChangedAt: Date,
     passwordResetToken: String,

@@ -14,6 +14,7 @@ const usersRouter = require("./API/routes/usersRoute");
 const app = express();
 app.use(express.json({limit: "10kb"}));
 
+
 //DATA SANITAZATION against NoSql query injection
 app.use(mongoSanitize());
 //DATA SANITIZATION against site script XSS
@@ -38,17 +39,18 @@ app.use(morgan("dev"));
 //SERVING TEMPLATE DEMO
 app.use(express.static(`${__dirname}/nft-data/img`));
 
-//CUSTOM MIDDLE WARE
-app.use((req, res, next) => {
-  console.log("Hey i am from middleware function 👋");
-  next();
-});
+// //CUSTOM MIDDLE WARE
+// app.use((req, res, next) => {
+//   console.log("Hey i am from middleware function 👋");
+//   next();
+// });
 
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   next();
 });
 
+app.use('/upload', express.static('uploads'));
 app.use("/api/v1/nfts", nftsRouter);
 app.use("/api/v1/users", usersRouter);
 

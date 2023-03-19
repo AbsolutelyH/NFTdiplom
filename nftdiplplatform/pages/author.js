@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 //INTERNAL IMPORT
 import Style from "../styles/author.module.css";
 import { Banner, NFTCardTwo } from "../collectionPage/collectionIndex";
-import { Brand, Title } from "../components/componentsindex";
+import { Brand, Title, Loader } from "../components/componentsindex";
 import FollowerTabCard from "../components/FollowerTab/FollowerTabCard/FollowerTabCard";
 import images from "../img";
 import {
@@ -11,11 +13,20 @@ import {
   AuthorTaps,
   AuthorNFTCardBox,
 } from "../authorPage/componentIndex";
+import { selectIsAuth } from "../redux/slices/auth";
 
 //IMPORT SMART CONTRACT DATA
 import { NFTDocumentsContext } from "../Context/NFTDocumentsContext";
 
 const author = () => {
+    const userData = useSelector((state) => state.auth?.data);
+
+  const router = useRouter();
+  // const isAuth = useSelector(selectIsAuth);
+  // if(!isAuth){
+  //   typeof window !== 'undefined' && router.push("/login");
+  // }
+
   const followerArray = [
     {
       background: images.creatorbackground1,
@@ -82,11 +93,11 @@ const author = () => {
   return (
     <div className={Style.author}>
       <Banner bannerImage={images.creatorbackground2} />
-      <AuthorProfileCard currentAccount={currentAccount}/>
+      <AuthorProfileCard currentAccount={currentAccount} userData={userData}/>
       <AuthorTaps
         setCollectiables={setCollectiables}
         setCreated={setCreated}
-        setLike={setLike}
+        // setLike={setLike}
         setFollower={setFollower}
         setFollowing={setFollowing}
       />

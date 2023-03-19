@@ -80,7 +80,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    line-height: 0;
+    line-height: 2;
     padding: 1rem;
 }
 

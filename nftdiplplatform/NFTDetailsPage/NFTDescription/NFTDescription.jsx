@@ -110,7 +110,7 @@ const NFTDescription = ({nft}) => {
       <div className={Style.NFTDescription_box}>
         {/* //Part ONE */}
         <div className={Style.NFTDescription_box_share}>
-          <p>Дипломы</p>
+          <p>{nft.category}</p>
           <div className={Style.NFTDescription_box_share_box}>
             <MdCloudUpload
               className={Style.NFTDescription_box_share_box_icon}
@@ -120,16 +120,13 @@ const NFTDescription = ({nft}) => {
             {social && (
               <div className={Style.NFTDescription_box_share_box_social}>
                 <a href="#">
-                  <TiSocialFacebook /> Facebooke
+                  <TiSocialFacebook /> Website
                 </a>
                 <a href="#">
-                  <TiSocialInstagram /> Instragram
+                  <TiSocialInstagram /> Telegram
                 </a>
                 <a href="#">
-                  <TiSocialLinkedin /> LinkedIn
-                </a>
-                <a href="#">
-                  <TiSocialTwitter /> Twitter
+                  <TiSocialLinkedin /> VK
                 </a>
                 <a href="#">
                   <TiSocialYoutube /> YouTube
@@ -144,17 +141,8 @@ const NFTDescription = ({nft}) => {
 
             {NFTMenu && (
               <div className={Style.NFTDescription_box_share_box_social}>
-                {/* <a href="#">
-                  <BiDollar /> Change price
-                </a> */}
                 <a href="#">
-                  <BiTransferAlt /> Transfer
-                </a>
-                <a href="#">
-                  <MdReportProblem /> Report abouse
-                </a>
-                <a href="#">
-                  <MdOutlineDeleteSweep /> Delete item
+                  <MdReportProblem />Сообщить о нарушении
                 </a>
               </div>
             )}

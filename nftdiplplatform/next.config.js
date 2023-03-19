@@ -8,3 +8,12 @@ const nextConfig = {
 };
 
 module.exports = nextConfig
+
+// module.exports = {
+//   reactStrictMode: true,
+//   images: {
+//     domains: ["guu-nft-diploms.infura-ipfs.io"],
+//     formats: ["image/webp"],
+//   },
+// };
+

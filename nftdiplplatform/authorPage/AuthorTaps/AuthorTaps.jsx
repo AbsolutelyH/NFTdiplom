@@ -8,19 +8,20 @@ import Style from "./AuthorTaps.module.css";
 const AuthorTaps = ({
   setCollectiables,
   setCreated,
-  setLike,
+  // setLike,
   setFollower,
   setFollowing,
 }) => {
   const [openList, setOpenList] = useState(false);
   const [activeBtn, setActiveBtn] = useState(1);
-  const [selectedMenu, setSelectedMenu] = useState("Most Recent");
+  const [selectedMenu, setSelectedMenu] = useState("Сертификаты");
 
   const listArray = [
-    "Created By Admin",
-    "Most Appreciated",
-    "Most Discussed",
-    "Most Viewed",
+    "Сертификаты",
+    "Дипломы",
+    "Грамоты",
+    "Аттестаты",
+    "Прочее",
   ];
 
   const openDropDownList = () => {
@@ -34,40 +35,40 @@ const AuthorTaps = ({
   const openTab = (e) => {
     const btnText = e.target.innerText;
     console.log(btnText);
-    if (btnText == "Collectiables") {
+    if (btnText == "Мои NFT") {
       setCollectiables(true);
       setCreated(false);
       setFollower(false);
       setFollowing(false);
-      setLike(false);
+      // setLike(false);
       setActiveBtn(1);
-    } else if (btnText == "Created") {
+    } else if (btnText == "Созданные") {
       setCollectiables(false);
       setCreated(true);
       setFollower(false);
       setFollowing(false);
-      setLike(false);
+      // setLike(false);
       setActiveBtn(2);
     } else if (btnText == "Liked") {
       setCollectiables(false);
       setCreated(false);
       setFollower(false);
       setFollowing(false);
-      setLike(true);
+      // setLike(true);
       setActiveBtn(3);
-    } else if (btnText == "Following") {
+    } else if (btnText == "Подписки") {
       setCollectiables(false);
       setCreated(false);
       setFollower(false);
       setFollowing(true);
-      setLike(false);
+      // setLike(false);
       setActiveBtn(4);
-    } else if (btnText == "Followers") {
+    } else if (btnText == "Подписчики") {
       setCollectiables(false);
       setCreated(false);
       setFollower(true);
       setFollowing(false);
-      setLike(false);
+      // setLike(false);
       setActiveBtn(5);
     }
   };
@@ -81,31 +82,31 @@ const AuthorTaps = ({
               className={`${activeBtn == 1 ? Style.active : ""}`}
               onClick={(e) => openTab(e)}
             >
-              Collectiables
+              Мои NFT
             </button>
             <button
               className={`${activeBtn == 2 ? Style.active : ""}`}
               onClick={(e) => openTab(e)}
             >
-              Created
+              Созданные
             </button>
             <button
               className={`${activeBtn == 3 ? Style.active : ""}`}
               onClick={(e) => openTab(e)}
             >
-              Liked
+              {/* Liked
             </button>
             <button
               className={`${activeBtn == 4 ? Style.active : ""}`}
               onClick={(e) => openTab(e)}
-            >
-              Following
+            > */}
+              Подписки
             </button>
             <button
               className={`${activeBtn == 5 ? Style.active : ""}`}
               onClick={(e) => openTab(e)}
             >
-              Followers
+              Подписчики
             </button>
           </div>
         </div>

@@ -5,6 +5,8 @@ const User = require("../models/userModel");
 const catchAsync = require("../Utils/catchAsync");
 const AppError = require("../Utils/appError")
 const sendEmail = require("../Utils/email");
+const ethers = require('ethers');
+
 
 //CREATE TOKEN AND SIGN TOKEN
 const signToken = (id) => {
@@ -163,3 +165,50 @@ exports.updatePassword = catchAsync(async(req, res, next) => {
     createSendToken(user, 200, res);
 });
 
+//USER NFT CREATION VALIDATION
+exports.signNFT = catchAsync(async(req, res, next) => {
+    const user = await User.findById(req.user._id);
+    //console.log(user);
+    if(user.role !== "creator") {
+        return next(new AppError("У вас нет права создавать NFT", 400));
+    }
+        const privateKey = process.env.PRIVAT_SMARTCONTRACT_KEY;
+    
+        const signer = new ethers.Wallet(privateKey);
+
+        // Get first allowlisted address
+        let message = user.walletAdress;
+        //console.log("allowlistedAddresses: ", message);
+        // Compute hash of the addres
+    
+        let messageHash = ethers.utils.id(message);
+        //console.log("Message Hash: ", messageHash);
+    
+        // Sign the hashed address
+        let messageBytes = ethers.utils.arrayify(messageHash);
+        let signature = await signer.signMessage(messageBytes);
+        //console.log("Signature: ", signature);
+        res.status(200).json({
+            status: "success",
+            data: {
+                messageHash: messageHash,
+                signature: signature,
+            },
+        })
+});
+
+//authMe
+exports.authMe = catchAsync(async(req, res, next) => {
+    const user = await User.findById(req.user._id);
+    if(!user) {
+        return next(new AppError("Пользователь не найден", 404));
+    }
+        res.status(200).json({
+            status: "success",
+            data: {
+                user: user,
+            },
+        })
+});
+
+//UPDATING USER FPROFILE DATA

@@ -10,5 +10,6 @@ import Filter from "./Filter/Filter";
 import Loader from "./Loader/Loader";
 import Error from "./Error/Error";
 import FollowerTab from "./FollowerTab/FollowerTab";
+import LogoutNotice from "./logoutNotice/logoutNotice";
 
-export { Button, Footer, NavBar, HeroSection, Title, Category, LikeProfile, Brand, Filter, Loader, Error, FollowerTab}; 
+export { Button, Footer, NavBar, HeroSection, Title, Category, LikeProfile, Brand, Filter, Loader, Error, FollowerTab, LogoutNotice}; 

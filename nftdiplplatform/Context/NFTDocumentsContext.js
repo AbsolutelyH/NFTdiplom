@@ -4,6 +4,10 @@ import { ethers } from "ethers";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { create as ipfsHttpClient } from "ipfs-http-client";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchSignNFT } from "../redux/slices/signNFT";
+import cors from "cors";
+
 
 const projectId = "2MQMDMkSJ1Tw6WlsDIldFnI8I28";
 const projectSecretKey = "02f0ce3dc0055c849f43f256907286ee";
@@ -24,6 +28,7 @@ const client = ipfsHttpClient({
 
 //INTERNAL  IMPORT
 import { NFTDocumentsAddress, NFTDocumentsABI } from "./constants";
+import { fetchAuthMe, logout } from "../redux/slices/auth";
 
 //---FETCHING SMART CONTRACT
 const fetchContract = (signerOrProvider) =>
@@ -55,8 +60,11 @@ export const NFTDocumentsProvider = ({ children }) => {
   //------USESTAT
   const [error, setError] = useState("");
   const [openError, setOpenError] = useState(false);
+  const [logoutNotice, setlogoutNotice] = useState("");
+  const [openlogoutNotice, setOpenlogoutNotice] = useState(false);
   const [currentAccount, setCurrentAccount] = useState("");
   const router = useRouter();
+  const dispatch = useDispatch();
 
   //---CHECK IF WALLET IS CONNECTD
   const checkIfWalletConnected = async () => {
@@ -73,7 +81,7 @@ export const NFTDocumentsProvider = ({ children }) => {
       } else {
         // setOpenError(true),setError("Не найдено аккаунта");
       }
-      console.log(currentAccount);
+      // console.log(currentAccount);
     } catch (error) {
       setOpenError(true),setError("Что-то пошло не так при подключении к кошельку");
     }
@@ -110,25 +118,42 @@ export const NFTDocumentsProvider = ({ children }) => {
   };
 
   //---CREATENFT FUNCTION
-  const createNFT = async (name, author, authorpost, recipient, image, description, router) => {
-    if (!name || !description || !image)
-      return setOpenError(true),setError("Данные отсутствуют");
+  const createNFT = async (name, author, authorpost, recipient, image, description, router, website, userData, category) => {
+    if (!name || !description || !image || !author || !authorpost || !recipient|| !category)
+      return setOpenError(true),setError("Вы указали не все данные");
 
-    const data = JSON.stringify({ name, author, authorpost, recipient, description, image });
+    const data = JSON.stringify({ name, author, authorpost, recipient, description, image, website, category });
+    console.log("category ", category);
+    const userwalletAdress = userData;
+    
+    if (!userwalletAdress)
+    return setOpenError(true),setError("Ошибка получения данных перезагрузите страницу и попробуйте снова");
+
+    if (currentAccount != userwalletAdress)
+    return setOpenError(true),setError("Адрес подключенного кошелька не совпадает с тем, что указан в профиле");
 
     try {
       const added = await client.add(data);
 
       const url = `https://infura-ipfs.io/ipfs/${added.path}`;
+      console.log(url);
 
       const contract = await connectingWithSmartContract();
 
       const mintPrice = await contract.getMintingPrice();
 
-      const transaction = await contract.createToken(url, {value: mintPrice.toString()})
+      const signData = await dispatch(fetchSignNFT());
+      // console.log(signData);
+      let mesHash = signData.payload.data.messageHash;
+      let sign = signData.payload.data.signature;
+
+      if (!mesHash || !sign)
+      return setOpenError(true),setError("Что-то пошло не так при получении подписи для минта NFT");
+
+      const transaction = await contract.createToken(url, mesHash, sign, {value: mintPrice.toString()})
 
       await transaction.wait();
-      console.log(transaction);
+      // console.log(transaction);
       router.push("/author");
     } catch (error) {
       setOpenError(true),setError("Ошибка при создании NFT");
@@ -193,6 +218,16 @@ export const NFTDocumentsProvider = ({ children }) => {
       setOpenError(true),setError("Ошибка во время отправки NFT");
     }
   };
+  //authMe
+  useEffect(()=> {
+    dispatch(fetchAuthMe());
+  }, []);
+
+  // logout
+  const userLogut = () => {
+      dispatch(logout());
+      window.localStorage.removeItem("token");
+  }
 
   return (
     <NFTDocumentsContext.Provider
@@ -207,6 +242,12 @@ export const NFTDocumentsProvider = ({ children }) => {
         setOpenError,
         openError,
         error,
+        setError,
+        userLogut,
+        logoutNotice,
+        openlogoutNotice,
+        setlogoutNotice,
+        setOpenlogoutNotice,
       }}
     >
       {children}

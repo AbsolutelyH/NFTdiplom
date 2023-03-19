@@ -42,10 +42,10 @@ contract NFTDocuments is ERC721URIStorage{
         owner = payable(msg.sender);
     }
     // // will accept the hashed authorized wallet address and signature as arguments and output the address of the signatory
-    // function recoverSigner(bytes32 hash, bytes memory signature) public pure returns (address) {
-    //     bytes32 messageDigest = keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", hash));
-    //     return ECDSA.recover(messageDigest, signature);
-    // }
+    function recoverSigner(bytes32 hash, bytes memory signature) public pure returns (address) {
+        bytes32 messageDigest = keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", hash));
+        return ECDSA.recover(messageDigest, signature);
+    }
 
     /* Updates the mint price of the contract */
     function updateMintPrice(uint256 _mintPrice)
@@ -65,12 +65,12 @@ contract NFTDocuments is ERC721URIStorage{
     }
 
     // let create nft token
-    function createToken(string memory tokenURI/* ,bytes32 hash, bytes memory signature*/)
+    function createToken(string memory tokenURI, bytes32 hash, bytes memory signature)
         public
         payable
         returns (uint256)
     {
-        //require(recoverSigner(hash, signature) == owner, "Address is not allowlisted");
+        require(recoverSigner(hash, signature) == owner, "Address is not allowlisted");
         require(msg.value == mintPrice, "Transaction value did not equal the mint price");
         _tokenIds.increment();
         uint256 newTokenId = _tokenIds.current();

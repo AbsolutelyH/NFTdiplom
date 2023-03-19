@@ -1,13 +1,22 @@
 import React, { useState, useMemo, useCallback, useContext } from "react";
 import Image from "next/image";
 import { useDropzone } from "react-dropzone";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 //INTERNAL IMPORT
 import Style from "../styles/account.module.css";
 import images from "../img";
 import From from "../AccountPage/Form/Form";
+import { selectIsAuth } from "../redux/slices/auth";
 
 const account = () => {
+  const router = useRouter();
+  const isAuth = useSelector(selectIsAuth);
+  if(!isAuth){
+    typeof window !== 'undefined' && router.push("/login");
+  }
+
   const [fileUrl, setFileUrl] = useState(null);
 
   const onDrop = useCallback(async (acceptedFile) => {

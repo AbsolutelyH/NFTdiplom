@@ -1,6 +1,7 @@
 const User = require("./../models/userModel");
 const catchAsync = require("../Utils/catchAsync");
 const AppError = require("../Utils/appError");
+// const multer = require("multer");
 
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
@@ -11,6 +12,30 @@ const filterObj = (obj, ...allowedFields) => {
 };
 
 
+//   const storage = multer.diskStorage({
+//     destination: (_, __, cd) => {
+//       cd(null, 'uploads');
+//     },
+//     filename:(_, file, cd) => {
+//       cd(null, file.originalname);
+//     }, 
+//   });
+  
+//   const upload = multer({storage});
+ 
+
+
+
+// //UPLOADING IMAGES
+// exports.uploadImage = upload.single('image'),async(req, res) => {
+//   let name = await(req.file.originalname);
+//   res.status(200).json({
+//     status: "success",
+//     data: {
+//       url: `/uploads/${name}`,
+//     },
+//   });
+// };
 
 exports.updateMe = catchAsync(async(req, res, next) => {
   if(req.body.password || req.body.passwordConfirm){
@@ -18,7 +43,7 @@ exports.updateMe = catchAsync(async(req, res, next) => {
       new AppError("Это не для обновления пароля, используйте /updateMyPassword.", 400)
     );
   }
-  const filteredBody = filterObj(req.body, "name", "email");
+  const filteredBody = filterObj(req.body, "name", "about", "website", "vk", "telegram", "youtube");
   const updateUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
     new: true,
     runValidators: true,
@@ -61,12 +86,20 @@ exports.getAllUsers = catchAsync(async (req, res) => {
     });
   };
   
-  exports.getSingleUser = (req, res) => {
-    res.status(500).json({
-      status: "error",
-      message: "Internal server error",
+  exports.getSingleUser = catchAsync(async(req, res, next) => {
+    const user = await User.findById(req.params.id);
+
+    if(!user) {
+      return next(new AppError("No nft found with that ID", 404));
+    }
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        user,
+      },
     });
-  };
+  });
   
   exports.updateUser = (req, res) => {
     res.status(500).json({

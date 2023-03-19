@@ -13,13 +13,18 @@ import {
   TiSocialInstagram,
 } from "react-icons/ti";
 import { BsThreeDots } from "react-icons/bs";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 //INTERNAL IMPORT
 import Style from "./AuthorProfileCard.module.css";
 import images from "../../img";
 import { Button } from "../../components/componentsindex.js";
+import { createSelector } from "@reduxjs/toolkit";
+import { useStore } from "react-redux";
 
-const AuthorProfileCard = ({currentAccount}) => {
+const AuthorProfileCard = ({currentAccount,userData}) => {
+  const currentUserData = userData?.data?.user;
   const [share, setShare] = useState(false);
   const [report, setReport] = useState(false);
 
@@ -64,16 +69,16 @@ const AuthorProfileCard = ({currentAccount}) => {
 
         <div className={Style.AuthorProfileCard_box_info}>
           <h2>
-            Dony Herrera{""}{" "}
+            {currentUserData?.name}{""}{" "}
             <span>
-              <MdVerified />
+              {currentUserData?.role !== "user" ?(<MdVerified />):("")}
             </span>{" "}
           </h2>
 
           <div className={Style.AuthorProfileCard_box_info_address}>
             <input
               type="text"
-              value={currentAccount}
+              value={currentUserData?.walletAdress}
               id="myInput"
             />
             <FiCopy
@@ -83,8 +88,7 @@ const AuthorProfileCard = ({currentAccount}) => {
           </div>
 
           <p>
-            Punk #4786 / An OG Cryptopunk Collector, hoarder of NFTs.
-            Contributing to @ether_cards, an NFT Monetization Platform.
+            {currentUserData?.about}
           </p>
 
           <div className={Style.AuthorProfileCard_box_info_social}>
@@ -104,7 +108,7 @@ const AuthorProfileCard = ({currentAccount}) => {
         </div>
 
         <div className={Style.AuthorProfileCard_box_share}>
-          <Button btnName="Follow" handleClick={() => {}} />
+          {/* <Button btnName="Follow" handleClick={() => {}} /> */}
           <MdCloudUpload
             onClick={() => openShare()}
             className={Style.AuthorProfileCard_box_share_icon}
@@ -117,21 +121,21 @@ const AuthorProfileCard = ({currentAccount}) => {
                   <TiSocialFacebook />
                 </span>{" "}
                 {""}
-                Facebook
+                Website
               </p>
               <p>
                 <span>
                   <TiSocialInstagram />
                 </span>{" "}
                 {""}
-                Instragram
+                Вконтакте
               </p>
               <p>
                 <span>
                   <TiSocialLinkedin />
                 </span>{" "}
                 {""}
-                LinkedIn
+                Telegram
               </p>
               <p>
                 <span>
@@ -143,7 +147,7 @@ const AuthorProfileCard = ({currentAccount}) => {
             </div>
           )}
 
-          <BsThreeDots
+          {/* <BsThreeDots
             onClick={() => openReport()}
             className={Style.AuthorProfileCard_box_share_icon}
           />
@@ -156,7 +160,7 @@ const AuthorProfileCard = ({currentAccount}) => {
               {""}
               Report abouse
             </p>
-          )}
+          )} */}
         </div>
       </div>
     </div>
