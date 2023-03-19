@@ -1,14 +1,18 @@
 import React, { useEffect, useState, useContext } from "react";
+import { useSelector } from "react-redux";
 
 //INTERAL IMPORT
 import Style from "../styles/upload-nft.module.css";
 import { UploadNFT } from "../UploadNFT/uploadNFTIndex";
 
 //SMART CONTRACT IMPORT
-import { NFTMarketplaceContext } from "../Context/NFTMarketplaceContext";
+import { NFTDocumentsContext } from "../Context/NFTDocumentsContext";
 
 const uploadNFT = () => {
-  const { uploadToIPFS, createNFT } = useContext(NFTMarketplaceContext);
+  const userData = useSelector((state) => state.auth?.data?.data?.user?.walletAdress);
+  // console.log(userData)
+
+  const { uploadToIPFS, createNFT, currentAccount } = useContext(NFTDocumentsContext);
   return (
     <div className={Style.uploadNFT}>
       <div className={Style.uploadNFT_box}>
@@ -21,15 +25,14 @@ const uploadNFT = () => {
         </div>
 
         <div className={Style.uploadNFT_box_title}>
-          <h2>Изображения, Видео, Аудио</h2>
+          <h2>Изображение</h2>
           <p>
-            Поддерживаемые форматы: JPG, PNG, GIF, SVG, MP4, WEBM, MP3, WAV, OGG,
-            GLB, GLTF. Максимальный размер: 100 MB
+            Поддерживаемые форматы: JPG, PNG. Максимальный размер: 100 MB
           </p>
         </div>
 
         <div className={Style.uploadNFT_box_form}>
-          <UploadNFT uploadToIPFS={uploadToIPFS} createNFT={createNFT}/>
+          <UploadNFT uploadToIPFS={uploadToIPFS} createNFT={createNFT} userData={userData} />
         </div>
       </div>
     </div>

@@ -11,6 +11,7 @@ import {
 import Style from "./Form.module.css";
 import { Button } from "../../components/componentsindex.js";
 
+
 const Form = () => {
   return (
     <div className={Style.Form}>
@@ -20,7 +21,7 @@ const Form = () => {
             <label htmlFor="name">Имя</label>
             <input
               type="text"
-              placeholder="Илья Львутин"
+              placeholder="Ваше имя"
               className={Style.Form_box_input_userName}
             />
           </div>
@@ -59,30 +60,30 @@ const Form = () => {
 
           <div className={Style.Form_box_input_social}>
             <div className={Style.Form_box_input}>
-              <label htmlFor="facebook">Facebook</label>
+              <label htmlFor="facebook">Вконтакте</label>
               <div className={Style.Form_box_input_box}>
                 <div className={Style.Form_box_input_box_icon}>
                   <TiSocialFacebook />
                 </div>
-                <input type="text" placeholder="http://ILvut" />
+                <input type="text" placeholder="http://yourAccaunt" />
               </div>
             </div>
             <div className={Style.Form_box_input}>
-              <label htmlFor="Twitter">Twitter</label>
+              <label htmlFor="Twitter">YouTube</label>
               <div className={Style.Form_box_input_box}>
                 <div className={Style.Form_box_input_box_icon}>
                   <TiSocialTwitter />
                 </div>
-                <input type="text" placeholder="http://ILvut" />
+                <input type="text" placeholder="http://yourAccaunt" />
               </div>
             </div>
             <div className={Style.Form_box_input}>
-              <label htmlFor="Instragram">Instragram</label>
+              <label htmlFor="Instragram">Telegram</label>
               <div className={Style.Form_box_input_box}>
                 <div className={Style.Form_box_input_box_icon}>
                   <TiSocialInstagram />
                 </div>
-                <input type="text" placeholder="http://ILvut" />
+                <input type="text" placeholder="http://yourAccaunt" />
               </div>
             </div>
           </div>

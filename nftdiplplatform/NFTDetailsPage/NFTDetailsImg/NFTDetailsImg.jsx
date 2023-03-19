@@ -8,7 +8,7 @@ import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 import Style from "./NFTDetailsImg.module.css";
 import images from "../../img";
 
-const NFTDetailsImg = ({ nft }) => {
+const NFTDetailsImg = ({nft}) => {
   const [description, setDescription] = useState(true);
   const [details, setDetails] = useState(true);
   const [like, setLike] = useState(false);
@@ -43,7 +43,7 @@ const NFTDetailsImg = ({ nft }) => {
         <div className={Style.NFTDetailsImg_box_NFT}>
           <div className={Style.NFTDetailsImg_box_NFT_like}>
             <BsImages className={Style.NFTDetailsImg_box_NFT_like_icon} />
-            <p onClick={() => likeNFT()}>
+            {/* <p onClick={() => likeNFT()}>
               {like ? (
                 <AiOutlineHeart
                   className={Style.NFTDetailsImg_box_NFT_like_icon}
@@ -54,7 +54,7 @@ const NFTDetailsImg = ({ nft }) => {
                 />
               )}
               <span>23</span>
-            </p>
+            </p> */}
           </div>
 
           <div className={Style.NFTDetailsImg_box_NFT_img}>
@@ -73,13 +73,15 @@ const NFTDetailsImg = ({ nft }) => {
           className={Style.NFTDetailsImg_box_description}
           onClick={() => openDescription()}
         >
-          <p>Description</p>
+          <p>Описание</p>
           {description ? <TiArrowSortedUp /> : <TiArrowSortedDown />}
         </div>
 
         {description && (
           <div className={Style.NFTDetailsImg_box_description_box}>
-            <p>{nft.description}</p>
+            <p>
+              {nft.description}
+            </p>
           </div>
         )}
 
@@ -87,7 +89,7 @@ const NFTDetailsImg = ({ nft }) => {
           className={Style.NFTDetailsImg_box_details}
           onClick={() => openDetails()}
         >
-          <p>Details</p>
+          <p>Детали</p>
           {details ? <TiArrowSortedUp /> : <TiArrowSortedDown />}
         </div>
 
@@ -95,12 +97,12 @@ const NFTDetailsImg = ({ nft }) => {
           <div className={Style.NFTDetailsImg_box_details_box}>
             <small>2000 x 2000 px.IMAGE(685KB)</small>
             <p>
-              <small>Contract Address</small>
+              <small>Адрес создателя</small>
               <br></br>
-              {nft.seller}
+              {nft.creator}
             </p>
             <p>
-              <small>Token ID</small>
+              <small>ID Токена</small>
               &nbsp; &nbsp; {nft.tokenId}
             </p>
           </div>

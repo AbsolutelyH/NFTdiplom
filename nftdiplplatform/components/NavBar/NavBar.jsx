@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import Image from "next/image";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 //----IMPORT ICON
 import { MdNotifications } from "react-icons/md";
 import { BsSearch } from "react-icons/bs";
@@ -9,19 +11,23 @@ import Link from "next/link";
 //INTERNAL IMPORT
 import Style from "./NavBar.module.css";
 import { Discover, HelpCenter, Notification, Profile, SideBar } from "./index";
-import { Button } from "../componentsindex";
+import { Button, Error, LogoutNotice } from "../componentsindex";
 import images from "../../img";
+import { selectIsAuth } from "../../redux/slices/auth";
 
 //IMPORT FROM SMART CONTRACT
-import { NFTMarketplaceContext } from "../../Context/NFTMarketplaceContext";
+import { NFTDocumentsContext } from "../../Context/NFTDocumentsContext";
 
 const NavBar = () => {
+  const isAuth = useSelector(selectIsAuth);
   //----USESTATE COMPONNTS
   const [discover, setDiscover] = useState(false);
   const [help, setHelp] = useState(false);
   const [notification, setNotification] = useState(false);
   const [profile, setProfile] = useState(false);
   const [openSideMenu, setOpenSideMenu] = useState(false);
+
+  const router = useRouter();
 
   const openMenu = (e) => {
     const btnText = e.target.innerText;
@@ -74,8 +80,8 @@ const NavBar = () => {
   };
 
   //SMART CONTRACT SECTION
-  const { currentAccount, connectWallet} = useContext(
-    NFTMarketplaceContext
+  const { currentAccount, connectWallet, openError, openlogoutNotice} = useContext(
+    NFTDocumentsContext
   );
 
   return (
@@ -84,10 +90,11 @@ const NavBar = () => {
         <div className={Style.navbar_container_left}>
           <div className={Style.logo}>
             <Image
-              src={images.logo}
+              src={images.logo }
               alt="NFT platform"
               width={115}
               height={80}
+              onClick={() => router.push("/")}
             />
           </div>
           <div className={Style.navbar_container_left_box_input}>
@@ -133,32 +140,44 @@ const NavBar = () => {
            <div className={Style.navbar_container_right_button}>
             {currentAccount == "" ? (
               <Button btnName="Подключиться" handleClick={() => connectWallet()} />
-            ) : (
-              <a href="/uploadNFT">
+            ) : isAuth ?(
+              <Button
+              btnName="Создать"
+              handleClick={() => router.push("/uploadNFT")}
+              />
+          ) : (
                 <Button
-                btnName="Create"
-                handleClick={() =>{}}
+                btnName="Подключено"
+                handleClick={() => {}}
                 />
-              </a>
             )}
           </div>
 
           {/* USER PROFILE */}
 
-          <div className={Style.navbar_container_right_profile_box}>
-            <div className={Style.navbar_container_right_profile}>
-              <Image
-                src={images.user1}
-                alt="Profile"
-                width={40}
-                height={40}
-                onClick={() => openProfile()}
-                className={Style.navbar_container_right_profile}
-              />
 
-              {profile && <Profile />}
+            <div>
+            {!isAuth ? (
+              <Button
+              btnName="Войти"
+              handleClick={() => router.push("/login")}
+              />
+            ) : (
+            <div className={Style.navbar_container_right_profile_box}>
+              <div className={Style.navbar_container_right_profile}>
+                <Image
+                  src={images.user1}
+                  alt="Profile"
+                  width={40}
+                  height={40}
+                  onClick={() => openProfile()}
+                  className={Style.navbar_container_right_profile}
+                />
+                {profile && <Profile currentAccount={currentAccount} />}
+              </div>
             </div>
-          </div>
+            )}
+            </div>
 
           {/* MENU BUTTON */}
 
@@ -179,7 +198,10 @@ const NavBar = () => {
             connectWallet={connectWallet}
           />
         </div>
+        
       )}
+      {openError && <Error />}
+      {openlogoutNotice && <LogoutNotice/>}
     </div>
   );
 };
