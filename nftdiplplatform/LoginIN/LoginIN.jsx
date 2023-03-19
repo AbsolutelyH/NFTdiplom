@@ -1,53 +1,38 @@
-import React, { useContext, useState } from "react";
-import {useForm} from "react-hook-form"; 
-import{useDispatch, useSelector} from "react-redux";
-import { useRouter } from "next/router";
+import React, { useState } from "react";
+import Link from "next/link";
 
 //INTERNALIMPORT
 import Style from "./LoginIN.module.css";
 import { Button } from "../components/componentsindex.js";
-import { fetchAuth, selectIsAuth } from "../redux/slices/auth";
-import {NFTDocumentsContext} from "../Context/NFTDocumentsContext"
+import { set } from "mongoose";
 
-const UserLogIN = () => {
-  const isAuth = useSelector(selectIsAuth);
-  const dispatch = useDispatch();
-  const router = useRouter();
-
-  const {setError, setOpenError} = useContext(NFTDocumentsContext);
-
-
-    const {register, handleSubmit} = useForm({
-      defaultValues: {
-        email: '',
-        password: ''
-      }
-    });
-    
-    const onSubmit = async(values) => {
-      const data = await dispatch(fetchAuth(values));
-      // console.log(data);
-      if(!data.payload){
-        setOpenError(true),setError("Не удалось авторизоваться")
-      }else{
-        window.localStorage.setItem('token', data.payload.token);
-      }
-    };
+const UserLogIN = ({user_Login}) => {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [emailDirty, setEmailDirty] = useState(false)
+  const [emailError, setemailError] = useState("Email не может быить пустым")
+  
 
 
+  const emailHandler = (e) => {
+    setEmail(e.target.value)
+  }
+  const passwordHandler = (e) => {
+    setPassword(e.target.value)
+  }
 
-    if(isAuth){
-      router.push("/");
-    }
+  const blurHandler = (e) => {
+   if (e.target.type === "email") setEmailDirty(true)
+  }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
     <div className={Style.user}>
       <div className={Style.user_box}>
         <div className={Style.user_box_input}>
           <div className={Style.user_box_input_box}>
             <label htmlFor="email">Email адрес</label>
-            <input {...register('email')} type="email" placeholder="example@emample.com" />
+            {/* {(emailDirty && emailError) && <div className={Style.user_box_input_box}>{emailError}</div>} */}
+            <input onChange={e => emailHandler(e)} value={email} onBlur={e => blurHandler(e)} type="email" placeholder="example@emample.com" />
           </div>
 
           <div className={Style.user_box_input_box}>
@@ -57,17 +42,16 @@ const UserLogIN = () => {
             >
               <p>Пароль</p>
               <p>
-                <a href="#">Забыли пароль</a>
+                <Link href={{ pathname: "/resetPassword" }}>Забыли пароль</Link>
               </p>
             </label>
-            <input {...register('password')} type="password" />
+            <input onChange={e => passwordHandler(e)} value={password} type="password" />
           </div>
         </div>
 
-        <Button type="submit" btnName="Продолжить" classStyle={Style.button} handleClick={() => {}}/>
+        <Button btnName="Продолжить" classStyle={Style.button} handleClick={() => user_Login(email,password)}/>
       </div>
     </div>
-    </form>
   );
 };
 
