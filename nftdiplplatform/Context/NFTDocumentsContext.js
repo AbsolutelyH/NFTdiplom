@@ -71,7 +71,7 @@ export const NFTDocumentsProvider = ({ children }) => {
       if (accounts.length) {
         setCurrentAccount(accounts[0]);
       } else {
-        setOpenError(true),setError("Не найдено аккаунта");
+        // setOpenError(true),setError("Не найдено аккаунта");
       }
       console.log(currentAccount);
     } catch (error) {
@@ -79,9 +79,9 @@ export const NFTDocumentsProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    checkIfWalletConnected();
-  }, []);
+  // useEffect(() => {
+  //   // checkIfWalletConnected();
+  // }, []);
 
   //---CONNECT WALLET FUNCTION
   const connectWallet = async () => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Image from "next/image";
 
 //INTERNALIMPORT
@@ -6,54 +6,47 @@ import Style from "./loginAndSignUp.module.css";
 import images from "../img";
 import { Button } from "../components/componentsindex.js";
 
+import { NFTDocumentsContext } from "../Context/NFTDocumentsContext";
+
 const loginAndSignUp = () => {
   const [activeBtn, setActiveBtn] = useState(1);
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
-  const socialImage = [
-    {
-      social: images.facebook,
-      name: "Continue with Facebook",
-    },
-    {
-      social: images.twitter,
-      name: "Continue with twitter",
-    },
-    {
-      social: images.facebook,
-      name: "Continue with Facebook",
-    },
-  ];
+  const emailHandler = (e) => {
+    setEmail(e.target.value)
+  }
+  const passwordHandler = (e) => {
+    setPassword(e.target.value)
+  }
+
+  const blurHandler = (e) => {
+   if (e.target.type === "email") setEmailDirty(true)
+  }
+
+  const {currentAccount} = useContext(NFTDocumentsContext);
+
   return (
     <div className={Style.user}>
       <div className={Style.user_box}>
-        <div className={Style.user_box_social}>
-          {socialImage.map((el, i) => (
-            <div
-              key={i + 1}
-              onClick={() => setActiveBtn(i + 1)}
-              className={`${Style.user_box_social_item} ${
-                activeBtn == i + 1 ? Style.active : ""
-              }`}
-            >
-              <Image
-                src={el.social}
-                alt={el.name}
-                width={30}
-                height={30}
-                className={Style.user_box_social_item_img}
-              />
-              <p>
-                <span>{el.name}</span>
-              </p>
-            </div>
-          ))}
-        </div>
-        <p className={Style.user_box_or}>или</p>
-
         <div className={Style.user_box_input}>
           <div className={Style.user_box_input_box}>
+            <label htmlFor="name">Имя</label>
+            <input type="text" placeholder="Львутин Илья Александрович" />
+          </div>
+          
+          <div className={Style.user_box_input_box}>
             <label htmlFor="email">Email адрес</label>
-            <input type="email" placeholder="example@emample.com" />
+            <input onChange={e => emailHandler(e)} value={email} onBlur={e => blurHandler(e)} type="email" placeholder="example@emample.com" />
+          </div>
+
+          <div className={Style.user_box_input_box}>
+            <label htmlFor="adress">Адрес кошелька</label>
+            <input
+              type="text"
+              value={currentAccount}
+              id="myInput"
+            />
           </div>
 
           <div className={Style.user_box_input_box}>
@@ -62,15 +55,19 @@ const loginAndSignUp = () => {
               className={Style.user_box_input_box_label}
             >
               <p>Пароль</p>
-              <p>
-                <a href="#">Забыли пароль</a>
-              </p>
+            </label>
+            <input onChange={e => passwordHandler(e)} value={password} type="password" />
+            <label
+              htmlFor="password"
+              className={Style.user_box_input_box_label}
+            >
+              <p>Подтверждение пароля</p>
             </label>
             <input type="password" />
           </div>
         </div>
 
-        <Button btnName="Continue" classStyle={Style.button} />
+        <Button btnName="Продолжить" classStyle={Style.button}/>
       </div>
     </div>
   );

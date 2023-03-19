@@ -241,7 +241,6 @@ const NFTDescription = ({nft}) => {
                 <span>secs</span>
               </div>
             </div> */}
-
             <div className={Style.NFTDescription_box_profile_biding_box_price}>
               <div
                 className={
@@ -270,7 +269,7 @@ const NFTDescription = ({nft}) => {
                 </p>
               </div>
             </div>
-
+            
             <div className={Style.NFTDescription_box_profile_biding_box_price}>
               <div
                 className={
@@ -282,7 +281,6 @@ const NFTDescription = ({nft}) => {
                   {nft.owner} 
                 </p>
               </div>
-
               {/* <span>[96 in stock]</span> */}
             </div>
 
