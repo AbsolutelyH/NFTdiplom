@@ -44,3 +44,5 @@ artifacts
 
 package.json
 package-lock.json
+
+NFTDocuments.json
