@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import {useForm} from "react-hook-form"; 
 import{useDispatch, useSelector} from "react-redux";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 //INTERNALIMPORT
 import Style from "./LoginIN.module.css";
@@ -57,7 +58,7 @@ const UserLogIN = () => {
             >
               <p>Пароль</p>
               <p>
-                <a href="#">Забыли пароль</a>
+              <Link href={{ pathname: "/resetPassword" }}>Забыли пароль</Link>
               </p>
             </label>
             <input {...register('password')} type="password" />
