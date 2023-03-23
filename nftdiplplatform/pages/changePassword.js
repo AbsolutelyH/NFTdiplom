@@ -2,17 +2,17 @@ import React from "react";
 
 //INTERNAL IMPORT
 import Style from "../styles/login.module.css";
-import LoginAndSignUp from "../loginAndSignUp/loginAndSignUp";
+import PasswordChange from "../passwordPage/PasswordChange/PasswordChange";
 
-const signUp = () => {
+const changePassword = () => {
   return (
     <div className={Style.login}>
       <div className={Style.login_box}>
-        <h1>Регистрация</h1>
-        <LoginAndSignUp />
+        <h1>Изменение пароля</h1>
+        <PasswordChange />
       </div>
     </div>
   );
 };
 
-export default signUp;
+export default changePassword;
