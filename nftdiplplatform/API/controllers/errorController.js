@@ -9,7 +9,7 @@ const handleCastErrorDB = (err) => {
 const handleDuplicateFieldsDB = (err) => {
     const value = err.errmsg.match(/(?<=")(?:\\.|[^"\\])*(?=")/);
     console.log(value);
-    const messaage = `Duplicate field values ${value}. Please use anoter value`;
+    const message = `Duplicate field values ${value}. Please use anoter value`;
     return new AppError(message, 400);
 };
 
@@ -19,7 +19,7 @@ const handleJWTExpiredError = () => new AppError("Your Token got expired please 
 
 const handleValidationError = (err) => {
     const errors = Object.values(err.errors).map(el => el.messaage);
-    const message = `Invalid input data. ${error.join(". ")}`;
+    const message = `Invalid input data. ${errors.join(". ")}`;
     return new AppError(message, 400);
 };
 
@@ -51,6 +51,12 @@ module.exports = (err, req, res, next) => {
     err.status = err.status || "error";
     if(process.env.NODE_ENV === "development"){
         sendErrorDev(err, res);
+        // let error = {...err};
+        // if(error.name === "CastError") error = handleCastErrorDB(error);
+        // if(error.code === 11000) error = handleDuplicateFieldsDB(error);
+        // if(error.name === "ValidationError") error = handleValidationError(error);
+        // if(error.name === "JsonWebTokenError") error = handleJWTError();
+        // if(error.name === "TokenExpiredError") error = handleJWTExpiredError();
     } else if (process.env.NODE_ENV === "production"){
         let error = {...err};
         if(error.name === "CastError") error = handleCastErrorDB(error);

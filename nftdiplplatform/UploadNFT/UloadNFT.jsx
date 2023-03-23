@@ -32,23 +32,23 @@ const UloadNFT = ({ uploadToIPFS, createNFT, userData, currentAccount }) => {
     
   const categoryArry = [
     {
-      image: images.nft_image_1,
+      image: images.category_image_1,
       category: "Сертификаты",
     },
     {
-      image: images.nft_image_2,
+      image: images.category_image_2,
       category: "Дипломы",
     },
     {
-      image: images.nft_image_3,
+      image: images.category_image_3,
       category: "Аттестаты",
     },
     {
-      image: images.nft_image_3,
+      image: images.category_image_4,
       category: "Грамоты",
     },
     {
-      image: images.nft_image_3,
+      image: images.category_image_5,
       category: "Прочее",
     },
   ];

@@ -176,7 +176,7 @@ export const NFTDocumentsProvider = ({ children }) => {
             async ({ tokenId, creator, owner}) => {
               const tokenURI = await contract.tokenURI(tokenId);
               const {
-                data: { image, name, author, authorpost, recipient, description },
+                data: { image, name, author, authorpost, recipient, description, category },
               } = await axios.get(tokenURI);
 
               return {
@@ -188,6 +188,7 @@ export const NFTDocumentsProvider = ({ children }) => {
                 authorpost, 
                 recipient,
                 name,
+                category,
                 description,
                 tokenURI,
               };
