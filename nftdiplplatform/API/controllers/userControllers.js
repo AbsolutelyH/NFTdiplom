@@ -78,6 +78,20 @@ exports.getAllUsers = catchAsync(async (req, res) => {
       },
     });
   });
+
+  exports.getUserByWallet = catchAsync(async (req, res, next) => {
+    const user = await User.findOne({walletAdress: req.body.walletAdress});
+    if(!user) {
+      return next(new AppError("Пользователь не найден", 404));
+  }
+    // /SEND QUERY
+    res.status(200).json({
+      status: "success",
+      data: {
+        user,
+      },
+    });
+  });
   
   exports.createUser = (req, res) => {
     res.status(500).json({

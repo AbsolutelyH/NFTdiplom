@@ -44,17 +44,17 @@ const FollowerTab = ({ TopCreator }) => {
   return (
     <div className={Style.followerTab}>
       <div className={Style.followerTab_title}>
-        <h2> Top Creators List..</h2>
+        <h2> Лучшие создатели...</h2>
         <div className={Style.followerTab_tabs}>
           <div className={Style.followerTab_tabs_btn}>
             <button onClick={() => openPopular()}>
-              <RiUserFollowFill /> Popular
+              <RiUserFollowFill /> Популярные
             </button>
             <button onClick={() => openFollower()}>
-              <RiUserFollowFill /> Following
+              <RiUserFollowFill /> Подписки
             </button>
             <button onClick={() => openNews()}>
-              <RiAwardLine /> NoteWorthy
+              <RiAwardLine /> Заслуживает внимания
             </button>
           </div>
         </div>
@@ -86,8 +86,8 @@ const FollowerTab = ({ TopCreator }) => {
 
       <div className={Style.followerTab_member}>
         <div className={Style.followerTab_member_box}>
-          <a href="#">Show me more</a>
-          <a href="#">Become author</a>
+          <a href="#">Смотреть больше</a>
+          <a href="#">Стать автором</a>
         </div>
       </div>
     </div>
