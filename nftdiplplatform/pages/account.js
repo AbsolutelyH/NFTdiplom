@@ -31,6 +31,17 @@ const account = () => {
 
   return (
     <div className={Style.account}>
+      <div className={Style.background_img} {...getRootProps()}>
+        <input {...getInputProps()} />
+        <Image
+          src={images.creatorbackground2}
+          alt="background upload"
+          objectFit="cover"
+          width={1600}
+          height={300}
+        />
+        <p className={Style.account_box_img_para}>Измените фон</p>
+      </div>
       <div className={Style.account_info}>
         <h1>Настройки профиля</h1>
         <p>
@@ -48,7 +59,7 @@ const account = () => {
             height={150}
             className={Style.account_box_img_img}
           />
-          <p className={Style.account_box_img_para}>Изменити фото</p>
+          <p className={Style.account_box_img_para}>Измените фото</p>
         </div>
         <div className={Style.account_box_from}>
           <From />
