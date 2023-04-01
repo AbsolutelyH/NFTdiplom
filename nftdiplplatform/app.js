@@ -50,7 +50,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/upload', express.static('uploads'));
+app.use('/uploads', express.static('uploads'));
 app.use("/api/v1/nfts", nftsRouter);
 app.use("/api/v1/users", usersRouter);
 

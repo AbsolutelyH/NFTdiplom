@@ -19,7 +19,7 @@ import { selectIsAuth } from "../redux/slices/auth";
 import { NFTDocumentsContext } from "../Context/NFTDocumentsContext";
 
 const author = () => {
-    const userData = useSelector((state) => state.auth?.data);
+  const userData = useSelector((state) => state.userByWal?.data);
 
   const router = useRouter();
   // const isAuth = useSelector(selectIsAuth);
@@ -92,7 +92,11 @@ const author = () => {
 
   return (
     <div className={Style.author}>
-      <Banner bannerImage={images.creatorbackground2} />
+      {userData?.background ? (
+      <Banner bannerImage={`http://localhost:3000${userData.background}`} />
+      ) : (
+        <Banner bannerImage={images.creatorbackground2} />
+      )}
       <AuthorProfileCard currentAccount={currentAccount} userData={userData}/>
       <AuthorTaps
         setCollectiables={setCollectiables}

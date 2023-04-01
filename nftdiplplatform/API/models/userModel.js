@@ -14,7 +14,11 @@ const userSchema = new mongoose.Schema({
         unique: true,
         lowercase: true,
         validate: [validator.isEmail, "Пожалуйста, укажите правильную почту"]
-    },post:{
+    },
+    post:{
+        type: String,
+    },
+    organization:{
         type: String,
     },
     about:{

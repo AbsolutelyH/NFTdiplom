@@ -8,6 +8,12 @@
     position: relative;
 }
 
+.FollowerTabCard_button{
+    background: transparent;
+    border: none !important;
+    font-size:0;
+}
+
 .FollowerTabCard_box:hover{
     box-shadow: var(--box-shadow);
 }
