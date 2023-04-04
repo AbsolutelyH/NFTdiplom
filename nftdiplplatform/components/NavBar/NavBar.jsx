@@ -20,6 +20,7 @@ import { NFTDocumentsContext } from "../../Context/NFTDocumentsContext";
 
 const NavBar = () => {
   const isAuth = useSelector(selectIsAuth);
+  const userData = useSelector((state) => state.auth?.data?.data?.user);
   //----USESTATE COMPONNTS
   const [discover, setDiscover] = useState(false);
   const [help, setHelp] = useState(false);
@@ -165,14 +166,27 @@ const NavBar = () => {
             ) : (
             <div className={Style.navbar_container_right_profile_box}>
               <div className={Style.navbar_container_right_profile}>
+              {userData?.photo ? (
                 <Image
-                  src={images.user1}
-                  alt="Profile"
-                  width={40}
-                  height={40}
-                  onClick={() => openProfile()}
-                  className={Style.navbar_container_right_profile}
-                />
+                src={`http://localhost:3000${userData?.photo}`}
+                alt="Profile"
+                width={40}
+                height={40}
+                objectFit="cover"
+                onClick={() => openProfile()}
+                className={Style.navbar_container_right_profile}
+              />
+              ) : (
+                <Image
+                src={images.defaultuser}
+                alt="Profile"
+                width={40}
+                height={40}
+                objectFit="cover"
+                onClick={() => openProfile()}
+                className={Style.navbar_container_right_profile}
+              />
+              )}
                 {profile && <Profile currentAccount={currentAccount} />}
               </div>
             </div>

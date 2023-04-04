@@ -43,7 +43,27 @@ exports.updateMe = catchAsync(async(req, res, next) => {
       new AppError("Это не для обновления пароля, используйте /updateMyPassword.", 400)
     );
   }
-  const filteredBody = filterObj(req.body, "name", "about", "website", "vk", "telegram", "youtube");
+  const filteredBody = filterObj(req.body, "name", "about", "website", "vk", "telegram", "youtube", "photo", "background");
+  const updateUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
+    new: true,
+    runValidators: true,
+  });
+  res.status(200).json({
+    status: "success",
+    data: {
+      user: updateUser,
+    },
+  });
+});
+
+
+exports.updateVUser = catchAsync(async(req, res, next) => {
+  if(req.body.password || req.body.passwordConfirm){
+    return next(
+      new AppError("Это не для обновления пароля, используйте /updateMyPassword.", 400)
+    );
+  }
+  const filteredBody = filterObj(req.body, "name", "post", "role", "organization" );
   const updateUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
     new: true,
     runValidators: true,
@@ -75,6 +95,20 @@ exports.getAllUsers = catchAsync(async (req, res) => {
       results: users.length,
       data: {
         users,
+      },
+    });
+  });
+
+  exports.getUserByWallet = catchAsync(async (req, res, next) => {
+    const user = await User.findOne({walletAdress: req.body.walletAdress});
+    if(!user) {
+      return next(new AppError("Пользователь не найден", 404));
+  }
+    // /SEND QUERY
+    res.status(200).json({
+      status: "success",
+      data: {
+        user,
       },
     });
   });

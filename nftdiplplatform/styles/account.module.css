@@ -54,6 +54,11 @@
     text-align: center;
 }
 
+.account_verify_para{
+    margin-top: 2rem;
+}
+
+
 @media screen and (max-width: 35em) {
     .account_info{
         width: 90%;

@@ -6,13 +6,17 @@ import { TbDownloadOff, TbDownload } from "react-icons/tb";
 import Link from "next/link";
 import { useContext } from "react";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { MdVerified } from "react-icons/md";
 
 //INTERNAL IMPORT
 import Style from "./Profile.module.css";
 import images from "../../../img";
 import { NFTDocumentsContext } from "../../../Context/NFTDocumentsContext";
+import { addUser } from "../../../redux/slices/userByWal";
 
 const Profile = ({currentAccount}) => {
+  const dispatch = useDispatch();
   const userData = useSelector((state) => state.auth?.data?.data?.user);
    //IMPORT SMART CONTRACT DATA
    const {setlogoutNotice, setOpenlogoutNotice} = useContext(NFTDocumentsContext);
@@ -20,17 +24,33 @@ const Profile = ({currentAccount}) => {
   return (
     <div className={Style.profile}>
       <div className={Style.profile_account}>
-        <Image
-          src={images.user1}
-          alt="user profile"
-          width={50}
-          height={50}
-          className={Style.profile_account_img}
-        />
+      {userData?.photo ? (
+            <Image
+            src={`http://localhost:3000${userData?.photo}`}
+            alt="user profile"
+            width={50}
+            height={50}
+            objectFit="cover"
+            className={Style.profile_account_img}
+          />
+          ) : (
+            <Image
+            src={images.defaultuser}
+            alt="user profile"
+            width={50}
+            height={50}
+            objectFit="cover"
+            className={Style.profile_account_img}
+          />
+          )}
 
         <div className={Style.profile_account_info}>
-          <p>{userData?.name}</p>
-          <small>{currentAccount?.slice(0, 15)}..</small>
+          <p>{userData?.name}
+          <span>
+              {(userData.role == "creator") ? <MdVerified /> :<></>}
+          </span>
+          </p>
+          <small>{wallet?.slice(0, 15)}..</small>
         </div>
       </div>
 
@@ -44,14 +64,14 @@ const Profile = ({currentAccount}) => {
           </div>
           <div className={Style.profile_menu_one_item}>
             <FaRegImage />
-            <p>
+            <p onClick={()=>{dispatch(addUser(userData));}}>
               <Link href={{ pathname: "/author" }}>Мои NFT</Link>
             </p>
           </div>
           <div className={Style.profile_menu_one_item}>
             <FaUserEdit />
             <p>
-              <Link href={{ pathname: "/account" }}>Пройти</Link>
+              <Link href={{ pathname: "/account" }}>Пройти верефикацию</Link>
             </p>
           </div>
         </div>

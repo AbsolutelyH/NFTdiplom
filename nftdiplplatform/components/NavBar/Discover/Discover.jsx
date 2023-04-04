@@ -1,10 +1,12 @@
 import React from "react";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 //INTERNAL IMPORT
 import Style from "./Discover.module.css";
 
 const Discover = () => {
+  const userData = useSelector((state) => state.auth?.data?.data?.user);
   //--------DISCOVER NAVIGATION MENU
   const discover = [
     {
@@ -15,10 +17,10 @@ const Discover = () => {
       name: "Поиск",
       link: "searchPage",
     },
-    {
-      name: "Мои NFT",
-      link: "author",
-    },
+    // {
+    //   name: "Мои NFT",
+    //   link: "author",
+    // },
     // {
     //   name: "NFT Подробности",
     //   link: "NFT-details",
@@ -27,10 +29,10 @@ const Discover = () => {
       name: "Настройки аккаунта",
       link: "account",
     },
-    {
-      name: "Создать NFT",
-      link: "uploadNFT",
-    },
+    // {
+    //   name: "Создать NFT",
+    //   link: "uploadNFT",
+    // },
     {
       name: "Подключить кошелек",
       link: "connectWallet",
