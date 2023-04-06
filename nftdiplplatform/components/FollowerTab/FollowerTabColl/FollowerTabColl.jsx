@@ -7,11 +7,11 @@ import { useDispatch } from "react-redux";
 import {useForm} from "react-hook-form"; 
 
 //INTERNAL IMPORT
-import Style from "./FollowerTabCard.module.css";
+import Style from "../FollowerTabCard/FollowerTabCard.module.css";
 import images from "../../../img";
 import { fetchUserByWal, addUser } from "../../../redux/slices/userByWal";
 
-const FollowerTabCard = ({ el, back}) => {
+const FollowerTabColl = ({ el, back}) => {
   console.log(el.background);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -58,13 +58,13 @@ const FollowerTabCard = ({ el, back}) => {
              )}
         </div>
 
-        <div className={Style.FollowerTabCard_box_profile}>
+        {/* <div className={Style.FollowerTabCard_box_profile}>
           {el.photo ? (
             <Image
             className={Style.FollowerTabCard_box_profile_img}
             alt="profile picture"
-            width={70}
-            height={70}
+            width={50}
+            height={50}
             objectFit="cover"
             src={`http://localhost:3000${el?.photo}`}
           />
@@ -72,14 +72,13 @@ const FollowerTabCard = ({ el, back}) => {
             <Image
             className={Style.FollowerTabCard_box_profile_img}
             alt="profile picture"
-            width={70}
-            height={70}
+            width={50}
+            height={50}
             objectFit="cover"
             src={images.defaultuser}
           />
           )}
-        
-        </div>
+        </div> */}
 
         <div className={Style.FollowerTabCard_box_info}>
           <div className={Style.FollowerTabCard_box_info_name}>
@@ -110,4 +109,4 @@ const FollowerTabCard = ({ el, back}) => {
   );
 };
 
-export default FollowerTabCard;
+export default FollowerTabColl;

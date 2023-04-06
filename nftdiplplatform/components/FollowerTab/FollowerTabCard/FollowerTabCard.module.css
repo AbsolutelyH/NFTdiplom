@@ -53,21 +53,20 @@
 }
 
 .FollowerTabCard_box_profile_img{
-    border-radius: 50%;
+    border-radius: 20%;
     padding: 1rem;
     z-index: 222;
 }
 
-.FollowerTabCard_box_profile::before{
+/* .FollowerTabCard_box_profile::before{
     position: absolute;
     content: "";
     width: 5rem;
     height: 5rem;
     background-color: var(--main-bg-color);
-    border-radius: 50%;
-    top: -20%;
-    left: 38%;
-}
+    border-radius: 20%; 
+    margin-left: 4.6%;
+} */
 
 .FollowerTabCard_box_info{
     grid-column: 1/-1;
