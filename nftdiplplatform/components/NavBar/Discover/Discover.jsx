@@ -19,8 +19,12 @@ const Discover = () => {
     },
     {
       name: "Поиск коллекций",
-      link: "serchCollectionPage",
+      link: "searchCollection",
     },
+    // {
+    //   name: "Мои NFT",
+    //   link: "author",
+    // },
     // {
     //   name: "NFT Подробности",
     //   link: "NFT-details",

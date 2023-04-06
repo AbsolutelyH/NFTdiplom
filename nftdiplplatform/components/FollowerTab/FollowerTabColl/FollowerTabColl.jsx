@@ -5,18 +5,19 @@ import { TiTick } from "react-icons/ti";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import {useForm} from "react-hook-form"; 
-import Link from "next/link";
 
 //INTERNAL IMPORT
-import Style from "./FollowerTabCard.module.css";
+import Style from "../FollowerTabCard/FollowerTabCard.module.css";
 import images from "../../../img";
 import { fetchUserByWal, addUser } from "../../../redux/slices/userByWal";
 
-const FollowerTabCard = ({ el, back}) => {
+const FollowerTabColl = ({ el, back}) => {
+  console.log(el.background);
   const router = useRouter();
   const dispatch = useDispatch();
   const [following, setFollowing] = useState(false);
   const what = true;
+  // {el.background ? what = true :''},
   const followMe = () => {
     if (!following) {
       setFollowing(true);
@@ -28,7 +29,6 @@ const FollowerTabCard = ({ el, back}) => {
     <div className={Style.FollowerTabCard}>
       <div className={Style.FollowerTabCard_box}>
         <div className={Style.FollowerTabCard_box_img}>
-        <Link href={{pathname: "/author", query: el}}>
          {back ? (
               <Image
               className={Style.FollowerTabCard_box_img_img}
@@ -37,19 +37,17 @@ const FollowerTabCard = ({ el, back}) => {
               height={300}
               objectFit="cover"
               src={`http://localhost:3000${el.background}`}
-
-              // onClick={()=>{
-              //   dispatch(addUser(el));
-              //   router.push("/author" );
-              // }}
-              
+              onClick={()=>{
+                dispatch(addUser(el));
+                router.push("/author");
+              }}
             />
             ) : ( 
               <Image
-              // onClick={()=>{
-              //   dispatch(addUser(el));
-              //   router.push("/author");
-              // }}
+              onClick={()=>{
+                dispatch(addUser(el));
+                router.push("/author");
+              }}
                 className={Style.FollowerTabCard_box_img_img}
                 src={images.creatorbackground1}
                 alt="profile braground"
@@ -58,9 +56,9 @@ const FollowerTabCard = ({ el, back}) => {
                 objectFit="cover"
                 />
              )}
-            </Link>
         </div>
-        <div className={Style.FollowerTabCard_box_profile}>
+
+        {/* <div className={Style.FollowerTabCard_box_profile}>
           {el.photo ? (
             <Image
             className={Style.FollowerTabCard_box_profile_img}
@@ -80,8 +78,7 @@ const FollowerTabCard = ({ el, back}) => {
             src={images.defaultuser}
           />
           )}
-        
-        </div>
+        </div> */}
 
         <div className={Style.FollowerTabCard_box_info}>
           <div className={Style.FollowerTabCard_box_info_name}>
@@ -112,4 +109,4 @@ const FollowerTabCard = ({ el, back}) => {
   );
 };
 
-export default FollowerTabCard;
+export default FollowerTabColl;

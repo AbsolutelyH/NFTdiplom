@@ -27,6 +27,7 @@ const author = () => {
     setuserData(router.query);
   }, [router.isReady]);
   return (
+
     <div>
       <Author userData={userData} />
     </div>
