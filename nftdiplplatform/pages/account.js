@@ -127,6 +127,11 @@ const account = () => {
               />
             )}
           <p className={Style.account_box_img_para}>Измените фото</p>
+          <p className={Style.account_verify_para}>
+            Для прохождения верификации 
+            отправьте письмо на электронный 
+            адрес lvutin2001@gmail.com
+          </p>
         </div>
         <div className={Style.account_box_from}>
           <From fileUser={fileUser} fileBackUrl={fileBackUrl} setOpenError={setOpenError} setError={setError} userData={userData}/>
