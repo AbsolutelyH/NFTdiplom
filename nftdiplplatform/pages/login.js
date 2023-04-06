@@ -1,17 +1,21 @@
-import React from "react";
+import React, {useState} from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 //INTERNAL IMPORT
 import Style from "../styles/login.module.css";
-import LoginAndSignUp from "../loginAndSignUp/loginAndSignUp";
+import UserLogIN from "../LoginIN/LoginIN";
+
 
 const login = () => {
+
   return (
     <div className={Style.login}>
       <div className={Style.login_box}>
         <h1>Войти</h1>
-        <LoginAndSignUp />
+        <UserLogIN/>
         <p className={Style.login_box_para}>
-          Новый пользователь? <a href="#">Создать аккаунт</a>
+          Новый пользователь? <Link href={{ pathname: "/signUp" }}>Создать аккаунт</Link>
         </p>
       </div>
     </div>

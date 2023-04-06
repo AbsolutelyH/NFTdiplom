@@ -39,12 +39,20 @@ import getAble from "./getable.png";
 import nft_image_1 from "./nft-image-1.png";
 import nft_image_2 from "./nft-image-2.png";
 import nft_image_3 from "./nft-image-3.png";
+import category_image_1 from "./category-image-1.png";
+import category_image_2 from "./category-image-2.png";
+import category_image_3 from "./category-image-3.png";
+import category_image_4 from "./category-image-4.png";
+import category_image_5 from "./category-image-5.png";
 import musiceWave from "./musicwave.png";
 import update from "./update.png";
 import provider1 from "./provider-1.png";
 import provider2 from "./provider-2.png";
 import provider3 from "./provider-3.png";
 import provider4 from "./provider-4.png";
+import upload from "./upload.png";
+import loader from "./loadergif.gif";
+import defaultuser from "./defaultuser.png"
 
 export default {
   provider1,
@@ -57,6 +65,11 @@ export default {
   nft_image_1,
   nft_image_2,
   nft_image_3,
+  category_image_1,
+  category_image_2,
+  category_image_3,
+  category_image_4,
+  category_image_5,
   getAble,
   nft_1,
   hero,
@@ -94,4 +107,7 @@ export default {
   vimeo,
   youtube,
   zgcmq,
+  upload,
+  loader,
+  defaultuser,
 };
