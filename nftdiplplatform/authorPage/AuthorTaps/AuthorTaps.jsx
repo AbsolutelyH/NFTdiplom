@@ -35,7 +35,7 @@ const AuthorTaps = ({
   const openTab = (e) => {
     const btnText = e.target.innerText;
     console.log(btnText);
-    if (btnText == "Мои NFT") {
+    if (btnText == "NFT пользователя") {
       setCollectiables(true);
       setCreated(false);
       setFollower(false);
@@ -82,7 +82,7 @@ const AuthorTaps = ({
               className={`${activeBtn == 1 ? Style.active : ""}`}
               onClick={(e) => openTab(e)}
             >
-              Мои NFT
+              NFT пользователя
             </button>
             <button
               className={`${activeBtn == 2 ? Style.active : ""}`}

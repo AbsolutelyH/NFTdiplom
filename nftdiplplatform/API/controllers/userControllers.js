@@ -124,7 +124,7 @@ exports.getAllUsers = catchAsync(async (req, res) => {
     const user = await User.findById(req.params.id);
 
     if(!user) {
-      return next(new AppError("No nft found with that ID", 404));
+      return next(new AppError("No user found with that ID", 404));
     }
 
     res.status(200).json({

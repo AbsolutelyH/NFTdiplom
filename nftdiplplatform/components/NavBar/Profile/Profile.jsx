@@ -59,21 +59,21 @@ const Profile = ({currentAccount}) => {
           <div className={Style.profile_menu_one_item}>
             <FaUserAlt />
             <p>
-              <Link href={{ pathname: "/account" }}>Профиль</Link>
+              <Link href={{ pathname: "/account"}}>Профиль</Link>
             </p>
           </div>
           <div className={Style.profile_menu_one_item}>
             <FaRegImage />
             <p onClick={()=>{dispatch(addUser(userData));}}>
-              <Link href={{ pathname: "/author" }}>Мои NFT</Link>
+            <Link href={{pathname: "/author", query: userData}}>Мои NFT</Link>
             </p>
           </div>
-          <div className={Style.profile_menu_one_item}>
+          {/* <div className={Style.profile_menu_one_item}>
             <FaUserEdit />
             <p>
               <Link href={{ pathname: "/account" }}>Пройти верефикацию</Link>
             </p>
-          </div>
+          </div> */}
         </div>
 
         <div className={Style.profile_menu_two}>
