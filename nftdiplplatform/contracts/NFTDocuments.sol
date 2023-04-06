@@ -103,20 +103,20 @@ contract NFTDocuments is ERC721URIStorage{
     }
 
     /* Returns only items that a user owns */
-    function fetchMyNFTs() public view returns (PlatformItem[] memory) {
+    function fetchMyNFTs(address currentAccount) public view returns (PlatformItem[] memory) {
         uint256 totalItemCount = _tokenIds.current();
         uint256 itemCount = 0;
         uint256 currentIndex = 0;
 
         for (uint256 i = 0; i < totalItemCount; i++) {
-            if (idToPlatformItem[i + 1].owner == msg.sender) {
+            if (idToPlatformItem[i + 1].owner == currentAccount) {
                 itemCount += 1;
             }
         }
 
         PlatformItem[] memory items = new PlatformItem[](itemCount);
         for (uint256 i = 0; i < totalItemCount; i++) {
-            if (idToPlatformItem[i + 1].owner == msg.sender) {
+            if (idToPlatformItem[i + 1].owner == currentAccount) {
                 uint256 currentId = i + 1;
                 PlatformItem storage currentItem = idToPlatformItem[currentId];
                 items[currentIndex] = currentItem;
@@ -127,20 +127,20 @@ contract NFTDocuments is ERC721URIStorage{
     }
 
     /* Returns only items a user has created */
-    function fetchItemsListed() public view returns (PlatformItem[] memory) {
+    function fetchItemsListed(address currentAccount) public view returns (PlatformItem[] memory) {
         uint256 totalItemCount = _tokenIds.current();
         uint256 itemCount = 0;
         uint256 currentIndex = 0;
 
         for (uint256 i = 0; i < totalItemCount; i++) {
-            if (idToPlatformItem[i + 1].creator == msg.sender) {
+            if (idToPlatformItem[i + 1].creator == currentAccount) {
                 itemCount += 1;
             }
         }
 
         PlatformItem[] memory items = new PlatformItem[](itemCount);
         for (uint256 i = 0; i < totalItemCount; i++) {
-            if (idToPlatformItem[i + 1].creator == msg.sender) {
+            if (idToPlatformItem[i + 1].creator == currentAccount) {
                 uint256 currentId = i + 1;
                 PlatformItem storage currentItem = idToPlatformItem[currentId];
                 items[currentIndex] = currentItem;

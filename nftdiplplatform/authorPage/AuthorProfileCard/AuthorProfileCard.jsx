@@ -25,7 +25,7 @@ import { useStore } from "react-redux";
 
 const AuthorProfileCard = ({currentAccount,userData}) => {
   const currentUserData = userData;
-  console.log(currentUserData);
+   console.log(currentUserData);
   const [share, setShare] = useState(false);
   const [report, setReport] = useState(false);
 
