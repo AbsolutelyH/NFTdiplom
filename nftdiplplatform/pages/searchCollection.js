@@ -2,7 +2,7 @@ import React, {useEffect, useState, useContext} from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 //INTRNAL IMPORT
-import Style from "../styles/searchPage.module.css";
+import Style from "../styles/searchCollection.module.css";
 //import { Slider, Brand } from "../components/componentsindex";
 import { SearchColl } from "../SearchCollection/searchCollIndex";
 import { Filter } from "../components/componentsindex";

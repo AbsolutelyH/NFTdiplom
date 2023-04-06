@@ -10,6 +10,7 @@ const AppError = require("./API/Utils/appError");
 const globalErrorHandler = require("./API/controllers/errorController");
 const nftsRouter = require("./API/routes/nftsRoute");
 const usersRouter = require("./API/routes/usersRoute");
+const collectionRouter =require("./API/routes/collectionRoute");
 
 const app = express();
 app.use(express.json({limit: "10kb"}));
@@ -53,7 +54,7 @@ app.use((req, res, next) => {
 app.use('/uploads', express.static('uploads'));
 app.use("/api/v1/nfts", nftsRouter);
 app.use("/api/v1/users", usersRouter);
-
+app.use("/api/v1/collections", collectionRouter);
 // app.all("*", (req, res, next) => {
 //   next(new AppError(`Cant find ${req.originalUrl} on this server`, 404)); // не дает запускать приложение
 // });

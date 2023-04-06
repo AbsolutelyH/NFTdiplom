@@ -76,7 +76,7 @@ exports.protect = catchAsync(async (req,res,next) => {
 
     if(currentUser.changedPasswordAfter(decoded.iat)){
         return next(
-            new AppError("User recently changed the password", 401)
+            new AppError("Пользователь недавно сменил пароль", 401)
         )
     };
     req.user = currentUser
@@ -87,7 +87,7 @@ exports.restrictTo = (...roles) => {
     return(req,res,next) => {
         if(!roles.includes(req.user.role)){
             return next(
-                new AppError("У вас нет доступка к удалению NFT", 403)
+                new AppError("У вас нет доступка", 403)
             )
         }
         next();

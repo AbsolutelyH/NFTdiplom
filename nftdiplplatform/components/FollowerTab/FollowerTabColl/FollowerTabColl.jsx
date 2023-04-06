@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import {useForm} from "react-hook-form"; 
 
 //INTERNAL IMPORT
-import Style from "../FollowerTabCard/FollowerTabCard.module.css";
+import Style from "./FollowerTabColl.module.css";
 import images from "../../../img";
 import { fetchUserByWal, addUser } from "../../../redux/slices/userByWal";
 
