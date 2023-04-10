@@ -20,16 +20,19 @@ const author = () => {
     youtube: "",
     _id: "",
   });
-
+  const [load, setLoad] = useState(false);
+  console.log(load);
   const router = useRouter();
   useEffect(() => {
     if (!router.isReady) return;
     setuserData(router.query);
+    setLoad(true);
   }, [router.isReady]);
   return (
     <div>
-      <Author userData={userData} />
+          {load ? (<Author userData={userData} />) : (<></>)}
     </div>
+
   );
 };
 

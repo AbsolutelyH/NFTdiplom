@@ -64,7 +64,7 @@ exports.updateCollection = catchAsync(async(req, res, next) => {
         new AppError("Обновлять может только создатель", 400)
       );
     }
-    const filteredBody = filterObj(req.body, "nameOfcoll", "background", "photo");
+    const filteredBody = filterObj(req.body, "nameOfcoll", "background", "photo", "about");
     const updateCollection = await COLLECTION.findByIdAndUpdate(req.params.id, filteredBody, {
       new: true,
       runValidators: true,

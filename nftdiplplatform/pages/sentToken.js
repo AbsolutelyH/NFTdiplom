@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Image from "next/image";
+import { useSelector } from "react-redux";
 
 //INTERNAL IMPORT
 import Style from "../styles/sentToken.module.css";
@@ -12,6 +13,7 @@ import { Button } from "../components/componentsindex";
 import { NFTDocumentsContext } from "../Context/NFTDocumentsContext";
 
 const sentToken = () => {
+  const userData = useSelector((state) => state.auth.data?.data?.user);
   const { makeTransferToken } = useContext(NFTDocumentsContext);
   const [adress, setAdress] = useState();
   const [image, setImage] = useState("");
@@ -33,7 +35,7 @@ const sentToken = () => {
   const sentNFT = async () => {
     try {
       await makeTransferToken(adress, id);
-      router.push("/author");
+      router.push({pathname: "/author", query: userData});
     } catch (error) {
       console.log("Error while resell", error);
     }

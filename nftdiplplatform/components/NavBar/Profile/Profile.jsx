@@ -64,7 +64,7 @@ const Profile = ({currentAccount}) => {
           </div>
           <div className={Style.profile_menu_one_item}>
             <FaRegImage />
-            <p onClick={()=>{dispatch(addUser(userData));}}>
+            <p>
             <Link href={{pathname: "/author", query: userData}}>Мои NFT</Link>
             </p>
           </div>

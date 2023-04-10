@@ -4,7 +4,8 @@ import { MdVerified } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
-import {useForm} from "react-hook-form"; 
+import {useForm} from "react-hook-form";
+import Link from "next/link"; 
 
 //INTERNAL IMPORT
 import Style from "./FollowerTabColl.module.css";
@@ -29,6 +30,7 @@ const FollowerTabColl = ({ el, back}) => {
     <div className={Style.FollowerTabCard}>
       <div className={Style.FollowerTabCard_box}>
         <div className={Style.FollowerTabCard_box_img}>
+        <Link href={{pathname: "/collection", query: el}}>
          {back ? (
               <Image
               className={Style.FollowerTabCard_box_img_img}
@@ -37,17 +39,9 @@ const FollowerTabColl = ({ el, back}) => {
               height={300}
               objectFit="cover"
               src={`http://localhost:3000${el.background}`}
-              onClick={()=>{
-                dispatch(addUser(el));
-                router.push("/author");
-              }}
             />
             ) : ( 
               <Image
-              onClick={()=>{
-                dispatch(addUser(el));
-                router.push("/author");
-              }}
                 className={Style.FollowerTabCard_box_img_img}
                 src={images.creatorbackground1}
                 alt="profile braground"
@@ -56,6 +50,7 @@ const FollowerTabColl = ({ el, back}) => {
                 objectFit="cover"
                 />
              )}
+             </Link>
         </div>
 
         {/* <div className={Style.FollowerTabCard_box_profile}>
@@ -83,11 +78,11 @@ const FollowerTabColl = ({ el, back}) => {
         <div className={Style.FollowerTabCard_box_info}>
           <div className={Style.FollowerTabCard_box_info_name}>
             <h4>
-              {el.name}
-              {""}
+              {el.nameOfcoll}
+              {/* {""}
               <span>
               {(el.role == "creator") ? <MdVerified /> :<></>}
-              </span>
+              </span> */}
             </h4>
           </div>
 

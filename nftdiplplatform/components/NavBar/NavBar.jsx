@@ -30,23 +30,45 @@ const NavBar = () => {
 
   const router = useRouter();
 
-  const openMenu = (e) => {
-    const btnText = e.target.innerText;
-    if (btnText == "Навигация") {
-      setDiscover(true);
-      setHelp(false);
-      setNotification(false);
-      setProfile(false);
-    } else if (btnText == "Помощь") {
+  // const openMenu = (e) => {
+  //   const btnText = e.target.innerText;
+  //   if (btnText == "Навигация") {
+  //     setDiscover(true);
+  //     setHelp(false);
+  //     setNotification(false);
+  //     setProfile(false);
+  //   } else if (btnText == "Помощь") {
+  //     setDiscover(false);
+  //     setHelp(true);
+  //     setNotification(false);
+  //     setProfile(false);
+  //   } else {
+  //     setDiscover(false);
+  //     setHelp(false);
+  //     setNotification(false);
+  //     setProfile(false);
+  //   }
+  // };
+
+  const openHelp = () => {
+    if (!help) {
       setDiscover(false);
       setHelp(true);
       setNotification(false);
       setProfile(false);
     } else {
-      setDiscover(false);
+      setHelp(false);
+    }
+  };
+
+  const openDiscover = () => {
+    if (!discover) {
+      setDiscover(true);
       setHelp(false);
       setNotification(false);
       setProfile(false);
+    } else {
+      setDiscover(false);
     }
   };
 
@@ -110,7 +132,7 @@ const NavBar = () => {
         <div className={Style.navbar_container_right}>
           <div className={Style.navbar_container_right_discover}>
             {/* DISCOVER MENU */}
-            <p onClick={(e) => openMenu(e)}>Навигация</p>
+            <p onClick={() => openDiscover()}>Навигация</p>
             {discover && (
               <div className={Style.navbar_container_right_discover_box}>
                 <Discover />
@@ -120,7 +142,7 @@ const NavBar = () => {
 
           {/* HELP CENTER MENU */}
           <div className={Style.navbar_container_right_help}>
-            <p onClick={(e) => openMenu(e)}>Помощь</p>
+            <p onClick={() => openHelp()}>Помощь</p>
             {help && (
               <div className={Style.navbar_container_right_help_box}>
                 <HelpCenter />
@@ -141,7 +163,7 @@ const NavBar = () => {
            <div className={Style.navbar_container_right_button}>
             {currentAccount == "" ? (
               <Button btnName="Подключиться" handleClick={() => connectWallet()} />
-            ) : isAuth ?(
+            ) : isAuth && userData.role == "creator" ?(
               <Button
               btnName="Создать"
               handleClick={() => router.push("/uploadNFT")}

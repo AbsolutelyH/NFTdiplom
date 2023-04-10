@@ -21,6 +21,11 @@ export const fetchUpdateMe = createAsyncThunk('auth/fetchUpdateMe', async(params
     return data;
 });
 
+export const fetchUpdateMyPassword = createAsyncThunk('auth/fetchUpdateMyPassword', async(params) => {
+    const {data} = await axios.patch('/api/v1/users/updateMyPassword', params);
+    return data;
+});
+
 const initialState = {
     data: null,
     status: 'loading',
@@ -80,6 +85,18 @@ const authSlice = createSlice({
             state.data = action.payload;
         },
         [fetchUpdateMe.rejected]: (state) => {
+            state.status = 'error';
+            state.data = null;
+        },
+        [fetchUpdateMyPassword.pending]: (state) => {
+            state.status = 'loading';
+            state.data = null;
+        },
+        [fetchUpdateMyPassword.fulfilled]: (state, action) => {
+            state.status = 'loaded';
+            state.data = action.payload;
+        },
+        [fetchUpdateMyPassword.rejected]: (state) => {
             state.status = 'error';
             state.data = null;
         },

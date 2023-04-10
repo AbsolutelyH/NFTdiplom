@@ -201,7 +201,7 @@ export const NFTDocumentsProvider = ({ children }) => {
         return items;
       }
     } catch (error) {
-      setOpenError(true),setError("Ошибка при получении NFT");
+      setOpenError(true),setError('Ошибка при получении NFT, если вы не подключены, нажмите "Подключиться"');
     }
   };
 

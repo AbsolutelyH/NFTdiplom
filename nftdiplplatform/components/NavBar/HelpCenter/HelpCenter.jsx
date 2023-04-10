@@ -6,10 +6,10 @@ import Style from "./HelpCenter.module.css";
 
 const HelpCenter = () => {
   const helpCenter = [
-    {
-      name: "Связь с нами",
-      link: "contact-us",
-    },
+    // {
+    //   name: "Связь с нами",
+    //   link: "contact-us",
+    // },
     {
       name: "Зарегистрироваться",
       link: "signUp",
@@ -18,10 +18,10 @@ const HelpCenter = () => {
       name: "Войти",
       link: "login",
     },
-    {
-      name: "Подписка",
-      link: "subscription",
-    },
+    // {
+    //   name: "Подписка",
+    //   link: "subscription",
+    // },
   ];
   return (
     <div className={Style.box}>

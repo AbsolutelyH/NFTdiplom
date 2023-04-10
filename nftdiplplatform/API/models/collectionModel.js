@@ -25,6 +25,9 @@ const collectionSchema = new mongoose.Schema({
     photo: {
         type: String,
     },
+    about: {
+      type: String,
+  },
   }, 
 );
   

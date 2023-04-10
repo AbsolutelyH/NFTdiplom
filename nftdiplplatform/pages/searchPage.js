@@ -54,7 +54,7 @@ const searchPage = () => {
       />
       {isLoading ? <Loader/> : usersObj.length != 0 ?(
         <div className={Style.searchPage_box}> 
-          {usersObj?.map((obj) => <FollowerTabCard el={obj}/>)}
+          {usersObj?.map((obj) => <FollowerTabCard el={obj} back={obj.background}/>)}
         </div>) : (
           <div className={Style.searchPage_box}> 
             {usersCopy?.map((obj) => <FollowerTabCard el={obj} back={obj.background}/>)}

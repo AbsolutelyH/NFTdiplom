@@ -22,7 +22,6 @@ const account = () => {
   // }
 
   const userData = useSelector((state) => state.auth.data?.data?.user);
-  console.log(userData);
 
   const [fileUser, setFileUserUrl] = useState(null);
   const [fileBackUrl, setFileBackUrl] = useState(null);

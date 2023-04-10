@@ -15,12 +15,12 @@ import images from "../img";
 
 //SMART CONTRACT IMPORT
 import { NFTDocumentsContext } from "../Context/NFTDocumentsContext";
-import { fetchCollections } from "../redux/slices/collections";
+import { fetchMyCollections } from "../redux/slices/collections";
 
-const searchCollection = () => {
+const myCollections = () => {
   const [collectionsObj, setCollectionsObj] = useState([]);
   React.useEffect(() => {
-    dispatch(fetchCollections());
+    dispatch(fetchMyCollections());
   }, [])
   const dispatch = useDispatch();
   const {collections} = useSelector((state) => state.collections);
@@ -28,30 +28,30 @@ const searchCollection = () => {
   console.log(collectionsCopy)
   const isLoading = collections.status == 'loading';
 
-  const onHandleSearch = (value) => {
-    const filteredCollections = collectionsObj.filter(({nameOfcoll}) =>
-    nameOfcoll.toLowerCase().includes(value.toLowerCase())
-    );
+//   const onHandleSearch = (value) => {
+//     const filteredCollections = collectionsObj.filter(({nameOfcoll}) =>
+//     nameOfcoll.toLowerCase().includes(value.toLowerCase())
+//     );
 
-    if (filteredCollections.length === 0) {
-      setCollectionsObj(collectionsCopy);
-    } else {
-      setCollectionsObj(filteredCollections);
-    }
-  };
+//     if (filteredCollections.length === 0) {
+//       setCollectionsObj(collectionsCopy);
+//     } else {
+//       setCollectionsObj(filteredCollections);
+//     }
+//   };
 
-  const onClearSearch = () => {
-    if (collectionsObj?.length && collectionsCopy?.length) {
-      setCollectionsObj(collectionsCopy);
-    }
-  };
+//   const onClearSearch = () => {
+//     if (collectionsObj?.length && collectionsCopy?.length) {
+//       setCollectionsObj(collectionsCopy);
+//     }
+//   };
   return (
     <div className={Style.searchPage}>
       <Banner bannerImage={images.creatorbackground2} />
-      <SearchColl
+      {/* <SearchColl
               onHandleSearch={onHandleSearch}
               onClearSearch={onClearSearch}
-      />
+      /> */}
       {isLoading ? <Loader/> : collectionsObj.length != 0 ?(
         <div className={Style.searchPage_box}> 
           {collectionsObj.map((obj) => <FollowerTabColl el={obj} back={obj.background}/>)}
@@ -65,4 +65,4 @@ const searchCollection = () => {
   );
 };
 
-export default searchCollection;
+export default myCollections;
