@@ -58,13 +58,13 @@ const FollowerTabColl = ({ el, back}) => {
              )}
         </div>
 
-        {/* <div className={Style.FollowerTabCard_box_profile}>
+        <div className={Style.FollowerTabCard_box_profile}>
           {el.photo ? (
             <Image
             className={Style.FollowerTabCard_box_profile_img}
             alt="profile picture"
-            width={50}
-            height={50}
+            width={70}
+            height={70}
             objectFit="cover"
             src={`http://localhost:3000${el?.photo}`}
           />
@@ -72,13 +72,13 @@ const FollowerTabColl = ({ el, back}) => {
             <Image
             className={Style.FollowerTabCard_box_profile_img}
             alt="profile picture"
-            width={50}
-            height={50}
+            width={70}
+            height={70}
             objectFit="cover"
             src={images.defaultuser}
           />
           )}
-        </div> */}
+        </div>
 
         <div className={Style.FollowerTabCard_box_info}>
           <div className={Style.FollowerTabCard_box_info_name}>
