@@ -66,6 +66,10 @@ export const NFTDocumentsProvider = ({ children }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
+  // //--- GET WALLET OF SOME USER
+  // const userData = useSelector((state) => state.userByWal?.data);
+  // console.log(userData); 
+
   //---CHECK IF WALLET IS CONNECTD
   const checkIfWalletConnected = async () => {
     try {
@@ -123,13 +127,12 @@ export const NFTDocumentsProvider = ({ children }) => {
       return setOpenError(true),setError("Вы указали не все данные");
 
     const data = JSON.stringify({ name, author, authorpost, recipient, description, image, website, category });
-    console.log("category ", category);
-    const userwalletAdress = userData;
-    
-    if (!userwalletAdress)
+    const wallet = userData.walletAdress;
+    console.log(wallet);
+    if (!wallet)
     return setOpenError(true),setError("Ошибка получения данных перезагрузите страницу и попробуйте снова");
 
-    if (currentAccount != userwalletAdress)
+    if (currentAccount != wallet)
     return setOpenError(true),setError("Адрес подключенного кошелька не совпадает с тем, что указан в профиле");
 
     try {
@@ -154,29 +157,29 @@ export const NFTDocumentsProvider = ({ children }) => {
 
       await transaction.wait();
       // console.log(transaction);
-      router.push("/author");
+      router.push({pathname: "/author", query: userData});
     } catch (error) {
       setOpenError(true),setError("Ошибка при создании NFT");
     }
   };
 
   //--FETCHING MY NFT OR LISTED NFTs
-  const fetchMyNFTsOrListedNFTs = async (type) => {
+  const fetchMyNFTsOrListedNFTs = async (type, currentwallet) => {
     try {
-      if (currentAccount) {
+      if (currentwallet) {
         const contract = await connectingWithSmartContract();
 
         const data =
           type == "fetchItemsListed"
-            ? await contract.fetchItemsListed()
-            : await contract.fetchMyNFTs();
+            ? await contract.fetchItemsListed(currentwallet)
+            : await contract.fetchMyNFTs(currentwallet);
 
         const items = await Promise.all(
           data.map(
             async ({ tokenId, creator, owner}) => {
               const tokenURI = await contract.tokenURI(tokenId);
               const {
-                data: { image, name, author, authorpost, recipient, description },
+                data: { image, name, author, authorpost, recipient, description, category },
               } = await axios.get(tokenURI);
 
               return {
@@ -188,6 +191,7 @@ export const NFTDocumentsProvider = ({ children }) => {
                 authorpost, 
                 recipient,
                 name,
+                category,
                 description,
                 tokenURI,
               };
@@ -197,7 +201,7 @@ export const NFTDocumentsProvider = ({ children }) => {
         return items;
       }
     } catch (error) {
-      setOpenError(true),setError("Ошибка при получении NFT");
+      setOpenError(true),setError('Ошибка при получении NFT, если вы не подключены, нажмите "Подключиться"');
     }
   };
 

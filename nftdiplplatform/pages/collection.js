@@ -1,32 +1,25 @@
-import React from "react";
+import React, {useEffect, useContext, useState} from "react";
+import { useRouter } from "next/router";
 
 //INTERNAL IMPORT
-import Style from "../styles/collection.module.css";
-import images from "../img";
-import { 
-  Banner,
-  CollectionProfile,
-  NFTCardTwo, 
-} from "../collectionPage/collectionIndex";
-import Filter from "../components/Filter/Filter";
+import Collection from "../Collection/Collection";
 
 const collection = () => {
-  const collectionArray = [
-    images.nft_image_1,
-    images.nft_image_2,
-    images.nft_image_3,
-    images.nft_image_1,
-    images.nft_image_2,
-    images.nft_image_3,
-    images.nft_image_1,
-    images.nft_image_2,
-  ];
+  const [collectionData, setSollectionData] = useState({
+    nameOfcoll: "",
+    walletAdressCreator: "",
+  });
+  const [load, setLoad] = useState(false);
+  console.log(load);
+  const router = useRouter();
+  useEffect(() => {
+    if (!router.isReady) return;
+    setSollectionData(router.query);
+    setLoad(true);
+  }, [router.isReady]);
   return (
-    <div className={Style.collection}>
-      <Banner bannerImage={images.creatorbackground1} />
-      <CollectionProfile />
-      <Filter />
-      <NFTCardTwo NFTData={collectionArray}/>
+    <div>
+     {load ? (<Collection collectionData={collectionData} />) : (<></>)}
     </div>
   );
 };

@@ -23,8 +23,7 @@ import { Button } from "../../components/componentsindex.js";
 import { createSelector } from "@reduxjs/toolkit";
 import { useStore } from "react-redux";
 
-const AuthorProfileCard = ({currentAccount,userData}) => {
-  const currentUserData = userData?.data?.user;
+const AuthorProfileCard = ({userData}) => {
   const [share, setShare] = useState(false);
   const [report, setReport] = useState(false);
 
@@ -58,27 +57,39 @@ const AuthorProfileCard = ({currentAccount,userData}) => {
     <div className={Style.AuthorProfileCard}>
       <div className={Style.AuthorProfileCard_box}>
         <div className={Style.AuthorProfileCard_box_img}>
+          {userData?.photo ? (
           <Image
-            src={images.nft_image_1}
+          src={`http://localhost:3000${userData?.photo}`}
+          className={Style.AuthorProfileCard_box_img_img}
+          alt="NFT IMAGES"
+          width={220}
+          height={220}
+          objectFit="cover"
+        />       
+          ) : (
+            <Image
+            src={images.defaultuser}
             className={Style.AuthorProfileCard_box_img_img}
             alt="NFT IMAGES"
             width={220}
             height={220}
+            objectFit="cover"
           />
+          )}
         </div>
 
         <div className={Style.AuthorProfileCard_box_info}>
           <h2>
-            {currentUserData?.name}{""}{" "}
+            {userData?.name}{""}{" "}
             <span>
-              {currentUserData?.role !== "user" ?(<MdVerified />):("")}
+              {userData?.role !== "user" ?(<MdVerified />):("")}
             </span>{" "}
           </h2>
 
           <div className={Style.AuthorProfileCard_box_info_address}>
             <input
               type="text"
-              value={currentUserData?.walletAdress}
+              value={userData?.walletAdress}
               id="myInput"
             />
             <FiCopy
@@ -88,7 +99,7 @@ const AuthorProfileCard = ({currentAccount,userData}) => {
           </div>
 
           <p>
-            {currentUserData?.about}
+            {userData?.about}
           </p>
 
           <div className={Style.AuthorProfileCard_box_info_social}>
@@ -107,8 +118,8 @@ const AuthorProfileCard = ({currentAccount,userData}) => {
           </div>
         </div>
 
-        <div className={Style.AuthorProfileCard_box_share}>
-          {/* <Button btnName="Follow" handleClick={() => {}} /> */}
+        {/* <div className={Style.AuthorProfileCard_box_share}>
+          <Button btnName="Follow" handleClick={() => {}} />
           <MdCloudUpload
             onClick={() => openShare()}
             className={Style.AuthorProfileCard_box_share_icon}
@@ -147,7 +158,7 @@ const AuthorProfileCard = ({currentAccount,userData}) => {
             </div>
           )}
 
-          {/* <BsThreeDots
+          <BsThreeDots
             onClick={() => openReport()}
             className={Style.AuthorProfileCard_box_share_icon}
           />
@@ -158,10 +169,10 @@ const AuthorProfileCard = ({currentAccount,userData}) => {
                 <MdOutlineReportProblem />
               </span>{" "}
               {""}
-              Report abouse
+              Сообщить о нарушении
             </p>
-          )} */}
-        </div>
+          )}
+        </div> */}
       </div>
     </div>
   );

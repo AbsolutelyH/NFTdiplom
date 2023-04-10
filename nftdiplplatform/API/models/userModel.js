@@ -6,7 +6,9 @@ const bcrypt = require("bcryptjs");
 const userSchema = new mongoose.Schema({
     name:{
         type: String,
-        required: [true, "Пожалуйста, скажите как вас зовут"]
+        required: [true, "Пожалуйста, скажите как вас зовут"],
+        maxlength: [25, "Длинна названия максимум 25 символов"],
+        minlength: [5, "Минимальная длинна названия 5 символов"],
     },
     email: {
         type: String,
@@ -14,7 +16,11 @@ const userSchema = new mongoose.Schema({
         unique: true,
         lowercase: true,
         validate: [validator.isEmail, "Пожалуйста, укажите правильную почту"]
-    },post:{
+    },
+    post:{
+        type: String,
+    },
+    organization:{
         type: String,
     },
     about:{

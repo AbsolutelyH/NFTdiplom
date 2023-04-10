@@ -18,6 +18,8 @@ import {
   TiSocialInstagram,
 } from "react-icons/ti";
 import { BiTransferAlt, BiDollar } from "react-icons/bi";
+import {useDispatch, useSelector} from "react-redux";
+import {useForm} from "react-hook-form"; 
 
 //INTERNAL IMPORT
 import Style from "./NFTDescription.module.css";
@@ -27,15 +29,33 @@ import { NFTTabs } from "../NFTDetailsIndex";
 
 import { NFTDocumentsContext } from "../../Context/NFTDocumentsContext";
 import { useRouter } from "next/router";
+import { fetchUserByWal } from "../../redux/slices/userByWal";
 
-const NFTDescription = ({nft}) => {
+const NFTDescription = ({nft, userCreator, userOwner, creatorPhoto, ownerPhoto}) => {
   const [social, setSocial] = useState(false);
   const [NFTMenu, setNFTMenu] = useState(false);
   const [history, setHistory] = useState(true);
   const [provanance, setProvanance] = useState(false);
   const [owner, setOwner] = useState(false);
+  // const [userOwner, setUserOwner] = useState();
+  // const [userCreator, setUserCreator] = useState();
 
-  const router = useRouter();
+  // const router = useRouter();
+  // const dispatch = useDispatch();
+
+  // const nftOwner = nft.owner.toLowerCase();
+  // const nftCreator = nft.creator.toLowerCase();
+  // const getDataFirst = async() => {const dataFirst = await dispatch(fetchUserByWal({walletAdress: nftOwner})); console.log(dataFirst); setUserOwner(dataFirst?.payload?.data?.user)}
+  // const getDataSecond = async() => {const dataSecond = await dispatch(fetchUserByWal({walletAdress: nftCreator})); console.log(dataSecond);setUserCreator(dataSecond?.payload?.data?.user)}
+
+  // console.log(userOwner);
+  // console.log(userCreator);
+
+  // useEffect(() => {
+  //   if (!nft) return;
+  //   getDataFirst();
+  //   getDataSecond();
+  // }, [nft]);
 
   const historyArray = [
     images.user1,
@@ -122,7 +142,7 @@ const NFTDescription = ({nft}) => {
                 <a href="#">
                   <TiSocialFacebook /> Website
                 </a>
-                <a href="#">
+                {/* <a href="#">
                   <TiSocialInstagram /> Telegram
                 </a>
                 <a href="#">
@@ -130,7 +150,7 @@ const NFTDescription = ({nft}) => {
                 </a>
                 <a href="#">
                   <TiSocialYoutube /> YouTube
-                </a>
+                </a> */}
               </div>
             )}
 
@@ -153,37 +173,43 @@ const NFTDescription = ({nft}) => {
           <h1>{nft.name} #{nft.tokenId}</h1>
           <div className={Style.NFTDescription_box_profile_box}>
             <div className={Style.NFTDescription_box_profile_box_left}>
-              <Image
-                src={images.user1}
+            <Link href = {{pathname: "/author", query: userOwner}}>
+            <Image
+                src={`http://localhost:3000${ownerPhoto}`}
+                objectFit="cover"
                 alt="profile"
                 width={40}
                 height={40}
                 className={Style.NFTDescription_box_profile_box_left_img}
-              />
+              /> 
+
+              </Link>
               <div className={Style.NFTDescription_box_profile_box_left_info}>
                 <small>Владелец</small> <br />
-                <Link href = {{pathname: "/author", query: `${nft.owner}`}}>
+                <Link href = {{pathname: "/author", query: userOwner}}>
                 <span>
-                  Илья Львутин <MdVerified />
+                {userOwner?.name} {userOwner?.role == "creator" ?<MdVerified />: <></>}
                 </span>
                 </Link>
               </div>
             </div>
 
             <div className={Style.NFTDescription_box_profile_box_right}>
-              <Image
-                src={images.user2}
+            <Link href = {{pathname: "/author", query: userCreator}}>
+                <Image
+                src={`http://localhost:3000${creatorPhoto}`}
                 alt="profile"
+                objectFit="cover"
                 width={40}
                 height={40}
                 className={Style.NFTDescription_box_profile_box_left_img}
               />
-
+              </Link>
               <div className={Style.NFTDescription_box_profile_box_right_info}>
                 <small>Создатель</small> <br />
-                <Link href = {{pathname: "/author", query: `${nft.creator}`}}>
+                <Link href = {{pathname: "/author", query: userCreator}}>
                 <span>
-                  {nft.author} <MdVerified />
+                  {userCreator?.name} {userCreator?.role == "creator" ?<MdVerified />: <></>}
                 </span>
                 </Link>
               </div>
@@ -264,9 +290,9 @@ const NFTDescription = ({nft}) => {
                   Style.NFTDescription_box_profile_biding_box_price_bid
                 }
               >
-                <small>Адрес владельца</small>
+                <small>Коллекция</small>
                 <p>
-                  {nft.owner} 
+                  {/* {nft.owner}  */}
                 </p>
               </div>
               {/* <span>[96 in stock]</span> */}
@@ -295,29 +321,10 @@ const NFTDescription = ({nft}) => {
               /> */}
             </div>
 
-            <div className={Style.NFTDescription_box_profile_biding_box_tabs}>
-              <button onClick={(e) => openTabs(e)}>История владения</button>
-              {/* <button onClick={(e) => openTabs(e)}>Provanance</button>
-              <button onClick={() => openOwmer()}>Owner</button> */}
-            </div>
+            
 
-            {history && (
-              <div className={Style.NFTDescription_box_profile_biding_box_card}>
-                <NFTTabs dataTab={historyArray} />
-              </div>
-            )}
-            {/* {provanance && (
-              <div className={Style.NFTDescription_box_profile_biding_box_card}>
-                <NFTTabs dataTab={provananceArray} />
-              </div>
-            )}
-
-            {owner && (
-              <div className={Style.NFTDescription_box_profile_biding_box_card}>
-                <NFTTabs dataTab={ownerArray} icon=<MdVerified /> />
-              </div>
-            )} */}
-          </div>
+            
+          </div> 
         </div>
       </div>
     </div>

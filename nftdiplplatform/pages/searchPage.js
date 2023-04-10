@@ -18,52 +18,48 @@ import { NFTDocumentsContext } from "../Context/NFTDocumentsContext";
 import { fetchUsers } from "../redux/slices/users";
 
 const searchPage = () => {
-  const dispatch = useDispatch();
-  const {users} = useSelector((state) => state.users);
-  const isLoading = users.status == 'loading';
-
+  const [usersObj, setUserObj] = useState([]);
   React.useEffect(() => {
     dispatch(fetchUsers());
   }, [])
-  console.log(users);
+  const dispatch = useDispatch();
+  const {users} = useSelector((state) => state.users);
+  const usersCopy = (users.items?.data?.users);
 
-  const followerArray = [
-    {
-      background: images.creatorbackground1,
-      user: images.user1,
-    },
-    {
-      background: images.creatorbackground2,
-      user: images.user2,
-    },
-    {
-      background: images.creatorbackground3,
-      user: images.user3,
-    },
-    {
-      background: images.creatorbackground4,
-      user: images.user4,
-    },
-    {
-      background: images.creatorbackground5,
-      user: images.user5,
-    },
-    {
-      background: images.creatorbackground6,
-      user: images.user6,
-    },
-  ];
+  const isLoading = users.status == 'loading';
 
+  const onHandleSearch = (value) => {
+    const filteredUSERS = usersObj.filter(({name}) =>
+      name.toLowerCase().includes(value.toLowerCase())
+    );
+
+    if (filteredUSERS.length === 0) {
+      setUserObj(usersCopy);
+    } else {
+      setUserObj(filteredUSERS);
+    }
+  };
+
+  const onClearSearch = () => {
+    if (usersObj?.length && usersCopy?.length) {
+      setUserObj(usersCopy);
+    }
+  };
   return (
     <div className={Style.searchPage}>
       <Banner bannerImage={images.creatorbackground2} />
-      <SearchBar />
-      {isLoading ? <Loader/> :
-        <div className={Style.searchPage_box}>
-          {users.items.data.users.map((obj, index) => (
-            <FollowerTabCard i={index} el={obj} />
-          ))}
-        </div>}
+      <SearchBar
+              onHandleSearch={onHandleSearch}
+              onClearSearch={onClearSearch}
+      />
+      {isLoading ? <Loader/> : usersObj.length != 0 ?(
+        <div className={Style.searchPage_box}> 
+          {usersObj?.map((obj) => <FollowerTabCard el={obj} back={obj.background}/>)}
+        </div>) : (
+          <div className={Style.searchPage_box}> 
+            {usersCopy?.map((obj) => <FollowerTabCard el={obj} back={obj.background}/>)}
+          </div>)
+        }
    
     </div>
   );

@@ -10,7 +10,7 @@ const Notification = () => {
     <div className={Style.notification}>
       <p>Уведомления</p>
       <div className={Style.notification_box}>
-        <div className={Style.notification_box_img}>
+        {/* <div className={Style.notification_box_img}>
           <Image
             src={images.user1}
             alt="profile image"
@@ -24,7 +24,7 @@ const Notification = () => {
           <p>Последние действия...</p>
           <small>3 минуты назад</small>
         </div>
-        <span className={Style.notification_box_new}></span>
+        <span className={Style.notification_box_new}></span> */}
       </div>
     </div>
   );

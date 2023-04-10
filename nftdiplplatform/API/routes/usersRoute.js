@@ -17,7 +17,9 @@ router.patch("/updateMyPassword", authController.protect, authController.updateP
 router.patch("/updateMe", authController.protect, userControllers.updateMe);
 router.delete("/deleteMe", authController.protect, userControllers.deleteMe);
 
-router.get("/getUserByWallet",userControllers.getUserByWallet);
+router.patch("/updateVUser", authController.protect, userControllers.updateVUser);
+
+router.post("/getUserByWallet",userControllers.getUserByWallet);
 
 //ROUTERS USERS
 router.route("/")
@@ -28,7 +30,7 @@ router.route("/:id")
   .get(userControllers.getSingleUser)
   .patch(userControllers.updateUser)
   .delete(userControllers.deleteUser);
-
+//UPLOAD IMG
   const storage = multer.diskStorage({
     destination: (_, __, cd) => {
       cd(null, 'uploads');

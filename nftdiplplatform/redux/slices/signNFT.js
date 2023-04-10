@@ -21,7 +21,7 @@ const signNFTSlice = createSlice({
             state.data = null;
         },
         [fetchSignNFT.fulfilled]: (state, action) => {
-            state.status = 'loading';
+            state.status = 'loaded';
             state.data = action.payload;
         },
         [fetchSignNFT.rejected]: (state) => {

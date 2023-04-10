@@ -9,7 +9,7 @@ import { UploadNFT } from "../UploadNFT/uploadNFTIndex";
 import { NFTDocumentsContext } from "../Context/NFTDocumentsContext";
 
 const uploadNFT = () => {
-  const userData = useSelector((state) => state.auth?.data?.data?.user?.walletAdress);
+  const userData = useSelector((state) => state.auth?.data?.data?.user);
   // console.log(userData)
 
   const { uploadToIPFS, createNFT, currentAccount } = useContext(NFTDocumentsContext);

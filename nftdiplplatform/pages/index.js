@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <div className={Style.homePage}>
       <HeroSection />
-      <FollowerTab />
+      {/* <FollowerTab /> */}
     </div>
   );
 };

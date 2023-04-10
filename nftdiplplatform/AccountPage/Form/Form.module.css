@@ -6,6 +6,15 @@
     margin-top: 2rem;
 }
 
+.Form_box_link label{
+    margin-top: 2rem;
+    display: block;
+    width: 100%;
+    margin-left: 1rem;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
 .Form_box_input label{
     display: block;
     width: 100%;

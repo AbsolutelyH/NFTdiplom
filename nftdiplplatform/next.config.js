@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ["guu-nft-diploms.infura-ipfs.io", "infura-ipfs.io"],
+    domains: ["guu-nft-diploms.infura-ipfs.io", "infura-ipfs.io", "localhost"],
   },
 };
 
