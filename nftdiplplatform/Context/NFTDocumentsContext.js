@@ -122,13 +122,13 @@ export const NFTDocumentsProvider = ({ children }) => {
   };
 
   //---CREATENFT FUNCTION
-  const createNFT = async (name, author, authorpost, recipient, image, description, router, website, userData, category) => {
-    if (!name || !description || !image || !author || !authorpost || !recipient|| !category)
+  const createNFT = async (name, author, authorpost, recipient, image, description, router, website, userData, category, collectionName, organization) => {
+    if (!name || !description || !image || !author || !authorpost || !organization || !recipient|| !category)
       return setOpenError(true),setError("Вы указали не все данные");
 
-    const data = JSON.stringify({ name, author, authorpost, recipient, description, image, website, category });
+    const data = JSON.stringify({ name, author, authorpost, recipient, description, image, website, category, collectionName, organization });
     const wallet = userData.walletAdress;
-    console.log(wallet);
+    console.log(data);
     if (!wallet)
     return setOpenError(true),setError("Ошибка получения данных перезагрузите страницу и попробуйте снова");
 
@@ -179,7 +179,7 @@ export const NFTDocumentsProvider = ({ children }) => {
             async ({ tokenId, creator, owner}) => {
               const tokenURI = await contract.tokenURI(tokenId);
               const {
-                data: { image, name, author, authorpost, recipient, description, category },
+                data: { image, name, author, authorpost, recipient, description, category, collectionName },
               } = await axios.get(tokenURI);
 
               return {
@@ -194,6 +194,7 @@ export const NFTDocumentsProvider = ({ children }) => {
                 category,
                 description,
                 tokenURI,
+                collectionName,
               };
             }
           )

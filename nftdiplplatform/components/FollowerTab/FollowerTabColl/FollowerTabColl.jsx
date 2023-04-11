@@ -13,12 +13,9 @@ import images from "../../../img";
 import { fetchUserByWal, addUser } from "../../../redux/slices/userByWal";
 
 const FollowerTabColl = ({ el, back}) => {
-  console.log(el.background);
   const router = useRouter();
   const dispatch = useDispatch();
   const [following, setFollowing] = useState(false);
-  const what = true;
-  // {el.background ? what = true :''},
   const followMe = () => {
     if (!following) {
       setFollowing(true);
@@ -70,7 +67,7 @@ const FollowerTabColl = ({ el, back}) => {
             width={70}
             height={70}
             objectFit="cover"
-            src={images.defaultuser}
+            src={images.doclog}
           />
           )}
         </div>
