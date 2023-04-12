@@ -51,9 +51,10 @@ const Author = ({userData}) => {
 
   const [collectiables, setCollectiables] = useState(true);
   const [created, setCreated] = useState(false);
-  const [like, setLike] = useState(false);
-  const [follower, setFollower] = useState(false);
-  const [following, setFollowing] = useState(false);
+  const [collections, setCollections] = useState(false);
+  // const [like, setLike] = useState(false);
+  // const [follower, setFollower] = useState(false);
+  // const [following, setFollowing] = useState(false);
 
   //IMPORT SMART CONTRACT DATA
   const { fetchMyNFTsOrListedNFTs, setError } = useContext(
@@ -62,7 +63,7 @@ const Author = ({userData}) => {
 
   const [nfts, setNfts] = useState([]);
   const [myNFTs, setMyNFTs] = useState([]);
-  console.log(userData);
+  // console.log(userData);
 
     const type1 = "fetchItemsListed";
     const type2 = "fetchMyNFTs";
@@ -99,25 +100,28 @@ const Author = ({userData}) => {
       <AuthorTaps
         setCollectiables={setCollectiables}
         setCreated={setCreated}
+        setCollections={setCollections}
         // setLike={setLike}
         // setFollower={setFollower}
         // setFollowing={setFollowing}
       />
 
       <AuthorNFTCardBox
+        userData={userData}
         collectiables={collectiables}
         created={created}
-        like={like}
+        collections={collections}
+        // like={like}
         nfts={nfts}
         myNFTs={myNFTs}
         // follower={follower}
         // following={following}
       />
-      <Title
+      {/* <Title
         heading="Popular Creators"
         paragraph="Click on music icon and enjoy NTF music or audio
 "
-      />
+      /> */}
       {/* <div className={Style.author_box}>
         {followerArray.map((el, i) => (
           <FollowerTabCard i={i} el={el} />

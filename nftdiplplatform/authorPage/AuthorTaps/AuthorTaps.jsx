@@ -8,6 +8,7 @@ import Style from "./AuthorTaps.module.css";
 const AuthorTaps = ({
   setCollectiables,
   setCreated,
+  setCollections,
   // setLike,
   // setFollower,
   // setFollowing,
@@ -38,6 +39,7 @@ const AuthorTaps = ({
     if (btnText == "NFT пользователя") {
       setCollectiables(true);
       setCreated(false);
+      setCollections(false);
       // setFollower(false);
       // setFollowing(false);
       // setLike(false);
@@ -45,31 +47,43 @@ const AuthorTaps = ({
     } else if (btnText == "Созданные") {
       setCollectiables(false);
       setCreated(true);
+      setCollections(false);
       // setFollower(false);
       // setFollowing(false);
       // setLike(false);
       setActiveBtn(2);
+    } else if (btnText == "Коллекции") {
+      setCollectiables(false);
+      setCreated(false);
+      setCollections(true);
+      // setFollower(false);
+      // setFollowing(false);
+      // setLike(false);
+      setActiveBtn(3);
     } else if (btnText == "Liked") {
       setCollectiables(false);
       setCreated(false);
+      setCollections(false);
       // setFollower(false);
       // setFollowing(false);
       // setLike(true);
-      setActiveBtn(3);
+      setActiveBtn(4);
     } else if (btnText == "Подписки") {
       setCollectiables(false);
       setCreated(false);
+      setCollections(false);
       // setFollower(false);
       // setFollowing(true);
       // setLike(false);
-      setActiveBtn(4);
+      setActiveBtn(5);
     } else if (btnText == "Подписчики") {
       setCollectiables(false);
       setCreated(false);
+      setCollections(false);
       // setFollower(true);
       // setFollowing(false);
       // setLike(false);
-      setActiveBtn(5);
+      setActiveBtn(6);
     }
   };
 
@@ -90,20 +104,26 @@ const AuthorTaps = ({
             >
               Созданные
             </button>
-            {/* <button
+            <button
               className={`${activeBtn == 3 ? Style.active : ""}`}
+              onClick={(e) => openTab(e)}
+            >
+              Коллекции
+            </button>
+            {/* <button
+              className={`${activeBtn == 4 ? Style.active : ""}`}
               onClick={(e) => openTab(e)}
             >
               Liked
             </button>
             <button
-              className={`${activeBtn == 4 ? Style.active : ""}`}
+              className={`${activeBtn == 5 ? Style.active : ""}`}
               onClick={(e) => openTab(e)}
             >
               Подписки
             </button>
             <button
-              className={`${activeBtn == 5 ? Style.active : ""}`}
+              className={`${activeBtn == 6 ? Style.active : ""}`}
               onClick={(e) => openTab(e)}
             >
               Подписчики

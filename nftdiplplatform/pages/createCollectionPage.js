@@ -17,12 +17,12 @@ const collection = () => {
   const router = useRouter();
   const isAuth = useSelector(selectIsAuth);
   const { setOpenError, setError } = useContext(NFTDocumentsContext);
-  // if(!isAuth){
-  //   typeof window !== 'undefined' && router.push("/login");
-  // }
+  if(!isAuth){
+    typeof window !== 'undefined' && router.push("/login");
+  }
 
   const userData = useSelector((state) => state.auth.data?.data?.user);
-  console.log(userData);
+  // console.log(userData);
 
   const [fileUser, setFileUserUrl] = useState(null);
   const [fileBackUrl, setFileBackUrl] = useState(null);

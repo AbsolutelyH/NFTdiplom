@@ -36,7 +36,7 @@ const account = () => {
       }catch (error) {setOpenError(true),setError("Что-то пошло не так при загрузке изображения");}
     },
     accept: "image/*",
-    maxSize: 5000000,
+    maxSize: 10000000,
   });
 
   const { getRootProps:getRootBackProps, getInputProps:getInputBackProps } = useDropzone({
@@ -49,7 +49,7 @@ const account = () => {
       }catch (error) {setOpenError(true),setError("Что-то пошло не так при загрузке изображения");}
     },
     accept: "image/*",
-    maxSize: 5000000,
+    maxSize: 10000000,
   });
 
   return (

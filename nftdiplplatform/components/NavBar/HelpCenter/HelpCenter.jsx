@@ -6,10 +6,10 @@ import Style from "./HelpCenter.module.css";
 
 const HelpCenter = () => {
   const helpCenter = [
-    // {
-    //   name: "Связь с нами",
-    //   link: "contact-us",
-    // },
+    {
+      name: "Связь с нами",
+      link: "help",
+    },
     {
       name: "Зарегистрироваться",
       link: "signUp",

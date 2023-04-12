@@ -143,7 +143,7 @@ export const NFTDocumentsProvider = ({ children }) => {
 
       const contract = await connectingWithSmartContract();
 
-      const mintPrice = await contract.getMintingPrice();
+      // const mintPrice = await contract.getMintingPrice();
 
       const signData = await dispatch(fetchSignNFT());
       // console.log(signData);
@@ -153,7 +153,7 @@ export const NFTDocumentsProvider = ({ children }) => {
       if (!mesHash || !sign)
       return setOpenError(true),setError("Что-то пошло не так при получении подписи для минта NFT");
 
-      const transaction = await contract.createToken(url, mesHash, sign, {value: mintPrice.toString()})
+      const transaction = await contract.createToken(url, mesHash, sign/*, {value: mintPrice.toString()}*/)
 
       await transaction.wait();
       // console.log(transaction);
@@ -179,7 +179,7 @@ export const NFTDocumentsProvider = ({ children }) => {
             async ({ tokenId, creator, owner}) => {
               const tokenURI = await contract.tokenURI(tokenId);
               const {
-                data: { image, name, author, authorpost, recipient, description, category, collectionName },
+                data: { image, name, author, authorpost, recipient, description, category, collectionName, organization,},
               } = await axios.get(tokenURI);
 
               return {
@@ -195,6 +195,7 @@ export const NFTDocumentsProvider = ({ children }) => {
                 description,
                 tokenURI,
                 collectionName,
+                organization,
               };
             }
           )
@@ -218,7 +219,7 @@ export const NFTDocumentsProvider = ({ children }) => {
       const transaction = await contract.transferToken(adress, id);
 
       await transaction.wait();
-      router.push("/author");
+      // router.push("/author");
     } catch (error) {
       setOpenError(true),setError("Ошибка во время отправки NFT");
     }

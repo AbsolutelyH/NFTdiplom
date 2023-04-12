@@ -18,15 +18,19 @@ import { NFTDocumentsContext } from "../Context/NFTDocumentsContext";
 import { fetchMyCollections } from "../redux/slices/collections";
 
 const myCollections = () => {
-  const [collectionsObj, setCollectionsObj] = useState([]);
+  const [userCollections, setUserCollections] = useState();
+  const userData = useSelector((state) => state.auth.data?.data?.user);
+  // const [collectionsObj, setCollectionsObj] = useState([]);
   React.useEffect(() => {
-    dispatch(fetchMyCollections());
-  }, [])
+    if (!userData) return;
+    getMyCollections();
+  }, [userData])
   const dispatch = useDispatch();
-  const {collections} = useSelector((state) => state.collections);
-  const collectionsCopy = (collections.items?.data?.collections);
-  console.log(collectionsCopy)
-  const isLoading = collections.status == 'loading';
+  const getMyCollections = async() => {const data = await dispatch(fetchMyCollections({walletAdressCreator: userData.walletAdress})); setUserCollections(data.payload?.data?.mYcollections); console.log(data)}
+  // const {collections} = useSelector((state) => state.collections?.items?.data?.collections);
+  // const collectionsCopy = (collections.items?.data?.collections);
+  console.log(userCollections)
+  // const isLoading = collections.status == 'loading';
 
 //   const onHandleSearch = (value) => {
 //     const filteredCollections = collectionsObj.filter(({nameOfcoll}) =>
@@ -52,15 +56,11 @@ const myCollections = () => {
               onHandleSearch={onHandleSearch}
               onClearSearch={onClearSearch}
       /> */}
-      {isLoading ? <Loader/> : collectionsObj.length != 0 ?(
+      {!userCollections ? <Loader/> : (
         <div className={Style.searchPage_box}> 
-          {collectionsObj.map((obj) => <FollowerTabColl el={obj} back={obj.background}/>)}
-        </div>) : (
-          <div className={Style.searchPage_box}> 
-            {collectionsCopy.map((obj) => <FollowerTabColl el={obj} back={obj.background}/>)}
-          </div>)
+          {userCollections.map((obj) => <FollowerTabColl el={obj} back={obj.background}/>)}
+        </div>)
         }
-   
     </div>
   );
 };

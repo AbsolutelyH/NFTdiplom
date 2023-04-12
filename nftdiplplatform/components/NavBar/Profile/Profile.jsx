@@ -68,6 +68,20 @@ const Profile = ({currentAccount}) => {
             <Link href={{pathname: "/author", query: userData}}>Мои NFT</Link>
             </p>
           </div>
+          {userData.role == "creator" ? <div className={Style.profile_menu_one_item}>
+            <FaRegImage />
+            <p>
+            <Link href={{pathname: "/createCollectionPage"}}>Создание коллекции</Link>
+            </p>
+          </div> : <></>}
+
+          {/* {userData.role == "creator" ? <div className={Style.profile_menu_one_item}>
+            <FaRegImage />
+            <p>
+            <Link href={{pathname: "/myCollections"}}>Мои коллекции</Link>
+            </p>
+          </div> : <></>} */}
+          
           {/* <div className={Style.profile_menu_one_item}>
             <FaUserEdit />
             <p>
@@ -83,6 +97,7 @@ const Profile = ({currentAccount}) => {
               <Link href={{ pathname: "/help" }}>Помощь</Link>
             </p>
           </div>
+          
           <div className={Style.profile_menu_one_item}>
             <TbDownload />
               <p onClick={() => {setOpenlogoutNotice(true),setlogoutNotice("Вы уверенны, что хотите выйти?")}}>
