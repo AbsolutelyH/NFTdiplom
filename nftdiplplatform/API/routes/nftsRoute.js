@@ -10,13 +10,15 @@ router
   .get(nftControllers.aliasTopNFTs, nftControllers.getAllNfts);
 
 //STATS ROUTE
-router.route("/nfts-stats").get(nftControllers.getNFTsStats);
+// router.route("/nfts-stats").get(nftControllers.getNFTsStats);
 
 //ROUTER NFTs
-router.route("/").get(authController.protect, nftControllers.getAllNfts).post(nftControllers.createNFT);
-
+router.route("/").get(nftControllers.getAllNfts).post(nftControllers.createNFT);
+router.route("/MyNFTs").post(nftControllers.MyNFTs)
 //GET MONTHLY PLAN
-router.route("/monthly-plan/:year").get(nftControllers.getMonthlyPlan);
+// router.route("/monthly-plan/:year").get(nftControllers.getMonthlyPlan);
+
+router.route("/").post(nftControllers.createNFT);
 
 router
 .route("/:id")

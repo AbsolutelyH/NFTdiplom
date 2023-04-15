@@ -103,7 +103,7 @@ const AuthorProfileCard = ({userData}) => {
           </p>
 
           <div className={Style.AuthorProfileCard_box_info_social}>
-            <a href="#">
+            <a href={userData.website}>
               <TiSocialFacebook />
             </a>
             <a href="#">

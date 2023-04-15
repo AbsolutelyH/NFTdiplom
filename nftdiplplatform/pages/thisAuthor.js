@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 //INTERNAL IMPORT
 import Author from "../authorPage/Author/Author";
 
-const author = () => {
+const thisAuthor = () => {
 
   const [userData, setuserData] = useState({
     about: "",
@@ -35,4 +35,4 @@ const author = () => {
   );
 };
 
-export default author;
+export default thisAuthor;

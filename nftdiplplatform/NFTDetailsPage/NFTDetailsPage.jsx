@@ -8,13 +8,13 @@ import Style from "./NFTDetailsPage.module.css";
 import { fetchUserByWal } from "../redux/slices/userByWal";
 
 const NFTDetailsPage = ({nft, userCreator, userOwner}) => {
-  const ownerPhoto = userOwner?.photo;
-  const creatorPhoto = userCreator?.photo;
+  // const ownerPhoto = userOwner?.photo;
+  // const creatorPhoto = userCreator?.photo;
   return (
     <div className={Style.NFTDetailsPage}>
       <div className={Style.NFTDetailsPage_box}>
         <NFTDetailsImg nft={nft}/>
-        {ownerPhoto && creatorPhoto ? <NFTDescription nft={nft} userOwner={userOwner} userCreator={userCreator} ownerPhoto={ownerPhoto} creatorPhoto={creatorPhoto}/> : <></>}
+        {userOwner?.photo && userCreator?.photo ? <NFTDescription nft={nft} userOwner={userOwner} userCreator={userCreator} ownerPhoto={userOwner?.photo} creatorPhoto={userCreator?.photo}/> : <></>}
       </div>
     </div>
   );

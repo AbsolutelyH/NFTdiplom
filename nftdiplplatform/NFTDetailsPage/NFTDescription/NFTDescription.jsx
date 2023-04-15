@@ -105,7 +105,7 @@ const NFTDescription = ({nft, userCreator, userOwner, creatorPhoto, ownerPhoto})
   };
 
   //SMART CONTRACT IMPORT
-  const {currentAccount} = useContext(NFTDocumentsContext);
+  const {currentAccount, makeHideOrUnhide} = useContext(NFTDocumentsContext);
   const router = useRouter();
   return (
     <div className={Style.NFTDescription}>
@@ -121,7 +121,7 @@ const NFTDescription = ({nft, userCreator, userOwner, creatorPhoto, ownerPhoto})
 
             {social && (
               <div className={Style.NFTDescription_box_share_box_social}>
-                <a href="#">
+                <a href={nft?.website}>
                   <TiSocialFacebook /> Website
                 </a>
                 {/* <a href="#">
@@ -150,7 +150,6 @@ const NFTDescription = ({nft, userCreator, userOwner, creatorPhoto, ownerPhoto})
             )}
           </div>
         </div>
-        {/* //Part TWO */}
         <div className={Style.NFTDescription_box_profile}>
           <h1>{nft.name} #{nft.tokenId}</h1>
           <div className={Style.NFTDescription_box_profile_box}>
@@ -274,7 +273,7 @@ const NFTDescription = ({nft, userCreator, userOwner, creatorPhoto, ownerPhoto})
               >
                 <small>Организация</small>
                 <p>
-                {nft.organozation}
+                {nft.organization}
                 </p>
               </div>
               {/* <span>[96 in stock]</span> */}
@@ -288,13 +287,22 @@ const NFTDescription = ({nft, userCreator, userOwner, creatorPhoto, ownerPhoto})
                 handleClick={() => router.push( `/sentToken?id=${nft.tokenId}&tokenURI=${nft.tokenURI}`)}
                 classStyle={Style.button}
               />
-              ) : <></>}
-              <Button
+              ) : currentAccount == nft.owner.toLowerCase() ? <></> : <p>Подключитесь, чтобы иметь возможность скрыть или отправить NFT, если он принадлежит вам.</p>}
+              {(currentAccount == nft.owner.toLowerCase() && nft.hide == "false") ? (
+                <Button
                 icon=<FaPercentage />
                 btnName="Скрыть для других"
-                handleClick={() => {}}
+                handleClick={() => {makeHideOrUnhide(true, nft.tokenId, userOwner)}}
                 classStyle={Style.button}
               />
+              ) : (currentAccount == nft.owner.toLowerCase() && nft.hide == "true") ? (
+                <Button
+                icon=<FaPercentage />
+                btnName="Раскрыть для других"
+                handleClick={() => {makeHideOrUnhide(false, nft.tokenId, userOwner)}}
+                classStyle={Style.button}
+              />
+              ) : <></>}
             </div>
           </div> 
         </div>

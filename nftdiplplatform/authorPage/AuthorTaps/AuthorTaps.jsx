@@ -9,6 +9,9 @@ const AuthorTaps = ({
   setCollectiables,
   setCreated,
   setCollections,
+  setHiden,
+  authUserData,
+  userData,
   // setLike,
   // setFollower,
   // setFollowing,
@@ -35,55 +38,69 @@ const AuthorTaps = ({
 
   const openTab = (e) => {
     const btnText = e.target.innerText;
-    console.log(btnText);
     if (btnText == "NFT пользователя") {
       setCollectiables(true);
       setCreated(false);
       setCollections(false);
+      setHiden(false);
       // setFollower(false);
       // setFollowing(false);
       // setLike(false);
       setActiveBtn(1);
-    } else if (btnText == "Созданные") {
+    } else if (btnText == "Созданные NFT") {
       setCollectiables(false);
       setCreated(true);
       setCollections(false);
+      setHiden(false);
       // setFollower(false);
       // setFollowing(false);
       // setLike(false);
       setActiveBtn(2);
-    } else if (btnText == "Коллекции") {
+    } else if (btnText == "Коллекции автора") {
       setCollectiables(false);
       setCreated(false);
       setCollections(true);
+      setHiden(false);
       // setFollower(false);
       // setFollowing(false);
       // setLike(false);
       setActiveBtn(3);
+    } else if (btnText == "Скрытые (не забудьте подключиться)") {
+      setCollectiables(false);
+      setCreated(false);
+      setCollections(false);
+      setHiden(true);
+      // setFollower(false);
+      // setFollowing(false);
+      // setLike(false);
+      setActiveBtn(4);
     } else if (btnText == "Liked") {
       setCollectiables(false);
       setCreated(false);
       setCollections(false);
+      setHiden(false);
       // setFollower(false);
       // setFollowing(false);
       // setLike(true);
-      setActiveBtn(4);
+      setActiveBtn(5);
     } else if (btnText == "Подписки") {
       setCollectiables(false);
       setCreated(false);
       setCollections(false);
+      setHiden(false);
       // setFollower(false);
       // setFollowing(true);
       // setLike(false);
-      setActiveBtn(5);
+      setActiveBtn(6);
     } else if (btnText == "Подписчики") {
       setCollectiables(false);
       setCreated(false);
       setCollections(false);
+      setHiden(false);
       // setFollower(true);
       // setFollowing(false);
       // setLike(false);
-      setActiveBtn(6);
+      setActiveBtn(7);
     }
   };
 
@@ -98,18 +115,38 @@ const AuthorTaps = ({
             >
               NFT пользователя
             </button>
+
+            {userData?.role == "creator" ?
             <button
               className={`${activeBtn == 2 ? Style.active : ""}`}
               onClick={(e) => openTab(e)}
             >
-              Созданные
+              Созданные NFT
             </button>
+             : <></>}
+
+            {userData?.role == "creator" ?
             <button
               className={`${activeBtn == 3 ? Style.active : ""}`}
               onClick={(e) => openTab(e)}
             >
-              Коллекции
-            </button>
+              Коллекции автора
+              </button> : <></>}
+
+            {authUserData?.walletAdress == userData?.walletAdress ?
+            <button
+              className={`${activeBtn == 4 ? Style.active : ""}`}
+              onClick={(e) => openTab(e)}
+            >
+              Скрытые (не забудьте подключиться)
+            </button> : <></>}
+            
+            {/* <button
+              className={`${activeBtn == 4 ? Style.active : ""}`}
+              onClick={(e) => openTab(e)}
+            >
+              Скрытые
+            </button> */}
             {/* <button
               className={`${activeBtn == 4 ? Style.active : ""}`}
               onClick={(e) => openTab(e)}
