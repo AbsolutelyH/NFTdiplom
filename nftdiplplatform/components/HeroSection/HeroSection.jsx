@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 //INTERNAL IMPORT
 import Style from "./HeroSection.module.css";
@@ -10,6 +11,7 @@ import images from "../../img";
 import { NFTDocumentsContext } from "../../Context/NFTDocumentsContext";
 
 const HeroSection = () => {
+  const router = useRouter();
   return (
     <div className={Style.heroSection}>
       <div className={Style.heroSection_box}>
@@ -18,7 +20,7 @@ const HeroSection = () => {
           <p>
             Откройте для себя мир безопасных и удобных NFT-документов
           </p>
-          <Button btnName="Начать" />
+          <Button btnName="Начать" handleClick={() => router.push("/searchCollection")} />
         </div>
         <div className={Style.heroSection_box_right}>
           <Image

@@ -122,13 +122,13 @@ export const NFTDocumentsProvider = ({ children }) => {
   };
 
   //---CREATENFT FUNCTION
-  const createNFT = async (name, author, authorpost, recipient, image, description, router, website, userData, category) => {
-    if (!name || !description || !image || !author || !authorpost || !recipient|| !category)
+  const createNFT = async (name, author, authorpost, recipient, image, description, router, website, userData, category, collectionName, organization) => {
+    if (!name || !description || !image || !author || !authorpost || !organization || !recipient|| !category)
       return setOpenError(true),setError("Вы указали не все данные");
 
-    const data = JSON.stringify({ name, author, authorpost, recipient, description, image, website, category });
+    const data = JSON.stringify({ name, author, authorpost, recipient, description, image, website, category, collectionName, organization });
     const wallet = userData.walletAdress;
-    console.log(wallet);
+    console.log(data);
     if (!wallet)
     return setOpenError(true),setError("Ошибка получения данных перезагрузите страницу и попробуйте снова");
 
@@ -143,7 +143,7 @@ export const NFTDocumentsProvider = ({ children }) => {
 
       const contract = await connectingWithSmartContract();
 
-      const mintPrice = await contract.getMintingPrice();
+      // const mintPrice = await contract.getMintingPrice();
 
       const signData = await dispatch(fetchSignNFT());
       // console.log(signData);
@@ -153,7 +153,7 @@ export const NFTDocumentsProvider = ({ children }) => {
       if (!mesHash || !sign)
       return setOpenError(true),setError("Что-то пошло не так при получении подписи для минта NFT");
 
-      const transaction = await contract.createToken(url, mesHash, sign, {value: mintPrice.toString()})
+      const transaction = await contract.createToken(url, mesHash, sign/*, {value: mintPrice.toString()}*/)
 
       await transaction.wait();
       // console.log(transaction);
@@ -179,7 +179,7 @@ export const NFTDocumentsProvider = ({ children }) => {
             async ({ tokenId, creator, owner}) => {
               const tokenURI = await contract.tokenURI(tokenId);
               const {
-                data: { image, name, author, authorpost, recipient, description, category },
+                data: { image, name, author, authorpost, recipient, description, category, collectionName, organization,},
               } = await axios.get(tokenURI);
 
               return {
@@ -194,6 +194,8 @@ export const NFTDocumentsProvider = ({ children }) => {
                 category,
                 description,
                 tokenURI,
+                collectionName,
+                organization,
               };
             }
           )
@@ -201,7 +203,7 @@ export const NFTDocumentsProvider = ({ children }) => {
         return items;
       }
     } catch (error) {
-      setOpenError(true),setError("Ошибка при получении NFT");
+      setOpenError(true),setError('Ошибка при получении NFT, если вы не подключены, нажмите "Подключиться"');
     }
   };
 
@@ -217,7 +219,7 @@ export const NFTDocumentsProvider = ({ children }) => {
       const transaction = await contract.transferToken(adress, id);
 
       await transaction.wait();
-      router.push("/author");
+      // router.push("/author");
     } catch (error) {
       setOpenError(true),setError("Ошибка во время отправки NFT");
     }

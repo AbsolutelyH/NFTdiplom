@@ -7,12 +7,14 @@ import Style from "./DropZone.module.css";
 import images from "../../img";
 
 const DropZone = ({
+  collectionName,
   title, 
   heading, 
   subHeading,
   name,
   author,
   authorpost,
+  organization,
   recipient,
   website,
   description,
@@ -29,7 +31,7 @@ const DropZone = ({
     const url = await uploadToIPFS(acceptedFile[0]);
     setFileUrl(url);
     setImage(url);
-    console.log(url);
+    // console.log(url);
   });
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -39,7 +41,7 @@ const DropZone = ({
   });
   return (
     <div className={Style.DropZone}>
-      <div className={Style.DropZone_box} {...getRootProps()}>
+      {!fileUrl ? <div className={Style.DropZone_box} {...getRootProps()}>
         <input {...getInputProps()} />
         <div className={Style.DropZone_box_input}>
           <p>{title}</p>
@@ -56,7 +58,7 @@ const DropZone = ({
           <p>{heading}</p>
           <p>{subHeading}</p>
         </div>
-      </div>
+      </div> : <></>}
 
       {fileUrl && (
         <aside className={Style.DropZone_box_aside}>
@@ -90,6 +92,10 @@ const DropZone = ({
                   {authorpost || ""}
                 </p>
                 <p>
+                  <span>Организация</span>
+                  {organization || ""}
+                </p>
+                <p>
                   <span>Получатель</span>
                   {recipient || ""}
                 </p>
@@ -117,6 +123,10 @@ const DropZone = ({
                   {category || ""}
                 </p>
               </div>
+              <p>
+                  <span>Коллекция</span>
+                  {collectionName || ""}
+                </p>
             </div>
           </div>
         </aside>

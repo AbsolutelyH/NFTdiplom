@@ -9,42 +9,42 @@ const Discover = () => {
   const userData = useSelector((state) => state.auth?.data?.data?.user);
   //--------DISCOVER NAVIGATION MENU
   const discover = [
+    // {
+    //   name: "Коллекции",
+    //   link: "collection",
+    // },
     {
-      name: "Коллекции",
-      link: "collection",
-    },
-    {
-      name: "Поиск",
+      name: "Пользователи",
       link: "searchPage",
     },
     {
-      name: "Поиск коллекций",
+      name: "Коллекции",
       link: "searchCollection",
     },
-    {
-      name: "Создание коллекции",
-      link: "createCollectionPage",
-    },
-    {
-      name: "Редактирование коллекции",
-      link: "editCollectionPage",
-    },
+    // {
+    //   name: "Создание коллекции",
+    //   link: "createCollectionPage",
+    // },
+    // {
+    //   name: "Редактирование коллекции",
+    //   link: "editCollectionPage",
+    // },
     // {
     //   name: "NFT Подробности",
     //   link: "NFT-details",
     // },
-    {
-      name: "Настройки аккаунта",
-      link: "account",
-    },
+    // {
+    //   name: "Настройки профиля",
+    //   link: "account",
+    // },
     // {
     //   name: "Создать NFT",
     //   link: "uploadNFT",
     // },
-    {
-      name: "Подключить кошелек",
-      link: "connectWallet",
-    },
+    // {
+    //   name: "Подключить кошелек",
+    //   link: "connectWallet",
+    // },
   ];
   return (
     <div>

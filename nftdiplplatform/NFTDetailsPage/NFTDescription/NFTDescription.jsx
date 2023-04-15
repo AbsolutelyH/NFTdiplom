@@ -18,6 +18,8 @@ import {
   TiSocialInstagram,
 } from "react-icons/ti";
 import { BiTransferAlt, BiDollar } from "react-icons/bi";
+import {useDispatch, useSelector} from "react-redux";
+import {useForm} from "react-hook-form"; 
 
 //INTERNAL IMPORT
 import Style from "./NFTDescription.module.css";
@@ -27,16 +29,16 @@ import { NFTTabs } from "../NFTDetailsIndex";
 
 import { NFTDocumentsContext } from "../../Context/NFTDocumentsContext";
 import { useRouter } from "next/router";
+import { fetchUserByWal } from "../../redux/slices/userByWal";
 
-const NFTDescription = ({nft}) => {
+const NFTDescription = ({nft, userCreator, userOwner, creatorPhoto, ownerPhoto}) => {
   const [social, setSocial] = useState(false);
   const [NFTMenu, setNFTMenu] = useState(false);
   const [history, setHistory] = useState(true);
   const [provanance, setProvanance] = useState(false);
   const [owner, setOwner] = useState(false);
 
-  const router = useRouter();
-
+  console.log(nft);
   const historyArray = [
     images.user1,
     images.user2,
@@ -104,7 +106,7 @@ const NFTDescription = ({nft}) => {
 
   //SMART CONTRACT IMPORT
   const {currentAccount} = useContext(NFTDocumentsContext);
-
+  const router = useRouter();
   return (
     <div className={Style.NFTDescription}>
       <div className={Style.NFTDescription_box}>
@@ -122,7 +124,7 @@ const NFTDescription = ({nft}) => {
                 <a href="#">
                   <TiSocialFacebook /> Website
                 </a>
-                <a href="#">
+                {/* <a href="#">
                   <TiSocialInstagram /> Telegram
                 </a>
                 <a href="#">
@@ -130,7 +132,7 @@ const NFTDescription = ({nft}) => {
                 </a>
                 <a href="#">
                   <TiSocialYoutube /> YouTube
-                </a>
+                </a> */}
               </div>
             )}
 
@@ -153,37 +155,43 @@ const NFTDescription = ({nft}) => {
           <h1>{nft.name} #{nft.tokenId}</h1>
           <div className={Style.NFTDescription_box_profile_box}>
             <div className={Style.NFTDescription_box_profile_box_left}>
-              <Image
-                src={images.user1}
+            <Link href = {{pathname: "/author", query: userOwner}}>
+            <Image
+                src={`http://localhost:3000${ownerPhoto}`}
+                objectFit="cover"
                 alt="profile"
                 width={40}
                 height={40}
                 className={Style.NFTDescription_box_profile_box_left_img}
-              />
+              /> 
+
+              </Link>
               <div className={Style.NFTDescription_box_profile_box_left_info}>
                 <small>Владелец</small> <br />
-                <Link href = {{pathname: "/author", query: `${nft.owner}`}}>
+                <Link href = {{pathname: "/author", query: userOwner}}>
                 <span>
-                  Илья Львутин <MdVerified />
+                {userOwner?.name} {userOwner?.role == "creator" ?<MdVerified />: <></>}
                 </span>
                 </Link>
               </div>
             </div>
 
             <div className={Style.NFTDescription_box_profile_box_right}>
-              <Image
-                src={images.user2}
+            <Link href = {{pathname: "/author", query: userCreator}}>
+                <Image
+                src={`http://localhost:3000${creatorPhoto}`}
                 alt="profile"
+                objectFit="cover"
                 width={40}
                 height={40}
                 className={Style.NFTDescription_box_profile_box_left_img}
               />
-
+              </Link>
               <div className={Style.NFTDescription_box_profile_box_right_info}>
                 <small>Создатель</small> <br />
-                <Link href = {{pathname: "/author", query: `${nft.creator}`}}>
+                <Link href = {{pathname: "/author", query: userCreator}}>
                 <span>
-                  {nft.author} <MdVerified />
+                  {userCreator?.name} {userCreator?.role == "creator" ?<MdVerified />: <></>}
                 </span>
                 </Link>
               </div>
@@ -264,10 +272,36 @@ const NFTDescription = ({nft}) => {
                   Style.NFTDescription_box_profile_biding_box_price_bid
                 }
               >
-                <small>Адрес владельца</small>
+                <small>Организация</small>
                 <p>
-                  {nft.owner} 
+                {nft.organization}
                 </p>
+              </div>
+              {/* <span>[96 in stock]</span> */}
+            </div>
+
+            <div className={Style.NFTDescription_box_profile_biding_box_price}>
+              <div
+                className={
+                  Style.NFTDescription_box_collection
+                }
+              >
+                <small>Коллекция</small>
+                <p>
+                {nft.collectionName}
+                </p>
+                <div className={Style.NFTDescription_box_collection_left}>
+                  <Link href = {{ pathname: "/collection" }}>
+                    <Image
+                    src={images.defaultuser}
+                    alt="profile"
+                    objectFit="cover"
+                    width={100}
+                    height={100}
+                    className={Style.NFTDescription_box_collection_image}
+                    />
+                  </Link>
+                </div>
               </div>
               {/* <span>[96 in stock]</span> */}
             </div>
@@ -281,43 +315,14 @@ const NFTDescription = ({nft}) => {
                 classStyle={Style.button}
               />
               ) : <></>}
-              {/* <Button
-                icon=<FaWallet />
-                btnName="Отправить"
-                handleClick={() => {}}
-                classStyle={Style.button}
-              /> */}
-              {/* <Button
+              <Button
                 icon=<FaPercentage />
-                btnName="Make offer"
+                btnName="Скрыть для других"
                 handleClick={() => {}}
                 classStyle={Style.button}
-              /> */}
+              />
             </div>
-
-            <div className={Style.NFTDescription_box_profile_biding_box_tabs}>
-              <button onClick={(e) => openTabs(e)}>История владения</button>
-              {/* <button onClick={(e) => openTabs(e)}>Provanance</button>
-              <button onClick={() => openOwmer()}>Owner</button> */}
-            </div>
-
-            {history && (
-              <div className={Style.NFTDescription_box_profile_biding_box_card}>
-                <NFTTabs dataTab={historyArray} />
-              </div>
-            )}
-            {/* {provanance && (
-              <div className={Style.NFTDescription_box_profile_biding_box_card}>
-                <NFTTabs dataTab={provananceArray} />
-              </div>
-            )}
-
-            {owner && (
-              <div className={Style.NFTDescription_box_profile_biding_box_card}>
-                <NFTTabs dataTab={ownerArray} icon=<MdVerified /> />
-              </div>
-            )} */}
-          </div>
+          </div> 
         </div>
       </div>
     </div>

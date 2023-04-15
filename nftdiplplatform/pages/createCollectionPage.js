@@ -17,12 +17,12 @@ const collection = () => {
   const router = useRouter();
   const isAuth = useSelector(selectIsAuth);
   const { setOpenError, setError } = useContext(NFTDocumentsContext);
-  // if(!isAuth){
-  //   typeof window !== 'undefined' && router.push("/login");
-  // }
+  if(!isAuth){
+    typeof window !== 'undefined' && router.push("/login");
+  }
 
   const userData = useSelector((state) => state.auth.data?.data?.user);
-  console.log(userData);
+  // console.log(userData);
 
   const [fileUser, setFileUserUrl] = useState(null);
   const [fileBackUrl, setFileBackUrl] = useState(null);
@@ -37,7 +37,7 @@ const collection = () => {
       }catch (error) {setOpenError(true),setError("Что-то пошло не так при загрузке изображения");}
     },
     accept: "image/*",
-    maxSize: 5000000,
+    maxSize: 10000000,
   });
 
   const { getRootProps:getRootBackProps, getInputProps:getInputBackProps } = useDropzone({
@@ -50,7 +50,7 @@ const collection = () => {
       }catch (error) {setOpenError(true),setError("Что-то пошло не так при загрузке изображения");}
     },
     accept: "image/*",
-    maxSize: 5000000,
+    maxSize: 10000000,
   });
 
   return (
@@ -64,14 +64,6 @@ const collection = () => {
             {fileBackUrl ? (
               <Image
               src={`http://localhost:3000${fileBackUrl}`}
-              alt="background upload"
-              objectFit="cover"
-              width={1600}
-              height={300}
-            />
-            ) : userData?.background ? (
-              <Image
-              src={`http://localhost:3000${userData?.background}`}
               alt="background upload"
               objectFit="cover"
               width={1600}
@@ -101,18 +93,9 @@ const collection = () => {
               className={Style.account_box_img_img}
               objectFit="cover"
             />
-            ) : userData?.photo ? (
-              <Image
-              src={`http://localhost:3000${userData?.photo}`}
-              alt="account upload"
-              width={150}
-              height={150}
-              className={Style.account_box_img_img}
-              objectFit="cover"
-              />
             ) : (
               <Image
-              src={images.defaultuser}
+              src={images.doclog}
               alt="account upload"
               width={150}
               height={150}

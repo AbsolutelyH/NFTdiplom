@@ -5,6 +5,7 @@ import { AiTwotonePropertySafety } from "react-icons/ai";
 import { TiTick } from "react-icons/ti";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
 
 //INTERAL IMPORT
 import Style from "./Upload.module.css";
@@ -12,6 +13,7 @@ import formStyle from "../AccountPage/Form/Form.module.css";
 import images from "../img";
 import { Button } from "../components/componentsindex.js";
 import { DropZone } from "../UploadNFT/uploadNFTIndex.js";
+import { fetchMyCollections } from "../redux/slices/collections";
 
 const UloadNFT = ({ uploadToIPFS, createNFT, userData, currentAccount }) => {
   //const [price, setPrice] = useState("");
@@ -19,6 +21,7 @@ const UloadNFT = ({ uploadToIPFS, createNFT, userData, currentAccount }) => {
   const [name, setName] = useState("");
   const [author, setAuthor] = useState("");
   const [authorpost, setAuthorpost] = useState("");
+  const [organization, setOrganization] = useState("");
   const [recipient, setRecipient] = useState("");
   const [website, setWebsite] = useState("");
   const [description, setDescription] = useState("");
@@ -27,8 +30,21 @@ const UloadNFT = ({ uploadToIPFS, createNFT, userData, currentAccount }) => {
   const [category, setCategory] = useState(0);
 	const [properties, setProperties] = useState("");
   const [image, setImage] = useState(null);
+  const [activeColl, setActiveColl] = useState(0);
+  const [collectionName, setCollectionName] = useState(0);
+  const [userCollections, setUserCollections] = useState([]);
 
   const router = useRouter();
+  const dispatch = useDispatch()
+
+  const getCollections = async() => {const collections = await dispatch(fetchMyCollections({walletAdressCreator: userData.walletAdress}));setUserCollections(collections?.payload?.data?.mYcollections);}
+  React.useEffect(() => {
+    if(!userData) return;
+    getCollections();
+    setAuthorpost(userData.post);
+    setAuthor(userData.name);
+    setOrganization(userData.organization);
+  }, [userData])
     
   const categoryArry = [
     {
@@ -63,11 +79,13 @@ const UloadNFT = ({ uploadToIPFS, createNFT, userData, currentAccount }) => {
         name={name}
         author={author}
         authorpost={authorpost}
+        organization={organization}
         recipient={recipient}
         website={website}
         description={description}
         //royalties={royalties}
         //fileSize={fileSize}
+        collectionName={collectionName}
         category={category}
 				properties={properties}
         setImage={setImage}
@@ -89,19 +107,32 @@ const UloadNFT = ({ uploadToIPFS, createNFT, userData, currentAccount }) => {
               <label htmlFor="author">Автор</label>
               <input
                 type="text"
+                value={userData?.name}
                 placeholder="Ваше полное имя"
                 className={formStyle.Form_box_input_userName}
-                onChange={(e) => setAuthor(e.target.value)}
+                // onChange={(e) => setAuthor(e.target.value)}
               />
         </div>
 
         <div className={formStyle.Form_box_input}>
               <label htmlFor="authorpost">Должность</label>
               <input
+               value={userData?.post}
                 type="text"
                 placeholder="Ваша должность"
                 className={formStyle.Form_box_input_userName}
-                onChange={(e) => setAuthorpost(e.target.value)}
+                // onChange={(e) => setAuthorpost(e.target.value)}
+              />
+        </div>
+
+        <div className={formStyle.Form_box_input}>
+              <label htmlFor="organization">Организация</label>
+              <input
+               value={userData?.organization}
+                type="text"
+                placeholder="Ваша организация"
+                className={formStyle.Form_box_input_userName}
+                // onChange={(e) => setAuthorpost(e.target.value)}
               />
         </div>
 
@@ -179,9 +210,56 @@ const UloadNFT = ({ uploadToIPFS, createNFT, userData, currentAccount }) => {
                   </div>
                   <p>{el.category} </p>
                 </div>
+                
               ))}
             </div>
         </div>
+
+        <div className={formStyle.Form_box_input}>
+            <label htmlFor="name">Выберите коллекцию</label>
+            <p className={Style.upload_box_input_para}>
+              Вы можете отнести документ к одной из ваших коллекций
+            </p>
+
+            <div className={Style.upload_box_slider_div}>
+              {userCollections?.map((el, i) => (
+                <div
+                  className={`${Style.upload_box_slider} ${
+                    activeColl == i + 1 ? Style.active : ""
+                  }`}
+                  key={i + 1}
+                  onClick={() => (setActiveColl(i + 1), setCollectionName(el.nameOfcoll), console.log(el.nameOfcoll))}
+                >
+                  <div className={Style.upload_box_slider_box}>
+                    <div className={Style.upload_box_slider_box_img}>
+                    {el.photo ? <Image
+                        src={`http://localhost:3000${el?.photo}`}
+                        alt="background image"
+                        objectFit="cover"
+                        width={70}
+                        height={70}
+                        className={Style.upload_box_slider_box_img_img}
+                      /> : <Image
+                      src={images.doclog}
+                      alt="background image"
+                      objectFit="cover"
+                      width={70}
+                      height={70}
+                      className={Style.upload_box_slider_box_img_img}
+                    />}
+                    </div>
+                    <div className={Style.upload_box_slider_box_img_icon}>
+                      <TiTick />
+                    </div>
+                  </div>
+                  <p>{el?.nameOfcoll} </p>
+                </div>
+                
+              ))}
+            </div>
+        </div>
+
+        
 
         {/* <div className={formStyle.Form_box_input_social}>
             <div className={formStyle.Form_box_input}>
@@ -217,7 +295,7 @@ const UloadNFT = ({ uploadToIPFS, createNFT, userData, currentAccount }) => {
           <Button
             btnName="Загрузка"
             handleClick={async () =>
-              createNFT(
+        {      createNFT(
                 name,
                 author,
                 authorpost,
@@ -228,11 +306,14 @@ const UloadNFT = ({ uploadToIPFS, createNFT, userData, currentAccount }) => {
                 website,
                 userData,
                 category,
+                collectionName,
+                organization,
                 // royalties,
                 // fileSize,
                 // category,
                 // properties
               )
+              console.log(collectionName)}
             }
             classStyle={Style.upload_box_btn_style}
           />

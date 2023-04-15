@@ -47,30 +47,30 @@ const Author = ({userData}) => {
       user: images.user6,
     },
   ];
-  const currentwallet = userData.walletAdress;
-  console.log(currentwallet);
+  // console.log(userData.walletAdress);
 
   const [collectiables, setCollectiables] = useState(true);
   const [created, setCreated] = useState(false);
-  const [like, setLike] = useState(false);
-  const [follower, setFollower] = useState(false);
-  const [following, setFollowing] = useState(false);
+  const [collections, setCollections] = useState(false);
+  // const [like, setLike] = useState(false);
+  // const [follower, setFollower] = useState(false);
+  // const [following, setFollowing] = useState(false);
 
   //IMPORT SMART CONTRACT DATA
-  const { fetchMyNFTsOrListedNFTs, currentAccount, setError } = useContext(
+  const { fetchMyNFTsOrListedNFTs, setError } = useContext(
     NFTDocumentsContext
   );
 
   const [nfts, setNfts] = useState([]);
   const [myNFTs, setMyNFTs] = useState([]);
+  // console.log(userData);
 
     const type1 = "fetchItemsListed";
     const type2 = "fetchMyNFTs";
 
   useEffect(() => {
-
     try {
-      fetchMyNFTsOrListedNFTs(type1, currentwallet).then((items) => {
+      fetchMyNFTsOrListedNFTs(type1, userData.walletAdress).then((items) => {
         setNfts(items);
       });
     } catch (erorr){
@@ -80,7 +80,7 @@ const Author = ({userData}) => {
 
   useEffect(() => {
     try {
-      fetchMyNFTsOrListedNFTs(type2, currentwallet).then((items) => {
+      fetchMyNFTsOrListedNFTs(type2, userData.walletAdress).then((items) => {
         setMyNFTs(items);
       });
     } catch (erorr){
@@ -96,34 +96,37 @@ const Author = ({userData}) => {
       ) : (
         <Banner bannerImage={images.creatorbackground2} />
       )}
-      <AuthorProfileCard currentAccount={currentAccount} userData={userData}/>
+      <AuthorProfileCard userData={userData}/>
       <AuthorTaps
         setCollectiables={setCollectiables}
         setCreated={setCreated}
+        setCollections={setCollections}
         // setLike={setLike}
-        setFollower={setFollower}
-        setFollowing={setFollowing}
+        // setFollower={setFollower}
+        // setFollowing={setFollowing}
       />
 
       <AuthorNFTCardBox
+        userData={userData}
         collectiables={collectiables}
         created={created}
-        like={like}
+        collections={collections}
+        // like={like}
         nfts={nfts}
         myNFTs={myNFTs}
-        follower={follower}
-        following={following}
+        // follower={follower}
+        // following={following}
       />
-      <Title
+      {/* <Title
         heading="Popular Creators"
         paragraph="Click on music icon and enjoy NTF music or audio
 "
-      />
-      <div className={Style.author_box}>
+      /> */}
+      {/* <div className={Style.author_box}>
         {followerArray.map((el, i) => (
           <FollowerTabCard i={i} el={el} />
         ))}
-      </div>
+      </div> */}
 
       {/* <Brand /> */}
     </div>

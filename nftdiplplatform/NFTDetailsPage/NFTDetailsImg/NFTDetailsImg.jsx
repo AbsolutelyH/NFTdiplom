@@ -95,7 +95,7 @@ const NFTDetailsImg = ({nft}) => {
 
         {details && (
           <div className={Style.NFTDetailsImg_box_details_box}>
-            <small>2000 x 2000 px.IMAGE(685KB)</small>
+            {/* <small>2000 x 2000 px.IMAGE(685KB)</small> */}
             <p>
               <small>Адрес создателя</small>
               <br></br>

@@ -61,7 +61,7 @@ const Form = ({fileUser, fileBackUrl, setOpenError, setError, userData}) => {
       <div className={Style.Form_box}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={Style.Form_box_input}>
-            <label htmlFor="namee">Имя</label>
+            <label htmlFor="name">Имя</label>
             <input
               {...register('name')}
               type="text"

@@ -8,21 +8,22 @@ import Style from "./AuthorTaps.module.css";
 const AuthorTaps = ({
   setCollectiables,
   setCreated,
+  setCollections,
   // setLike,
-  setFollower,
-  setFollowing,
+  // setFollower,
+  // setFollowing,
 }) => {
   const [openList, setOpenList] = useState(false);
   const [activeBtn, setActiveBtn] = useState(1);
-  const [selectedMenu, setSelectedMenu] = useState("Сертификаты");
+  // const [selectedMenu, setSelectedMenu] = useState("Сертификаты");
 
-  const listArray = [
-    "Сертификаты",
-    "Дипломы",
-    "Грамоты",
-    "Аттестаты",
-    "Прочее",
-  ];
+  // const listArray = [
+  //   "Сертификаты",
+  //   "Дипломы",
+  //   "Грамоты",
+  //   "Аттестаты",
+  //   "Прочее",
+  // ];
 
   const openDropDownList = () => {
     if (!openList) {
@@ -38,38 +39,51 @@ const AuthorTaps = ({
     if (btnText == "NFT пользователя") {
       setCollectiables(true);
       setCreated(false);
-      setFollower(false);
-      setFollowing(false);
+      setCollections(false);
+      // setFollower(false);
+      // setFollowing(false);
       // setLike(false);
       setActiveBtn(1);
     } else if (btnText == "Созданные") {
       setCollectiables(false);
       setCreated(true);
-      setFollower(false);
-      setFollowing(false);
+      setCollections(false);
+      // setFollower(false);
+      // setFollowing(false);
       // setLike(false);
       setActiveBtn(2);
+    } else if (btnText == "Коллекции") {
+      setCollectiables(false);
+      setCreated(false);
+      setCollections(true);
+      // setFollower(false);
+      // setFollowing(false);
+      // setLike(false);
+      setActiveBtn(3);
     } else if (btnText == "Liked") {
       setCollectiables(false);
       setCreated(false);
-      setFollower(false);
-      setFollowing(false);
+      setCollections(false);
+      // setFollower(false);
+      // setFollowing(false);
       // setLike(true);
-      setActiveBtn(3);
+      setActiveBtn(4);
     } else if (btnText == "Подписки") {
       setCollectiables(false);
       setCreated(false);
-      setFollower(false);
-      setFollowing(true);
+      setCollections(false);
+      // setFollower(false);
+      // setFollowing(true);
       // setLike(false);
-      setActiveBtn(4);
+      setActiveBtn(5);
     } else if (btnText == "Подписчики") {
       setCollectiables(false);
       setCreated(false);
-      setFollower(true);
-      setFollowing(false);
+      setCollections(false);
+      // setFollower(true);
+      // setFollowing(false);
       // setLike(false);
-      setActiveBtn(5);
+      setActiveBtn(6);
     }
   };
 
@@ -94,24 +108,30 @@ const AuthorTaps = ({
               className={`${activeBtn == 3 ? Style.active : ""}`}
               onClick={(e) => openTab(e)}
             >
-              {/* Liked
+              Коллекции
             </button>
-            <button
+            {/* <button
               className={`${activeBtn == 4 ? Style.active : ""}`}
               onClick={(e) => openTab(e)}
-            > */}
-              Подписки
+            >
+              Liked
             </button>
             <button
               className={`${activeBtn == 5 ? Style.active : ""}`}
               onClick={(e) => openTab(e)}
             >
-              Подписчики
+              Подписки
             </button>
+            <button
+              className={`${activeBtn == 6 ? Style.active : ""}`}
+              onClick={(e) => openTab(e)}
+            >
+              Подписчики
+            </button> */}
           </div>
         </div>
 
-        <div className={Style.AuthorTaps_box_right}>
+        {/* <div className={Style.AuthorTaps_box_right}>
           <div
             className={Style.AuthorTaps_box_right_para}
             onClick={() => openDropDownList()}
@@ -134,7 +154,7 @@ const AuthorTaps = ({
               ))}
             </div>
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );

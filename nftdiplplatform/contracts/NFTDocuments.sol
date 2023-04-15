@@ -13,7 +13,7 @@ contract NFTDocuments is ERC721URIStorage{
 
     Counters.Counter private _tokenIds;
 
-    uint256 mintPrice = 2 ether;
+    // uint256 mintPrice = 2 ether;
     address payable owner;
 
     mapping(uint256 => PlatformItem) private idToPlatformItem;
@@ -48,21 +48,21 @@ contract NFTDocuments is ERC721URIStorage{
     }
 
     /* Updates the mint price of the contract */
-    function updateMintPrice(uint256 _mintPrice)
-        public
-        payable
-    {
-        require(
-            owner == msg.sender,
-            "Only platform owner can update mint price."
-        );
-        mintPrice = _mintPrice;
-    }
+    // function updateMintPrice(uint256 _mintPrice)
+    //     public
+    //     payable
+    // {
+    //     require(
+    //         owner == msg.sender,
+    //         "Only platform owner can update mint price."
+    //     );
+    //     mintPrice = _mintPrice;
+    // }
 
     /* Returns the mint price of the contract */
-    function getMintingPrice() public view returns (uint256) {
-        return mintPrice;
-    }
+    // function getMintingPrice() public view returns (uint256) {
+    //     return mintPrice;
+    // }
 
     // let create nft token
     function createToken(string memory tokenURI, bytes32 hash, bytes memory signature)
@@ -71,7 +71,7 @@ contract NFTDocuments is ERC721URIStorage{
         returns (uint256)
     {
         require(recoverSigner(hash, signature) == owner, "Address is not allowlisted");
-        require(msg.value == mintPrice, "Transaction value did not equal the mint price");
+        // require(msg.value == mintPrice, "Transaction value did not equal the mint price");
         _tokenIds.increment();
         uint256 newTokenId = _tokenIds.current();
         _mint(msg.sender, newTokenId);

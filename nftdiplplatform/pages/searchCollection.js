@@ -15,34 +15,34 @@ import images from "../img";
 
 //SMART CONTRACT IMPORT
 import { NFTDocumentsContext } from "../Context/NFTDocumentsContext";
-import { fetchUsers } from "../redux/slices/users";
+import { fetchCollections } from "../redux/slices/collections";
 
 const searchCollection = () => {
-  const [usersObj, setUserObj] = useState([]);
+  const [collectionsObj, setCollectionsObj] = useState([]);
   React.useEffect(() => {
-    dispatch(fetchUsers());
+    dispatch(fetchCollections());
   }, [])
   const dispatch = useDispatch();
-  const {users} = useSelector((state) => state.users);
-  const usersCopy = (users.items?.data?.users);
-
-  const isLoading = users.status == 'loading';
+  const {collections} = useSelector((state) => state.collections);
+  const collectionsCopy = (collections.items?.data?.collections);
+  console.log(collectionsCopy)
+  const isLoading = collections.status == 'loading';
 
   const onHandleSearch = (value) => {
-    const filteredUSERS = usersObj.filter(({name}) =>
-      name.toLowerCase().includes(value.toLowerCase())
+    const filteredCollections = collectionsObj.filter(({nameOfcoll}) =>
+    nameOfcoll.toLowerCase().includes(value.toLowerCase())
     );
 
-    if (filteredUSERS.length === 0) {
-      setUserObj(usersCopy);
+    if (filteredCollections.length === 0) {
+      setCollectionsObj(collectionsCopy);
     } else {
-      setUserObj(filteredUSERS);
+      setCollectionsObj(filteredCollections);
     }
   };
 
   const onClearSearch = () => {
-    if (usersObj?.length && usersCopy?.length) {
-      setUserObj(usersCopy);
+    if (collectionsObj?.length && collectionsCopy?.length) {
+      setCollectionsObj(collectionsCopy);
     }
   };
   return (
@@ -52,12 +52,12 @@ const searchCollection = () => {
               onHandleSearch={onHandleSearch}
               onClearSearch={onClearSearch}
       />
-      {isLoading ? <Loader/> : usersObj.length != 0 ?(
+      {isLoading ? <Loader/> : collectionsObj.length != 0 ?(
         <div className={Style.searchPage_box}> 
-          {usersObj.map((obj) => <FollowerTabColl el={obj}/>)}
+          {collectionsObj?.map((obj) => <FollowerTabColl el={obj} back={obj.background}/>)}
         </div>) : (
           <div className={Style.searchPage_box}> 
-            {usersCopy.map((obj) => <FollowerTabColl el={obj} back={obj.background}/>)}
+            {collectionsCopy?.map((obj) => <FollowerTabColl el={obj} back={obj.background}/>)}
           </div>)
         }
    
