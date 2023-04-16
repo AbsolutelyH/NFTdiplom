@@ -11,6 +11,7 @@ const author = () => {
     background: "",
     name: "",
     oranization: "",
+    post: "",
     photo: "",
     role: "",
     telegram: "",

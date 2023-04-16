@@ -6,12 +6,15 @@ import {
   TiSocialTwitter,
   TiSocialInstagram,
 } from "react-icons/ti";
+import { useRouter } from "next/router";
 
 //INTERNAL IMPORT
 import Style from "./collectionProfile.module.css";
+import { Button } from "../../components/componentsindex.js";
 import images from "../../img";
 
 const collectionProfile = () => {
+  const router = useRouter();
   const cardArray = [1, 2, 3, 4];
   return (
     <div className={Style.collectionProfile}>
@@ -42,7 +45,15 @@ const collectionProfile = () => {
         </div>
 
         <div className={Style.collectionProfile_box_middle}>
-          <h1>Awesome NFTs Collection</h1>
+          <h1>
+            Awesome NFTs Collection
+            <Button
+              type="submit"
+              btnName="Редактировать коллекцию"
+              handleClick={() => router.push("/editCollectionPage")}
+              classStyle={Style.button}
+            />
+          </h1>
           <p>
             Karafuru is home to 5,555 generative arts where colors reign
             supreme. Leave the drab reality and enter the world of Karafuru by

@@ -279,6 +279,32 @@ const NFTDescription = ({nft, userCreator, userOwner, creatorPhoto, ownerPhoto})
               {/* <span>[96 in stock]</span> */}
             </div>
 
+            <div className={Style.NFTDescription_box_profile_biding_box_price}>
+              <div
+                className={
+                  Style.NFTDescription_box_collection
+                }
+              >
+                <small>Коллекция</small>
+                <p>
+                {nft.collectionName}
+                </p>
+                <div className={Style.NFTDescription_box_collection_left}>
+                  <Link href = {{ pathname: "/collection" }}>
+                    <Image
+                    src={images.defaultuser}
+                    alt="profile"
+                    objectFit="cover"
+                    width={100}
+                    height={100}
+                    className={Style.NFTDescription_box_collection_image}
+                    />
+                  </Link>
+                </div>
+              </div>
+              {/* <span>[96 in stock]</span> */}
+            </div>
+
             <div className={Style.NFTDescription_box_profile_biding_box_button}>
               {currentAccount == nft.owner.toLowerCase() ? (
                 <Button

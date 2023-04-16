@@ -102,6 +102,14 @@ const AuthorProfileCard = ({userData}) => {
             {userData?.about}
           </p>
 
+          <p>
+            Организация: {userData?.organization}
+          </p>
+
+          <p>
+            Должность: {userData?.post}
+          </p>
+
           <div className={Style.AuthorProfileCard_box_info_social}>
             <a href={userData.website}>
               <TiSocialFacebook />

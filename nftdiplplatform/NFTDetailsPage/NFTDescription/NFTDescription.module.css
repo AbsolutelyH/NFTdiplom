@@ -154,6 +154,38 @@
     margin-left: 2rem;
 }
 
+.NFTDescription_box_collection{
+    border:  2px solid var(--icons-color);
+    border-radius: .5rem;
+} 
+
+.NFTDescription_box_collection small{
+    font-size: 1.2rem;
+    background-color: var(--icons-color);
+    color: var(--main-bg-color);
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+    margin-left: 2rem;  
+}
+
+.NFTDescription_box_collection_left{
+    margin-left: 4%;
+    margin-top: -13%;
+    margin-bottom: 1rem;
+}
+
+.NFTDescription_box_collection_image{
+    cursor: pointer;
+}
+
+.NFTDescription_box_collection p{
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin-left: 22%;
+    margin-top: 10%;
+}
+
 .NFTDescription_box_profile_biding_box_price_bid p{
     padding: 1rem;
     font-size: 1.5rem;

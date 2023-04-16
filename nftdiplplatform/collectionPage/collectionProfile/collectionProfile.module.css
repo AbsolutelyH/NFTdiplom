@@ -62,6 +62,10 @@
     width: 70%;
 }
 
+.button{
+    margin-top: 35px;
+}
+
 .collectionProfile_box_middle_box{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
