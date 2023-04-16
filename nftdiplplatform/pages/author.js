@@ -2,7 +2,7 @@ import React, {useEffect, useContext, useState} from "react";
 import { useRouter } from "next/router";
 
 //INTERNAL IMPORT
-import Author from "../Author/Author";
+import Author from "../authorPage/Author/Author";
 
 const author = () => {
 
@@ -21,7 +21,6 @@ const author = () => {
     _id: "",
   });
   const [load, setLoad] = useState(false);
-  console.log(load);
   const router = useRouter();
   useEffect(() => {
     if (!router.isReady) return;

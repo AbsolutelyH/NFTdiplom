@@ -54,10 +54,10 @@ const searchCollection = () => {
       />
       {isLoading ? <Loader/> : collectionsObj.length != 0 ?(
         <div className={Style.searchPage_box}> 
-          {collectionsObj.map((obj) => <FollowerTabColl el={obj} back={obj.background}/>)}
+          {collectionsObj?.map((obj) => <FollowerTabColl el={obj} back={obj.background}/>)}
         </div>) : (
           <div className={Style.searchPage_box}> 
-            {collectionsCopy.map((obj) => <FollowerTabColl el={obj} back={obj.background}/>)}
+            {collectionsCopy?.map((obj) => <FollowerTabColl el={obj} back={obj.background}/>)}
           </div>)
         }
    

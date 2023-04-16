@@ -13,12 +13,9 @@ import images from "../../../img";
 import { fetchUserByWal, addUser } from "../../../redux/slices/userByWal";
 
 const FollowerTabColl = ({ el, back}) => {
-  console.log(el.background);
   const router = useRouter();
   const dispatch = useDispatch();
   const [following, setFollowing] = useState(false);
-  const what = true;
-  // {el.background ? what = true :''},
   const followMe = () => {
     if (!following) {
       setFollowing(true);
@@ -53,13 +50,13 @@ const FollowerTabColl = ({ el, back}) => {
              </Link>
         </div>
 
-        {/* <div className={Style.FollowerTabCard_box_profile}>
+        <div className={Style.FollowerTabCard_box_profile}>
           {el.photo ? (
             <Image
             className={Style.FollowerTabCard_box_profile_img}
             alt="profile picture"
-            width={50}
-            height={50}
+            width={70}
+            height={70}
             objectFit="cover"
             src={`http://localhost:3000${el?.photo}`}
           />
@@ -67,13 +64,13 @@ const FollowerTabColl = ({ el, back}) => {
             <Image
             className={Style.FollowerTabCard_box_profile_img}
             alt="profile picture"
-            width={50}
-            height={50}
+            width={70}
+            height={70}
             objectFit="cover"
-            src={images.defaultuser}
+            src={images.doclog}
           />
           )}
-        </div> */}
+        </div>
 
         <div className={Style.FollowerTabCard_box_info}>
           <div className={Style.FollowerTabCard_box_info_name}>

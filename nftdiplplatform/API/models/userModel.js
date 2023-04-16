@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     name:{
         type: String,
         required: [true, "Пожалуйста, скажите как вас зовут"],
-        maxlength: [25, "Длинна названия максимум 25 символов"],
+        maxlength: [40, "Длинна названия максимум 40 символов"],
         minlength: [5, "Минимальная длинна названия 5 символов"],
     },
     email: {

@@ -6,7 +6,8 @@ import axios from "axios";
 import { create as ipfsHttpClient } from "ipfs-http-client";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSignNFT } from "../redux/slices/signNFT";
-import cors from "cors";
+
+import { fetchPostNFT } from "../redux/slices/singleNFT";
 
 
 const projectId = "2MQMDMkSJ1Tw6WlsDIldFnI8I28";
@@ -99,7 +100,7 @@ export const NFTDocumentsProvider = ({ children }) => {
   const connectWallet = async () => {
     try {
       if (!window.ethereum)
-      return setOpenError(true),setError("Установите MetaMask");
+      return setOpenError(true),setError("Установите MetaMask"), router.push("/connectWallet");
 
       const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
@@ -122,13 +123,17 @@ export const NFTDocumentsProvider = ({ children }) => {
   };
 
   //---CREATENFT FUNCTION
-  const createNFT = async (name, author, authorpost, recipient, image, description, router, website, userData, category) => {
-    if (!name || !description || !image || !author || !authorpost || !recipient|| !category)
+  const createNFT = async (name, author, authorpost, recipient, image, description, router, website, userData, category, collectionName, organization) => {
+    if (!name || !description || !image || !author || !authorpost || !organization || !recipient|| !category)
       return setOpenError(true),setError("Вы указали не все данные");
+      const wallet = userData.walletAdress;
+      const nftData = await dispatch(fetchPostNFT({walletAdressCreator: wallet}))
+      const id = nftData?.payload?.data?.nft?._id;
+      if (!nftData.payload)
+      return setOpenError(true),setError("Что-то пошло не так при загрузки NFT в базу данных платформы");
 
-    const data = JSON.stringify({ name, author, authorpost, recipient, description, image, website, category });
-    const wallet = userData.walletAdress;
-    console.log(wallet);
+    const data = JSON.stringify({ name, author, authorpost, recipient, description, image, website, category, collectionName, organization, id });
+    console.log(data);
     if (!wallet)
     return setOpenError(true),setError("Ошибка получения данных перезагрузите страницу и попробуйте снова");
 
@@ -143,20 +148,18 @@ export const NFTDocumentsProvider = ({ children }) => {
 
       const contract = await connectingWithSmartContract();
 
-      const mintPrice = await contract.getMintingPrice();
+      // const mintPrice = await contract.getMintingPrice();
 
       const signData = await dispatch(fetchSignNFT());
-      // console.log(signData);
       let mesHash = signData.payload.data.messageHash;
       let sign = signData.payload.data.signature;
 
       if (!mesHash || !sign)
       return setOpenError(true),setError("Что-то пошло не так при получении подписи для минта NFT");
 
-      const transaction = await contract.createToken(url, mesHash, sign, {value: mintPrice.toString()})
+      const transaction = await contract.createToken(url, mesHash, sign/*, {value: mintPrice.toString()}*/)
 
       await transaction.wait();
-      // console.log(transaction);
       router.push({pathname: "/author", query: userData});
     } catch (error) {
       setOpenError(true),setError("Ошибка при создании NFT");
@@ -172,20 +175,23 @@ export const NFTDocumentsProvider = ({ children }) => {
         const data =
           type == "fetchItemsListed"
             ? await contract.fetchItemsListed(currentwallet)
-            : await contract.fetchMyNFTs(currentwallet);
+            : type == "fetchMyNFTs" ? await contract.fetchMyNFTs(currentwallet)
+            : await contract.fetchMyHideNFTs();
+  
 
         const items = await Promise.all(
           data.map(
-            async ({ tokenId, creator, owner}) => {
+            async ({ tokenId, creator, owner, hide}) => {
               const tokenURI = await contract.tokenURI(tokenId);
               const {
-                data: { image, name, author, authorpost, recipient, description, category },
+                data: { image, name, author, authorpost, organization, recipient, description, category, collectionName, website,},
               } = await axios.get(tokenURI);
 
               return {
                 tokenId: tokenId.toNumber(),
                 creator,
                 owner,
+                hide,
                 image,
                 author, 
                 authorpost, 
@@ -194,6 +200,9 @@ export const NFTDocumentsProvider = ({ children }) => {
                 category,
                 description,
                 tokenURI,
+                collectionName,
+                organization,
+                website,
               };
             }
           )
@@ -204,6 +213,18 @@ export const NFTDocumentsProvider = ({ children }) => {
       setOpenError(true),setError('Ошибка при получении NFT, если вы не подключены, нажмите "Подключиться"');
     }
   };
+
+  const makeHideOrUnhide = async(newState, id, userData) => {
+    try {
+      const contract = await connectingWithSmartContract();
+
+      const transaction = await contract.makeHideOrUnhide(newState, id);
+      await transaction.wait();
+      router.push({pathname: "/author", query: userData});
+    }catch (error) {
+      setOpenError(true),setError('Ошибка при изменении состояния NFT');
+    }
+  }
 
   useEffect(() => {
     fetchMyNFTsOrListedNFTs();
@@ -217,7 +238,6 @@ export const NFTDocumentsProvider = ({ children }) => {
       const transaction = await contract.transferToken(adress, id);
 
       await transaction.wait();
-      router.push("/author");
     } catch (error) {
       setOpenError(true),setError("Ошибка во время отправки NFT");
     }
@@ -252,6 +272,7 @@ export const NFTDocumentsProvider = ({ children }) => {
         openlogoutNotice,
         setlogoutNotice,
         setOpenlogoutNotice,
+        makeHideOrUnhide,
       }}
     >
       {children}

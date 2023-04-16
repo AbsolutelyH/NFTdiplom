@@ -53,7 +53,7 @@
 }
 
 .FollowerTabCard_box_profile_img{
-    border-radius: 50%;
+    border-radius: 20%;
     padding: 1rem;
     z-index: 222;
 }
@@ -61,10 +61,10 @@
 .FollowerTabCard_box_profile::before{
     position: absolute;
     content: "";
-    width: 5rem;
-    height: 5rem;
+    width: 7rem;
+    height: 7rem;
     background-color: var(--main-bg-color);
-    border-radius: 50%;
+    border-radius: 20%;
     top: -20%;
     left: 38%;
 }
@@ -81,7 +81,7 @@
 }
 
 .FollowerTabCard_box_info h4{
-    font-size: 1rem;
+    font-size: 1.5rem;
     line-height: 0;
 }
 

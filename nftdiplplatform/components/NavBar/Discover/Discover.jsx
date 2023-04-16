@@ -22,13 +22,21 @@ const Discover = () => {
       link: "searchCollection",
     },
     // {
+    //   name: "Создание коллекции",
+    //   link: "createCollectionPage",
+    // },
+    // {
+    //   name: "Редактирование коллекции",
+    //   link: "editCollectionPage",
+    // },
+    // {
     //   name: "NFT Подробности",
     //   link: "NFT-details",
     // },
-    {
-      name: "Настройки профиля",
-      link: "account",
-    },
+    // {
+    //   name: "Настройки профиля",
+    //   link: "account",
+    // },
     // {
     //   name: "Создать NFT",
     //   link: "uploadNFT",

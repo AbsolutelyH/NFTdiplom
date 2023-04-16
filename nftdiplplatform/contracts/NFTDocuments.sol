@@ -13,7 +13,7 @@ contract NFTDocuments is ERC721URIStorage{
 
     Counters.Counter private _tokenIds;
 
-    uint256 mintPrice = 2 ether;
+    // uint256 mintPrice = 2 ether;
     address payable owner;
 
     mapping(uint256 => PlatformItem) private idToPlatformItem;
@@ -22,6 +22,7 @@ contract NFTDocuments is ERC721URIStorage{
         uint256 tokenId;
         address creator;
         address owner;
+        bool hide;
     }
 
     // event PlatformItemCreated(
@@ -48,21 +49,21 @@ contract NFTDocuments is ERC721URIStorage{
     }
 
     /* Updates the mint price of the contract */
-    function updateMintPrice(uint256 _mintPrice)
-        public
-        payable
-    {
-        require(
-            owner == msg.sender,
-            "Only platform owner can update mint price."
-        );
-        mintPrice = _mintPrice;
-    }
+    // function updateMintPrice(uint256 _mintPrice)
+    //     public
+    //     payable
+    // {
+    //     require(
+    //         owner == msg.sender,
+    //         "Only platform owner can update mint price."
+    //     );
+    //     mintPrice = _mintPrice;
+    // }
 
     /* Returns the mint price of the contract */
-    function getMintingPrice() public view returns (uint256) {
-        return mintPrice;
-    }
+    // function getMintingPrice() public view returns (uint256) {
+    //     return mintPrice;
+    // }
 
     // let create nft token
     function createToken(string memory tokenURI, bytes32 hash, bytes memory signature)
@@ -71,7 +72,7 @@ contract NFTDocuments is ERC721URIStorage{
         returns (uint256)
     {
         require(recoverSigner(hash, signature) == owner, "Address is not allowlisted");
-        require(msg.value == mintPrice, "Transaction value did not equal the mint price");
+        // require(msg.value == mintPrice, "Transaction value did not equal the mint price");
         _tokenIds.increment();
         uint256 newTokenId = _tokenIds.current();
         _mint(msg.sender, newTokenId);
@@ -84,7 +85,8 @@ contract NFTDocuments is ERC721URIStorage{
         idToPlatformItem[tokenId] = PlatformItem(
             tokenId,
             msg.sender,
-            msg.sender
+            msg.sender,
+            false
         );
         
         // emit PlatformItemCreated(
@@ -102,6 +104,10 @@ contract NFTDocuments is ERC721URIStorage{
         _transfer(msg.sender, to, tokenId);
     }
 
+    function makeHideOrUnhide(bool state, uint tokenId) public {
+        require(idToPlatformItem[tokenId].owner == msg.sender, "Only item owner can perform this operation");
+        idToPlatformItem[tokenId].hide = state;
+    }
     /* Returns only items that a user owns */
     function fetchMyNFTs(address currentAccount) public view returns (PlatformItem[] memory) {
         uint256 totalItemCount = _tokenIds.current();
@@ -109,14 +115,14 @@ contract NFTDocuments is ERC721URIStorage{
         uint256 currentIndex = 0;
 
         for (uint256 i = 0; i < totalItemCount; i++) {
-            if (idToPlatformItem[i + 1].owner == currentAccount) {
+            if (idToPlatformItem[i + 1].owner == currentAccount && idToPlatformItem[i + 1].hide == false) {
                 itemCount += 1;
             }
         }
 
         PlatformItem[] memory items = new PlatformItem[](itemCount);
         for (uint256 i = 0; i < totalItemCount; i++) {
-            if (idToPlatformItem[i + 1].owner == currentAccount) {
+            if (idToPlatformItem[i + 1].owner == currentAccount && idToPlatformItem[i + 1].hide == false) {
                 uint256 currentId = i + 1;
                 PlatformItem storage currentItem = idToPlatformItem[currentId];
                 items[currentIndex] = currentItem;
@@ -133,14 +139,14 @@ contract NFTDocuments is ERC721URIStorage{
         uint256 currentIndex = 0;
 
         for (uint256 i = 0; i < totalItemCount; i++) {
-            if (idToPlatformItem[i + 1].creator == currentAccount) {
+            if (idToPlatformItem[i + 1].creator == currentAccount && idToPlatformItem[i + 1].hide == false) {
                 itemCount += 1;
             }
         }
 
         PlatformItem[] memory items = new PlatformItem[](itemCount);
         for (uint256 i = 0; i < totalItemCount; i++) {
-            if (idToPlatformItem[i + 1].creator == currentAccount) {
+            if (idToPlatformItem[i + 1].creator == currentAccount && idToPlatformItem[i + 1].hide == false) {
                 uint256 currentId = i + 1;
                 PlatformItem storage currentItem = idToPlatformItem[currentId];
                 items[currentIndex] = currentItem;
@@ -149,5 +155,30 @@ contract NFTDocuments is ERC721URIStorage{
         }
         return items;
     }
+
+        /* Returns only hide items that a user owns */
+    function fetchMyHideNFTs() public view returns (PlatformItem[] memory) {
+        uint256 totalItemCount = _tokenIds.current();
+        uint256 itemCount = 0;
+        uint256 currentIndex = 0;
+
+        for (uint256 i = 0; i < totalItemCount; i++) {
+            if (idToPlatformItem[i + 1].owner == msg.sender && idToPlatformItem[i + 1].hide == true) {
+                itemCount += 1;
+            }
+        }
+
+        PlatformItem[] memory items = new PlatformItem[](itemCount);
+        for (uint256 i = 0; i < totalItemCount; i++) {
+            if (idToPlatformItem[i + 1].owner == msg.sender && idToPlatformItem[i + 1].hide == true) {
+                uint256 currentId = i + 1;
+                PlatformItem storage currentItem = idToPlatformItem[currentId];
+                items[currentIndex] = currentItem;
+                currentIndex += 1;
+            }
+        }
+        return items;
+    }
+
 
 }

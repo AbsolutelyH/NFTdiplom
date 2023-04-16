@@ -22,7 +22,7 @@ const NFTCardTwo = ({ NFTData }) => {
   //     setLikeInc(23 + 1);
   //   }
   // };
-
+  console.log()
   return (
     <div className={Style.NFTCardTwo}>
       {NFTData?.map((el, i) => (
@@ -61,15 +61,15 @@ const NFTCardTwo = ({ NFTData }) => {
             <small>{el.tokenId}</small>
           </div>
 
-          <div className={Style.NFTCardTwo_box_price}>
+          {el.collectionName ? <div className={Style.NFTCardTwo_box_price}>
             <div className={Style.NFTCardTwo_box_price_box}>
-              <small>Категория</small>
-              <p>{el.category}</p>
-            </div>
+              <small>Коллекция</small>
+              <p>{el.collectionName}</p>
+            </div> 
+            </div>: <></>}
             {/* <p className={Style.NFTCardTwo_box_price_stock}>
               <MdTimer /> <span>{i + 1} hours left</span>
             </p> */}
-          </div>
         </div>
         </Link>
       ))}

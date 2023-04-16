@@ -53,6 +53,7 @@ import provider4 from "./provider-4.png";
 import upload from "./upload.png";
 import loader from "./loadergif.gif";
 import defaultuser from "./defaultuser.png"
+import doclog from "./doclog.jpg"
 
 export default {
   provider1,
@@ -110,4 +111,5 @@ export default {
   upload,
   loader,
   defaultuser,
+  doclog,
 };

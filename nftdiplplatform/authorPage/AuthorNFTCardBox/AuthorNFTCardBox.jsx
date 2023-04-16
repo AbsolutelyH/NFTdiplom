@@ -1,83 +1,53 @@
-import React, { useState } from "react";
+import React, {useEffect, useState, useContext} from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 //INTERNAL IMPORT
 import Style from "./AuthorNFTCardBox.module.css";
 import images from "../../img";
 import { NFTCardTwo } from "../../collectionPage/collectionIndex";
 import FollowerTabCard from "../../components/FollowerTab/FollowerTabCard/FollowerTabCard";
+import FollowerTabColl from "../../components/FollowerTab/FollowerTabColl/FollowerTabColl";
 import { Loader } from "../../components/componentsindex";
+import { fetchMyCollections } from "../../redux/slices/collections";
+import { fetchMyNFTs } from "../../redux/slices/allNFTs";
 
 const AuthorNFTCardBox = ({
+  userData,
   collectiables,
   created,
-  like,
+  collections,
+  hiden,
+  // like,
   nfts,
   myNFTs,
-  follower,
-  following,
+  myHideNFTs,
+  currentAccount,
+  // follower,
+  // following,
 }) => {
+  const [userCollections, setUserCollections] = useState();
+  // const [userNFTs, setMyNFTs] = useState();
+  React.useEffect(() => {
+    if (!userData) return;
+    getMyCollections();
+    // getMyNFTs();
+  }, [userData])
+  const dispatch = useDispatch();
+  const getMyCollections = async() => {const data = await dispatch(fetchMyCollections({walletAdressCreator: userData.walletAdress})); setUserCollections(data.payload?.data?.mYcollections)}
+  // const getMyNFTs = async() => {const nftData = await dispatch(fetchMyNFTs({walletAdressCreator: userData.walletAdress})); setMyNFTs(nftData.payload?.data?.NFTs)}
+  // console.log(userNFTs)
 
-  // const likeArray = [
-  //   images.nft_image_1,
-  //   images.nft_image_2,
-  //   images.nft_image_3,
-  //   images.nft_image_1,
-  //   images.nft_image_2,
-  // ];
 
-  const followerArray = [
-    {
-      background: images.creatorbackground1,
-      user: images.user1,
-    },
-    {
-      background: images.creatorbackground2,
-      user: images.user2,
-    },
-    {
-      background: images.creatorbackground3,
-      user: images.user3,
-    },
-    {
-      background: images.creatorbackground4,
-      user: images.user4,
-    },
-    {
-      background: images.creatorbackground5,
-      user: images.user5,
-    },
-    {
-      background: images.creatorbackground6,
-      user: images.user6,
-    },
-  ];
-
-  const followingArray = [
-    {
-      background: images.creatorbackground3,
-      user: images.user3,
-    },
-    {
-      background: images.creatorbackground4,
-      user: images.user4,
-    },
-    {
-      background: images.creatorbackground5,
-      user: images.user5,
-    },
-    {
-      background: images.creatorbackground6,
-      user: images.user6,
-    },
-    {
-      background: images.creatorbackground1,
-      user: images.user1,
-    },
-  ];
   return (
-    <div className={Style.AuthorNFTCardBox}>
-      {/* {!myNFTs ? <Loader/> :*/ collectiables && <NFTCardTwo NFTData={myNFTs}/>}
+    <div  className={Style.AuthorNFTCardBox}>
+      {collectiables && <NFTCardTwo NFTData={myNFTs}/>}
       {created && <NFTCardTwo NFTData={nfts}/>}
+      {collections && (
+        <div className={Style.searchPage_box}> 
+        {userCollections.map((obj) => <FollowerTabColl el={obj} back={obj.background}/>)}
+      </div>
+      )}
+      {(hiden && currentAccount == userData?.walletAdress) && <NFTCardTwo NFTData={myHideNFTs}/>}
       {/* {like && <NFTCardTwo NFTData={nfts} />} */}
       {/* {follower && (
         <div className={Style.AuthorNFTCardBox_box}>
