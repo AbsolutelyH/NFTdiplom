@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useDropzone } from "react-dropzone";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
-
+import { useEffect } from "react";
 
 //INTERNAL IMPORT
 import Style from "../styles/editCollectionPage.module.css";
@@ -14,15 +14,19 @@ import { NFTDocumentsContext } from "../Context/NFTDocumentsContext";
 import axios from "../redux/axios"
 
 const editCollection = () => {
+  const [collectionData, setCollectionData] = useState({
+  });
+
   const router = useRouter();
+  useEffect(() => {
+    if (!router.isReady) return;
+    setCollectionData(router.query);
+  }, [router.isReady]);
   const isAuth = useSelector(selectIsAuth);
   const { setOpenError, setError } = useContext(NFTDocumentsContext);
   // if(!isAuth){
   //   typeof window !== 'undefined' && router.push("/login");
   // }
-
-  const userData = useSelector((state) => state.auth.data?.data?.user);
-  console.log(userData);
 
   const [fileUser, setFileUserUrl] = useState(null);
   const [fileBackUrl, setFileBackUrl] = useState(null);
@@ -69,9 +73,9 @@ const editCollection = () => {
               width={1600}
               height={300}
             />
-            ) : userData?.background ? (
+            ) : collectionData?.background ? (
               <Image
-              src={`http://localhost:3000${userData?.background}`}
+              src={`http://localhost:3000${collectionData?.background}`}
               alt="background upload"
               objectFit="cover"
               width={1600}
@@ -101,9 +105,9 @@ const editCollection = () => {
               className={Style.account_box_img_img}
               objectFit="cover"
             />
-            ) : userData?.photo ? (
+            ) : collectionData?.photo ? (
               <Image
-              src={`http://localhost:3000${userData?.photo}`}
+              src={`http://localhost:3000${collectionData?.photo}`}
               alt="account upload"
               width={150}
               height={150}
@@ -112,7 +116,7 @@ const editCollection = () => {
               />
             ) : (
               <Image
-              src={images.defaultuser}
+              src={images.doclog}
               alt="account upload"
               width={150}
               height={150}
@@ -124,7 +128,7 @@ const editCollection = () => {
         </div>
 
         <div className={Style.account_box_from}>
-          <EditCollectionForm fileUser={fileUser} fileBackUrl={fileBackUrl} setOpenError={setOpenError} setError={setError} userData={userData}/>
+          <EditCollectionForm fileUser={fileUser} fileBackUrl={fileBackUrl} setOpenError={setOpenError} setError={setError} collectionData={collectionData}/>
         </div>
       </div>
     </div>

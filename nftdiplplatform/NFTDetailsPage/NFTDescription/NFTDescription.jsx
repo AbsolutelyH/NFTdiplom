@@ -21,6 +21,7 @@ import { BiTransferAlt, BiDollar } from "react-icons/bi";
 import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "react-hook-form"; 
 
+
 //INTERNAL IMPORT
 import Style from "./NFTDescription.module.css";
 import images from "../../img";
@@ -29,7 +30,7 @@ import { NFTTabs } from "../NFTDetailsIndex";
 
 import { NFTDocumentsContext } from "../../Context/NFTDocumentsContext";
 import { useRouter } from "next/router";
-import { fetchUserByWal } from "../../redux/slices/userByWal";
+import { fetchOneCollection } from "../../redux/slices/newCollection";
 
 const NFTDescription = ({nft, userCreator, userOwner, creatorPhoto, ownerPhoto}) => {
   const [social, setSocial] = useState(false);
@@ -37,6 +38,13 @@ const NFTDescription = ({nft, userCreator, userOwner, creatorPhoto, ownerPhoto})
   const [history, setHistory] = useState(true);
   const [provanance, setProvanance] = useState(false);
   const [owner, setOwner] = useState(false);
+  const [collection, setCollection] = useState();
+  const dispatch = useDispatch();
+
+  const getCollection = async() => {const data = await dispatch(fetchOneCollection({nameOfcoll: nft.collectionName})); setCollection(data?.payload?.data?.collection);}
+  useEffect(() => {
+  getCollection();
+  }, []);
 
   console.log(nft);
   const historyArray = [
@@ -279,7 +287,7 @@ const NFTDescription = ({nft, userCreator, userOwner, creatorPhoto, ownerPhoto})
               {/* <span>[96 in stock]</span> */}
             </div>
 
-            <div className={Style.NFTDescription_box_profile_biding_box_price}>
+            {nft.collectionName != 0 ? <div className={Style.NFTDescription_box_profile_biding_box_price}>
               <div
                 className={
                   Style.NFTDescription_box_collection
@@ -290,20 +298,28 @@ const NFTDescription = ({nft, userCreator, userOwner, creatorPhoto, ownerPhoto})
                 {nft.collectionName}
                 </p>
                 <div className={Style.NFTDescription_box_collection_left}>
-                  <Link href = {{ pathname: "/collection" }}>
-                    <Image
-                    src={images.defaultuser}
+                  <Link href = {{ pathname: "/collection", query: collection}}>
+                    {collection?.photo ? <Image
+                    src={`http://localhost:3000${collection?.photo}`}
                     alt="profile"
                     objectFit="cover"
                     width={100}
                     height={100}
                     className={Style.NFTDescription_box_collection_image}
-                    />
+                    /> : <Image
+                    src={images.doclog}
+                    alt="profile"
+                    objectFit="cover"
+                    width={100}
+                    height={100}
+                    className={Style.NFTDescription_box_collection_image}
+                    />}
                   </Link>
                 </div>
               </div>
               {/* <span>[96 in stock]</span> */}
-            </div>
+            </div> : <></>}
+
 
             <div className={Style.NFTDescription_box_profile_biding_box_button}>
               {currentAccount == nft.owner.toLowerCase() ? (

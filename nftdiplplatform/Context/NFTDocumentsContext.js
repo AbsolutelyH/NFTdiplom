@@ -133,7 +133,6 @@ export const NFTDocumentsProvider = ({ children }) => {
       return setOpenError(true),setError("Что-то пошло не так при загрузки NFT в базу данных платформы");
 
     const data = JSON.stringify({ name, author, authorpost, recipient, description, image, website, category, collectionName, organization, id });
-    console.log(data);
     if (!wallet)
     return setOpenError(true),setError("Ошибка получения данных перезагрузите страницу и попробуйте снова");
 
@@ -144,7 +143,6 @@ export const NFTDocumentsProvider = ({ children }) => {
       const added = await client.add(data);
 
       const url = `https://infura-ipfs.io/ipfs/${added.path}`;
-      console.log(url);
 
       const contract = await connectingWithSmartContract();
 
@@ -177,33 +175,32 @@ export const NFTDocumentsProvider = ({ children }) => {
             ? await contract.fetchItemsListed(currentwallet)
             : type == "fetchMyNFTs" ? await contract.fetchMyNFTs(currentwallet)
             : await contract.fetchMyHideNFTs();
-  
-
+            console.log("second", data);
         const items = await Promise.all(
-          data.map(
+          data?.map(
             async ({ tokenId, creator, owner, hide}) => {
               const tokenURI = await contract.tokenURI(tokenId);
               const {
                 data: { image, name, author, authorpost, organization, recipient, description, category, collectionName, website,},
               } = await axios.get(tokenURI);
-
               return {
                 tokenId: tokenId.toNumber(),
                 creator,
                 owner,
                 hide,
                 image,
+                name,
                 author, 
                 authorpost, 
+                organization,
                 recipient,
-                name,
-                category,
                 description,
+                category,
                 tokenURI,
                 collectionName,
-                organization,
                 website,
               };
+              
             }
           )
         );

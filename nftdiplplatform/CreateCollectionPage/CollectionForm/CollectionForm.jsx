@@ -2,6 +2,7 @@ import React from "react";
 import{useDispatch, useSelector} from "react-redux";
 import {useForm} from "react-hook-form";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 
 //INTERNAL IMPORT
 import Style from "./CollectionForm.module.css";
@@ -11,6 +12,7 @@ import { fetchNewCollection } from "../../redux/slices/newCollection";
 
 const CollectionForm = ({fileUser, fileBackUrl, setOpenError, setError, userData}) => {
   const dispatch = useDispatch(); 
+  const router = useRouter();
 
   const {register, handleSubmit} = useForm({
     defaultValues: {
@@ -29,8 +31,11 @@ const CollectionForm = ({fileUser, fileBackUrl, setOpenError, setError, userData
     console.log("Данные с сайта ", values);
     const data = await dispatch(fetchNewCollection(values));
     console.log("данные от серва ",data);
+    if(data.payload){
+      setOpenError(true),setError("Коллекция создана успешно")
+    }
     if(!data.payload){
-      setOpenError(true),setError("Не удалось обновить профиль")
+      setOpenError(true),setError("Не удалось создать коллекцию")
     }
   };
 

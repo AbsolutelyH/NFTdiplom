@@ -36,11 +36,11 @@ exports.getMyCollections = catchAsync(async (req, res) => {
   
 
   exports.getCollection = catchAsync(async (req, res) => {
-    const mYcollections = await COLLECTION.findOne({nameOfcoll: req.body.nameOfcoll});
+    const collection = await COLLECTION.findOne({nameOfcoll: req.body.nameOfcoll});
     res.status(200).json({
       status: "success",
       data: {
-        mYcollections,
+        collection,
       },
     });
   });
@@ -58,14 +58,14 @@ exports.createCollection = catchAsync(async (req, res, next) => {
 
 //PATCH METHOD
 exports.updateCollection = catchAsync(async(req, res, next) => {
-    const coll = await COLLECTION.findById(req.params.id)
+    const coll = await COLLECTION.findOne({_id: req.body._id})
     if(coll.walletAdressCreator != req.user.walletAdress){
       return next(
         new AppError("Обновлять может только создатель", 400)
       );
     }
     const filteredBody = filterObj(req.body, "nameOfcoll", "background", "photo", "about");
-    const updateCollection = await COLLECTION.findByIdAndUpdate(req.params.id, filteredBody, {
+    const updateCollection = await COLLECTION.findOneAndUpdate({_id: req.body._id}, filteredBody, {
       new: true,
       runValidators: true,
     });

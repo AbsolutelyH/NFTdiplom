@@ -15,26 +15,47 @@ const Collection = ({collectionData}) => {
         NFTDocumentsContext
       );
     const [nfts, setNfts] = useState([]);
-    console.log("Информация о коллекции ",collectionData);
+    const [colNfts, setColNfts] = useState([]);
+    // console.log("Информация о коллекции ",collectionData);
   
       const type1 = "fetchItemsListed";
-  
+    
+    const setCollectionNFTs = (nfts) => {
+      const items = nfts.filter(el => el.collectionName == collectionData.nameOfcoll);
+      // console.log("фильтрованный", items);
+      setColNfts(items);
+    }
+    
     useEffect(() => {
       try {
-        fetchMyNFTsOrListedNFTs(type1, collectionData.walletAdressCreator).then((items) => {
+        if(!collectionData) return;
+        fetchMyNFTsOrListedNFTs(type1, collectionData?.walletAdressCreator).then((items) => {
           setNfts(items);
         });
       } catch (erorr){
         setError("Пожалуйста, перезагрузите страницу")
       }
-    }, []);
-  console.log("NFT: ", nfts);
+    }, [collectionData]);
+    useEffect(() => {
+      try {
+        if(!nfts) return;
+        setCollectionNFTs(nfts);
+      } catch (erorr){
+        setError("Пожалуйста, перезагрузите страницу")
+      }
+    }, [nfts]);
+    // console.log("colNfts", colNfts);
+  // console.log("NFT: ", nfts);
   return (
     <div className={Style.collection}>
-      <Banner bannerImage={images.creatorbackground1} />
-      <CollectionProfile />
+      {collectionData?.background ? (
+      <Banner bannerImage={`http://localhost:3000${collectionData.background}`} />
+      ) : (
+        <Banner bannerImage={images.creatorbackground2} />
+      )}
+      <CollectionProfile collectionData={collectionData}/>
       {/* <Filter /> */}
-      <NFTCardTwo NFTData={nfts}/>
+      <NFTCardTwo NFTData={colNfts}/>
     </div>
   );
 };

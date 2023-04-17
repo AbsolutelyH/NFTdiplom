@@ -64,8 +64,8 @@ const Author = ({userData}) => {
   }, [userData]);
 
   useEffect(() => {
-    if(!userData) return;
     try {
+      if(!userData) return;
       fetchMyNFTsOrListedNFTs(type3, userData.walletAdress).then((items) => {
         setHideMyNFTs(items);
       });

@@ -7,28 +7,36 @@ import {
   TiSocialInstagram,
 } from "react-icons/ti";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 
 //INTERNAL IMPORT
 import Style from "./collectionProfile.module.css";
 import { Button } from "../../components/componentsindex.js";
 import images from "../../img";
 
-const collectionProfile = () => {
+const collectionProfile = ({collectionData}) => {
+  const authUserData = useSelector((state) => state.auth?.data?.data?.user);
   const router = useRouter();
-  const cardArray = [1, 2, 3, 4];
+  const cardArray = [];
   return (
     <div className={Style.collectionProfile}>
       <div className={Style.collectionProfile_box}>
         <div className={Style.collectionProfile_box_left}>
-          <Image
-            src={images.nft_image_1}
+          {collectionData?.photo ? <Image
+            src={`http://localhost:3000${collectionData?.photo}`}
             alt="nft image"
             width={800}
             height={800}
             className={Style.collectionProfile_box_left_img}
-          />
+          /> : <Image
+          src={images.doclog}
+          alt="nft image"
+          width={800}
+          height={800}
+          className={Style.collectionProfile_box_left_img}
+        />}
 
-          <div className={Style.collectionProfile_box_left_social}>
+          {/* <div className={Style.collectionProfile_box_left_social}>
             <a href="#">
               <TiSocialFacebook />
             </a>
@@ -41,23 +49,22 @@ const collectionProfile = () => {
             <a href="#">
               <TiSocialTwitter />
             </a>
-          </div>
+          </div> */}
         </div>
 
         <div className={Style.collectionProfile_box_middle}>
           <h1>
-            Awesome NFTs Collection
+            {collectionData?.nameOfcoll}
+            {authUserData?.walletAdress == collectionData?.walletAdressCreator ? 
             <Button
               type="submit"
               btnName="Редактировать коллекцию"
-              handleClick={() => router.push("/editCollectionPage")}
+              handleClick={() => router.push({ pathname: "/editCollectionPage", query: collectionData})}
               classStyle={Style.button}
-            />
+            /> : <></>}
           </h1>
           <p>
-            Karafuru is home to 5,555 generative arts where colors reign
-            supreme. Leave the drab reality and enter the world of Karafuru by
-            Museum of Toys.
+          {collectionData?.about}
           </p>
 
           <div className={Style.collectionProfile_box_middle_box}>

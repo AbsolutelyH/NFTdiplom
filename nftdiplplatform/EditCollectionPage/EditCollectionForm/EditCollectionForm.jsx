@@ -2,38 +2,44 @@ import React from "react";
 import{useDispatch, useSelector} from "react-redux";
 import {useForm} from "react-hook-form";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 
 //INTERNAL IMPORT
 import Style from "./editCollectionForm.module.css";
 import { Button } from "../../components/componentsindex.js";
-import { fetchUpdateMe } from "../../redux/slices/auth";
+import { fetchUpdateCollection } from "../../redux/slices/newCollection";
 
 
-const editCollectionForm = ({fileUser, fileBackUrl, setOpenError, setError, userData}) => {
+const editCollectionForm = ({fileUser, fileBackUrl, setOpenError, setError, collectionData}) => {
   const dispatch = useDispatch(); 
+  const router = useRouter();
 
   const {register, handleSubmit} = useForm({
     defaultValues: {
-      name: '',
+      // nameOfColl: '',
+      _id: '',
+      walletAdressCreator: '',
       about: '',
-      background: ''
+      background: '',
+      photo: ''
     }
   });
 
   const onSubmit = async(values) => {
-    {(!fileUser && userData?.photo) ? values.photo = userData?.photo : values.photo = fileUser};
-    {(!fileBackUrl && userData?.background) ? values.background = userData?.background : values.background = fileBackUrl};
-    {(!values.name && userData?.name) ? values.name = userData?.name : ''};
-    {(!values.about && userData?.about) ? values.about = userData?.about : ''};
-    {(!values.website && userData?.website) ? values.website = userData?.website : ''};
-    {(!values.vk && userData?.vk) ? values.vk = userData?.vk : ''};
-    {(!values.telegram && userData?.telegram) ? values.telegram = userData?.telegram : ''};
-    {(!values.youtube && userData?.youtube) ? values.youtube = userData?.youtube : ''};
+    {values._id = collectionData._id};
+    {values.walletAdressCreator = collectionData.walletAdressCreator};
+    {(!fileUser && collectionData?.photo) ? values.photo = collectionData?.photo : values.photo = fileUser};
+    {(!fileBackUrl && collectionData?.background) ? values.background = collectionData?.background : values.background = fileBackUrl};
+    // {(!values.nameOfColl && collectionData?.nameOfColl) ? values.nameOfColl = collectionData?.nameOfColl : ''};
+    {(!values.about && collectionData?.about) ? values.about = collectionData?.about : ''};
     console.log("Данные с сайта ", values);
-    const data = await dispatch(fetchUpdateMe(values));
+    const data = await dispatch(fetchUpdateCollection(values));
     console.log("данные от серва ",data);
+    if(data.payload){
+      setOpenError(true),setError("Коллекция изменена")
+    }
     if(!data.payload){
-      setOpenError(true),setError("Не удалось обновить профиль")
+      setOpenError(true),setError("Не удалось обновить коллекцию")
     }
   };
 
@@ -41,22 +47,18 @@ const editCollectionForm = ({fileUser, fileBackUrl, setOpenError, setError, user
     <div className={Style.Form}>
       <div className={Style.Form_box}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className={Style.Form_box_input}>
-            <label htmlFor="namee">Название</label>
+          {/* <div className={Style.Form_box_input}>
+            <label htmlFor="name">Название</label>
             <input
               type="text"
-              placeholder="Какая-то коллекция"
+              placeholder={collectionData?.nameOfColl}
               className={Style.Form_box_input_userName}
             />
-          </div>        
+          </div>         */}
 
           <div className={Style.Form_box_input}>
-            <label htmlFor="description">Описание</label>
-            <input
-              type="text"
-              placeholder="Крутая коллекция!"
-              className={Style.Form_box_input_userName}
-            />
+            <label htmlFor="about">Описание</label>
+            <input {...register('about')} type="text" placeholder={collectionData?.about} className={Style.Form_box_input_userName} />
           </div>
     
           <div className={Style.Form_box_btn}>

@@ -8,9 +8,9 @@ router.route("/").post(authController.protect, authController.restrictTo("admin"
 
 router.route("/MyCollections").post(authController.protect, collectionController.getMyCollections);
 router.route("/AllCollections").get(collectionController.getALLCollections);
-router.route("/OneCollection").get(collectionController.getCollection);
+router.route("/OneCollection").post(collectionController.getCollection);
 
-router.route("/:id").patch(authController.protect, collectionController.updateCollection);
+router.route("/UpdateCollection").patch(authController.protect, collectionController.updateCollection);
 
 
 module.exports = router;
