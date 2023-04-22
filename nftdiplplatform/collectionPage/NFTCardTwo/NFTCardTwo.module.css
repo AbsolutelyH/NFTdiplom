@@ -2,6 +2,7 @@
     width: 80%;
     margin:  0 auto;
 
+    margin-top: 3rem;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 3rem;
@@ -63,17 +64,21 @@
     padding: 1rem;
 }
 
-.NFTCardTwo_box_info_left{
+/* .NFTCardTwo_box_info_left{
     line-height: 0;
-}
+} */
 
 .NFTCardTwo_box_info small{
     font-size: 1rem;
 }
 
 .NFTCardTwo_box_info_left p{
-    font-size: 2rem;
+    font-size: 1.7rem;
     font-weight: 900;
+    width: 300px;
+    word-wrap: break-word;
+    margin-top: 0rem;
+    margin-bottom: 0rem;
 } 
 
 .NFTCardTwo_box_price{

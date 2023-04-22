@@ -2,10 +2,14 @@ import React from "react";
 import { HiOutlineMail } from "react-icons/hi";
 import { MdOutlineHttp, MdOutlineContentCopy } from "react-icons/md";
 import {
-  TiSocialFacebook,
   TiSocialYoutube,
-  TiSocialInstagram,
 } from "react-icons/ti";
+import {
+  SlSocialVkontakte,
+} from "react-icons/sl";
+import {
+  FaTelegramPlane,
+} from "react-icons/fa";
 import Link from "next/link";
 import{useDispatch, useSelector} from "react-redux";
 import {useForm} from "react-hook-form";
@@ -130,7 +134,7 @@ const Form = ({fileUser, fileBackUrl, setOpenError, setError, userData}) => {
               <label htmlFor="facebook">Вконтакте</label>
               <div className={Style.Form_box_input_box}>
                 <div className={Style.Form_box_input_box_icon}>
-                  <TiSocialFacebook />
+                  <SlSocialVkontakte/>
                 </div>
                 <input {...register('vk')} type="text" placeholder={userData?.vk} />
               </div>
@@ -150,7 +154,7 @@ const Form = ({fileUser, fileBackUrl, setOpenError, setError, userData}) => {
               <label htmlFor="Instragram">Telegram</label>
               <div className={Style.Form_box_input_box}>
                 <div className={Style.Form_box_input_box_icon}>
-                  <TiSocialInstagram />
+                  <FaTelegramPlane />
                 </div>
                 <input {...register('telegram')} type="text" placeholder={userData?.telegram} />
               </div>

@@ -67,19 +67,23 @@ const sentToken = () => {
             onChange={(e) => setAdress(e.target.value)}
           />
         </div>
-
+      <div className={Style.sentToken_box_box}>
+      <div className={Style.sentToken_box_box_left}>
         <div className={Style.sentToken_box_image}>
           {image && (
             <Image src={image} alt="отправить NFT" width={400} height={400} />
           )}
         </div>
+      </div>
 
+      <div className={Style.sentToken_box_box_right}>
         <div className={Style.searchPage_box}>
           {userOwner ? <FollowerTabCard el={userOwner} back={userOwner?.background}/> : <></>} 
         </div>
-
+      </div>
+      </div>
         <div className={Style.sentToken_box_btn}>
-          <Button btnName="Отправить NFT" handleClick={() => sentNFT()} />
+          <Button btnName="Отправить NFT" handleClick={() => sentNFT()} classStyle={Style.sentToken_btn_style}/>
         </div>
       </div>
     </div>

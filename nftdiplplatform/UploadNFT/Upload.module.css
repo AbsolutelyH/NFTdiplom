@@ -6,6 +6,12 @@
   display: flex;
   gap: 1rem;
  }
+
+ .upload_box_slider_div_coll{
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(4, 1fr);
+   }
  
  .upload_box_slider{
      border: 1px solid var(--icons-color);
@@ -31,6 +37,15 @@
      display: grid;
      padding: .2rem;
  }
+
+ .upload_box_slider_box_img_icon_coll{
+    background-color: var(--icons-color);
+    color: var(--main-bg-color);
+    border-radius: 50%;
+    display: grid;
+    margin-left: 7rem;
+    padding: .2rem;
+}
  
  .upload_box_slider p{
      font-size: 1.2rem;

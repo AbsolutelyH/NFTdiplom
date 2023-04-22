@@ -221,7 +221,7 @@ const UloadNFT = ({ uploadToIPFS, createNFT, userData, currentAccount }) => {
               Вы можете отнести документ к одной из ваших коллекций
             </p>
 
-            <div className={Style.upload_box_slider_div}>
+            <div className={Style.upload_box_slider_div_coll}>
               {userCollections?.map((el, i) => (
                 <div
                   className={`${Style.upload_box_slider} ${
@@ -248,7 +248,7 @@ const UloadNFT = ({ uploadToIPFS, createNFT, userData, currentAccount }) => {
                       className={Style.upload_box_slider_box_img_img}
                     />}
                     </div>
-                    <div className={Style.upload_box_slider_box_img_icon}>
+                    <div className={Style.upload_box_slider_box_img_icon_coll}>
                       <TiTick />
                     </div>
                   </div>

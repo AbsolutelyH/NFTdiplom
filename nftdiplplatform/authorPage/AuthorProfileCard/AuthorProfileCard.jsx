@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import Image from "next/image";
 import {
   MdVerified,
-  MdCloudUpload,
-  MdOutlineReportProblem,
 } from "react-icons/md";
 import { FiCopy } from "react-icons/fi";
 import {
-  TiSocialFacebook,
-  TiSocialLinkedin,
   TiSocialYoutube,
-  TiSocialInstagram,
 } from "react-icons/ti";
+import {
+  SlSocialVkontakte,
+} from "react-icons/sl";
+import {
+  FaTelegramPlane,
+} from "react-icons/fa";
 import { BsThreeDots } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -112,16 +113,13 @@ const AuthorProfileCard = ({userData}) => {
 
           <div className={Style.AuthorProfileCard_box_info_social}>
             <a href={userData.website}>
-              <TiSocialFacebook />
-            </a>
-            <a href="#">
-              <TiSocialInstagram />
-            </a>
-            <a href="#">
-              <TiSocialLinkedin />
+              <SlSocialVkontakte />
             </a>
             <a href="#">
               <TiSocialYoutube />
+            </a>
+            <a href="#">
+              <FaTelegramPlane />
             </a>
           </div>
         </div>
