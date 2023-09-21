@@ -39,6 +39,10 @@
     text-align: center;
 }
 
+.background_img{
+    cursor: pointer;
+}
+
 .account_box_img_img{
     border-radius: 50%;
 }
@@ -47,6 +51,11 @@
     font-weight: 700;
     font-size: 1rem;
     line-height: 0;
+    text-align: center;
+}
+
+.account_verify_para{
+    margin-top: 2rem;
 }
 
 @media screen and (max-width: 35em) {
@@ -82,5 +91,11 @@
     .account_box{
         width: 90%;
         grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 35em) {
+    .background_img {
+        display: none;
     }
 }

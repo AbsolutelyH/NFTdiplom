@@ -44,3 +44,10 @@
     color: var(--shadow-dark-color);
     border-radius: .3rem;
 }
+.mobile-button {
+    border: medium none;
+    background-image: none; 
+    background: transparent;
+    float: left;
+    background-color: transparent;
+  }

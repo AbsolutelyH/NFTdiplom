@@ -10,9 +10,6 @@ const signUp = () => {
       <div className={Style.login_box}>
         <h1>Регистрация</h1>
         <LoginAndSignUp />
-        <p className={Style.login_box_para}>
-          Новый пользователь? <a href="#">Создать аккаунт</a>
-        </p>
       </div>
     </div>
   );

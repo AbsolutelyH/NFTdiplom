@@ -1,28 +1,50 @@
 import React from "react";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 //INTERNAL IMPORT
 import Style from "./Discover.module.css";
 
 const Discover = () => {
+  const userData = useSelector((state) => state.auth?.data?.data?.user);
   //--------DISCOVER NAVIGATION MENU
   const discover = [
+    // {
+    //   name: "Коллекции",
+    //   link: "collection",
+    // },
     {
-      name: "Поиск",
-      link: "search",
+      name: "Пользователи",
+      link: "searchPage",
     },
     {
-      name: "NFT Подробности",
-      link: "NFT-details",
+      name: "Коллекции",
+      link: "searchCollection",
     },
-    {
-      name: "Настройки аккаунта",
-      link: "account",
-    },
-    {
-      name: "Подключить кошелек",
-      link: "connectWallet",
-    },
+    // {
+    //   name: "Создание коллекции",
+    //   link: "createCollectionPage",
+    // },
+    // {
+    //   name: "Редактирование коллекции",
+    //   link: "editCollectionPage",
+    // },
+    // {
+    //   name: "NFT Подробности",
+    //   link: "NFT-details",
+    // },
+    // {
+    //   name: "Настройки профиля",
+    //   link: "account",
+    // },
+    // {
+    //   name: "Создать NFT",
+    //   link: "uploadNFT",
+    // },
+    // {
+    //   name: "Подключить кошелек",
+    //   link: "connectWallet",
+    // },
   ];
   return (
     <div>

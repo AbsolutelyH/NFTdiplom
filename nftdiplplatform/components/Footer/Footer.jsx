@@ -22,12 +22,12 @@ const Footer = () => {
         <div className={Style.footer_box_social}>
           <Image src={images.logo} alt="footer logo" height={80} width={115} />
           <p>
-            Первая площадка для создания диломов и сертификатов в виде NFT.
-            Создавайте NFT. Просматривайте дипломы других людей.
+            Первая площадка для создания документов об образовании в виде NFT.
+            Создавайте NFT. Просматривайте профили других людей.
             Будьте уверны в подлинности документов!
           </p>
 
-          <div className={Style.footer_social}>
+          {/* <div className={Style.footer_social}>
             <a href="#">
               <TiSocialFacebook />
             </a>
@@ -40,7 +40,7 @@ const Footer = () => {
             <a href="#">
               <TiSocialInstagram />
             </a>
-          </div>
+          </div> */}
         </div>
 
         <div className={Style.footer_box_discover}>
@@ -62,8 +62,9 @@ const Footer = () => {
           </div>
           <div className={Style.subscribe_box_info}>
             <p>
-            Создавайте NFT дипломы после прохождения KYC. Отправляйте их выпускникам.
-            Это надежно и прогрессивно!
+            {/* Создавайте NFT дипломы после прохождения KYC. Отправляйте их выпускникам.
+            Это надежно и прогрессивно! */}
+            Подпишитеьсь на уведомления, чтобы получать информацию об обновлениях в числе первых.
             </p>
           </div>
         </div>

@@ -1,45 +1,52 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
+
+import { NFTDocumentsContext } from "../Context/NFTDocumentsContext";
 
 //INTERNAL IMPORT
 import Style from "../styles/connectWallet.module.css";
 import images from "../img";
+const mLink = "https://metamask.io/";
 const connectWallet = () => {
+  const router = useRouter();
   const [activeBtn, setActiveBtn] = useState(1);
+  const {currentAccount, connectWallet} = useContext(NFTDocumentsContext);
   const providerArray = [
     {
       provider: images.provider1,
       name: "Metamask",
     },
-    {
-      provider: images.provider2,
-      name: "walletConnect",
-    },
-    {
-      provider: images.provider3,
-      name: "walletlink",
-    },
-    {
-      provider: images.provider1,
-      name: "Formatic",
-    },
+    // {
+    //   provider: images.provider2,
+    //   name: "walletConnect",
+    // },
+    // {
+    //   provider: images.provider3,
+    //   name: "walletlink",
+    // },
+    // {
+    //   provider: images.provider1,
+    //   name: "Formatic",
+    // },
   ];
   return (
     <div className={Style.connectWallet}>
       <div className={Style.connectWallet_box}>
         <h1>Подключите ваш кошелек</h1>
         <p className={Style.connectWallet_box_para}>
-          Подключитесь используя один из доступных вариантов
+          {/* Подключитесь используя один из доступных вариантов */}
         </p>
 
         <div className={Style.connectWallet_box_provider}>
           {providerArray.map((el, i) => (
+            <a href={mLink}>
             <div
               className={`${Style.connectWallet_box_provider_item} ${
                 activeBtn == i + 1 ? Style.active : ""
               }`}
               key={i + 1}
-              onClick={() => setActiveBtn(i + 1)}
+              onClick={() => (setActiveBtn(i + 1) /*connectWallet()*/ )}
             >
               <Image
                 src={el.provider}
@@ -50,6 +57,7 @@ const connectWallet = () => {
               />
               <p>{el.name}</p>
             </div>
+            </a>
           ))}
         </div>
       </div>
